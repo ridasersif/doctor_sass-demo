@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediCab Pro — Cabinet Dr. Alami</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+  :root {
+    --primary: #0ea5e9;
+    --primary-dark: #0284c7;
+    --primary-light: #e0f2fe;
+    --sidebar-bg: #0f172a;
+    --sidebar-hover: #1e293b;
+    --sidebar-active: #0ea5e9;
+    --sidebar-text: #94a3b8;
+    --sidebar-text-active: #ffffff;
+    --topbar-bg: #ffffff;
+    --body-bg: #f0f6ff;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #6366f1;
+    --radius: 14px;
+    --shadow: 0 2px 16px rgba(14,165,233,0.07);
+    --shadow-md: 0 8px 32px rgba(14,165,233,0.13);
+    --sidebar-width: 260px;
+    --topbar-height: 68px;
+  }
+  
+  [data-theme="dark"] {
+    --primary-light: rgba(14, 165, 233, 0.15);
+    --topbar-bg: #1e293b;
+    --body-bg: #0f172a;
+    --card-bg: #1e293b;
+    --border: #334155;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --shadow: 0 2px 16px rgba(0,0,0,0.2);
+    --shadow-md: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  [data-theme="emerald"] {
+    --primary: #10b981;
+    --primary-dark: #059669;
+    --primary-light: #d1fae5;
+    --sidebar-active: #10b981;
+  }
+
+  [data-theme="purple"] {
+    --primary: #8b5cf6;
+    --primary-dark: #6d28d9;
+    --primary-light: #ede9fe;
+    --sidebar-active: #8b5cf6;
+  }
+
+  [data-theme="amber"] {
+    --primary: #f59e0b;
+    --primary-dark: #d97706;
+    --primary-light: #fef3c7;
+    --sidebar-active: #f59e0b;
+  }
+
+  [data-theme="rose"] {
+    --primary: #f43f5e;
+    --primary-dark: #e11d48;
+    --primary-light: #ffe4e6;
+    --sidebar-active: #f43f5e;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--body-bg);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ══════════════ SIDEBAR ══════════════ */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    transition: width .3s cubic-bezier(.4,0,.2,1);
+    overflow: hidden;
+  }
+
+  .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 22px 22px 20px;
+    border-bottom: 1px solid #1e293b;
+    text-decoration: none;
+  }
+
+  .brand-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--primary), #6366f1);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(14,165,233,0.4);
+  }
+
+  .brand-text { line-height: 1.1; }
+  .brand-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 16px; color: #fff;
+    letter-spacing: -.3px;
+  }
+  .brand-sub { font-size: 10px; color: #4ade80; font-weight: 500; letter-spacing: .5px; text-transform: uppercase; }
+
+  .sidebar-nav { flex: 1; overflow-y: auto; padding: 16px 12px; }
+  .sidebar-nav::-webkit-scrollbar { width: 0; }
+
+  .nav-section-title {
+    font-size: 9.5px; font-weight: 600; letter-spacing: 1.2px;
+    color: #475569; text-transform: uppercase; padding: 16px 10px 6px;
+  }
+
+  .nav-item { margin-bottom: 2px; }
+  .nav-link-custom {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; border-radius: 10px;
+    color: var(--sidebar-text); font-size: 13.5px; font-weight: 500;
+    text-decoration: none; transition: all .2s;
+    cursor: pointer; position: relative;
+  }
+  .nav-link-custom:hover { background: var(--sidebar-hover); color: #e2e8f0; }
+  .nav-link-custom.active {
+    background: linear-gradient(90deg, rgba(14,165,233,0.2), rgba(14,165,233,0.06));
+    color: var(--sidebar-text-active);
+    border-left: 3px solid var(--primary);
+  }
+  .nav-link-custom.active .nav-icon { color: var(--primary); }
+  .nav-icon { width: 18px; text-align: center; font-size: 15px; flex-shrink: 0; }
+
+  .nav-badge {
+    margin-left: auto; background: #ef4444;
+    color: #fff; font-size: 10px; font-weight: 700;
+    padding: 1px 7px; border-radius: 20px;
+    animation: pulse-badge 2s infinite;
+  }
+
+  @keyframes pulse-badge {
+    0%,100% { opacity:1; } 50% { opacity:.65; }
+  }
+
+  .sidebar-footer {
+    padding: 16px 12px;
+    border-top: 1px solid #1e293b;
+  }
+  .sidebar-doctor {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 10px; border-radius: 10px;
+    background: #1e293b;
+  }
+  .sidebar-doctor img {
+    width: 36px; height: 36px; border-radius: 50%;
+    object-fit: cover; border: 2px solid var(--primary);
+  }
+  .sidebar-doctor-info { line-height: 1.2; }
+  .sidebar-doctor-name { font-size: 12.5px; font-weight: 600; color: #e2e8f0; }
+  .sidebar-doctor-role { font-size: 10.5px; color: #64748b; }
+
+  /* ══════════════ TOPBAR ══════════════ */
+  .topbar {
+    position: fixed; top: 0;
+    left: var(--sidebar-width); right: 0;
+    height: var(--topbar-height);
+    background: var(--topbar-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center;
+    padding: 0 28px; gap: 16px; z-index: 999;
+    box-shadow: 0 1px 0 var(--border);
+  }
+
+  .topbar-page-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px; font-weight: 700;
+    color: var(--text-main); white-space: nowrap;
+  }
+
+  .topbar-search {
+    flex: 1; max-width: 340px; margin-left: 24px;
+    position: relative;
+  }
+  .topbar-search input {
+    width: 100%; padding: 9px 16px 9px 42px;
+    border: 1.5px solid var(--border); border-radius: 50px;
+    font-size: 13px; font-family: 'Poppins', sans-serif;
+    background: #f8fafc; color: var(--text-main);
+    transition: all .2s; outline: none;
+  }
+  .topbar-search input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(14,165,233,0.1); }
+  .topbar-search .search-icon {
+    position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+    color: var(--text-muted); font-size: 13px;
+  }
+
+  .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+
+  .icon-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    border: 1.5px solid var(--border); background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted); font-size: 15px;
+    cursor: pointer; transition: all .2s; position: relative;
+  }
+  .icon-btn:hover { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+
+  .notif-dot {
+    position: absolute; top: 6px; right: 6px;
+    width: 8px; height: 8px; background: #ef4444;
+    border-radius: 50%; border: 2px solid #fff;
+  }
+
+  .doctor-dropdown { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 6px 12px; border-radius: 50px; border: 1.5px solid var(--border); background: #fff; transition: all .2s; }
+  .doctor-dropdown:hover { border-color: var(--primary); background: var(--primary-light); }
+  .doctor-dropdown img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+  .doctor-dropdown-name { font-size: 13px; font-weight: 600; color: var(--text-main); }
+  .doctor-dropdown-spec { font-size: 10.5px; color: var(--text-muted); }
+
+  /* ══════════════ MAIN CONTENT ══════════════ */
+  .main-content {
+    margin-left: var(--sidebar-width);
+    margin-top: var(--topbar-height);
+    padding: 28px;
+    min-height: calc(100vh - var(--topbar-height));
+  }
+
+  /* ══════════════ PAGES ══════════════ */
+  .page { display: none; animation: fadeSlideIn .35s ease; }
+  .page.active { display: block; }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ══════════════ STAT CARDS ══════════════ */
+  .stat-card {
+    background: var(--card-bg); border-radius: var(--radius);
+    padding: 22px 24px; box-shadow: var(--shadow);
+    border: 1px solid var(--border); position: relative; overflow: hidden;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+  .stat-card .card-blob {
+    position: absolute; right: -20px; top: -20px;
+    width: 90px; height: 90px; border-radius: 50%; opacity: .08;
+  }
+
+  .stat-icon-wrap {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 16px;
+  }
+
+  .stat-label { font-size: 12px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 4px; }
+  .stat-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 30px; font-weight: 700; color: var(--text-main); line-height: 1;
+  }
+  .stat-delta { font-size: 11.5px; margin-top: 8px; }
+  .stat-delta .up { color: var(--success); }
+  .stat-delta .down { color: var(--danger); }
+
+  /* ══════════════ CARDS ══════════════ */
+  .content-card {
+    background: var(--card-bg); border-radius: var(--radius);
+    border: 1px solid var(--border); box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .card-header-custom {
+    padding: 18px 22px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .card-title-main {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px; font-weight: 700; color: var(--text-main);
+  }
+  .card-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ══════════════ TABLE ══════════════ */
+  .custom-table { width: 100%; border-collapse: collapse; }
+  .custom-table thead th {
+    font-size: 10.5px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .8px; color: var(--text-muted);
+    padding: 12px 18px; background: #f8fafc;
+    border-bottom: 1px solid var(--border);
+  }
+  .custom-table tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background .15s;
+  }
+  .custom-table tbody tr:last-child { border-bottom: none; }
+  .custom-table tbody tr:hover { background: #f8faff; }
+  .custom-table tbody td { padding: 13px 18px; font-size: 13.5px; vertical-align: middle; }
+
+  .patient-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); }
+  .patient-name { font-weight: 600; color: var(--text-main); font-size: 13.5px; }
+  .patient-id { font-size: 11px; color: var(--text-muted); }
+
+  /* ══════════════ BADGES ══════════════ */
+  .status-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 11px; border-radius: 20px; font-size: 11.5px; font-weight: 600;
+  }
+  .status-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+  .badge-confirme { background: #d1fae5; color: #065f46; }
+  .badge-confirme::before { background: #10b981; }
+  .badge-attente { background: #fef3c7; color: #92400e; }
+  .badge-attente::before { background: #f59e0b; }
+  .badge-annule { background: #fee2e2; color: #991b1b; }
+  .badge-annule::before { background: #ef4444; }
+  .badge-urgence { background: #ede9fe; color: #4c1d95; }
+  .badge-urgence::before { background: #8b5cf6; }
+
+  /* ══════════════ BUTTONS ══════════════ */
+  .btn-primary-custom {
+    background: linear-gradient(135deg, var(--primary), #6366f1);
+    color: #fff; border: none; border-radius: 8px;
+    padding: 8px 18px; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: all .2s; font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 12px rgba(14,165,233,0.3);
+  }
+  .btn-primary-custom:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(14,165,233,0.4); }
+
+  .btn-ghost {
+    background: none; border: 1.5px solid var(--border); border-radius: 8px;
+    padding: 7px 14px; font-size: 12.5px; font-weight: 500;
+    color: var(--text-muted); cursor: pointer; transition: all .2s; font-family: 'Poppins', sans-serif;
+  }
+  .btn-ghost:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+
+  .btn-icon-sm {
+    width: 30px; height: 30px; border-radius: 7px; border: 1.5px solid var(--border);
+    background: #fff; display: inline-flex; align-items: center; justify-content: center;
+    color: var(--text-muted); font-size: 12px; cursor: pointer; transition: all .2s;
+  }
+  .btn-icon-sm:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+  /* ══════════════ MINI CALENDAR ══════════════ */
+  .mini-calendar { padding: 16px 20px; }
+  .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .cal-month { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+  .cal-day-label { text-align: center; font-size: 10.5px; font-weight: 600; color: var(--text-muted); padding: 4px 0; }
+  .cal-day {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; border-radius: 7px; cursor: pointer; transition: all .15s; font-weight: 500;
+  }
+  .cal-day:hover { background: var(--primary-light); color: var(--primary); }
+  .cal-day.today { background: var(--primary); color: #fff; font-weight: 700; }
+  .cal-day.has-rdv { position: relative; }
+  .cal-day.has-rdv::after { content: ''; position: absolute; bottom: 2px; width: 4px; height: 4px; border-radius: 50%; background: #f59e0b; }
+  .cal-day.other-month { color: #cbd5e1; }
+
+  /* ══════════════ QUICK STATS BAR ══════════════ */
+  .quick-stat { display: flex; flex-direction: column; align-items: center; padding: 14px 0; }
+  .quick-stat-value { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; }
+  .quick-stat-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ══════════════ PATIENT PAGE ══════════════ */
+  .patient-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .patient-card {
+    background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border);
+    padding: 20px; box-shadow: var(--shadow); transition: all .2s;
+  }
+  .patient-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: rgba(14,165,233,.3); }
+  .patient-card-header { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .patient-card-avatar { width: 52px; height: 52px; border-radius: 14px; object-fit: cover; }
+  .patient-card-name { font-weight: 700; font-size: 14.5px; }
+  .patient-card-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+  .patient-card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--border); }
+  .patient-tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
+
+  /* ══════════════ AGENDA PAGE ══════════════ */
+  .agenda-time-slot { display: grid; grid-template-columns: 70px 1fr; gap: 12px; margin-bottom: 8px; align-items: start; }
+  .time-label { font-size: 12px; font-weight: 600; color: var(--text-muted); padding-top: 8px; text-align: right; }
+  .rdv-block {
+    border-radius: 10px; padding: 10px 14px;
+    border-left: 4px solid transparent; transition: all .2s; cursor: pointer;
+  }
+  .rdv-block:hover { transform: translateX(3px); }
+  .rdv-block.rdv-primary { background: #e0f2fe; border-color: var(--primary); }
+  .rdv-block.rdv-success { background: #d1fae5; border-color: var(--success); }
+  .rdv-block.rdv-warning { background: #fef3c7; border-color: var(--warning); }
+  .rdv-block.rdv-danger  { background: #fee2e2; border-color: var(--danger); }
+  .rdv-block.rdv-purple  { background: #ede9fe; border-color: #8b5cf6; }
+  .rdv-title { font-size: 13px; font-weight: 700; }
+  .rdv-meta  { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ══════════════ BILLING ══════════════ */
+  .revenue-header { background: linear-gradient(135deg, #0f172a, #1e293b); border-radius: var(--radius); padding: 24px; color: #fff; position: relative; overflow: hidden; }
+  .revenue-header::before {
+    content: ''; position: absolute; right: -40px; top: -40px;
+    width: 180px; height: 180px; border-radius: 50%;
+    background: rgba(14,165,233,.15);
+  }
+  .revenue-amount { font-family: 'Space Grotesk', sans-serif; font-size: 42px; font-weight: 700; color: #fff; }
+  .revenue-label  { font-size: 13px; color: #94a3b8; }
+
+  /* ══════════════ MESSAGES ══════════════ */
+  .msg-item { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); cursor: pointer; transition: all .15s; }
+  .msg-item:last-child { border-bottom: none; }
+  .msg-item:hover { padding-left: 6px; }
+  .msg-item.unread .msg-name { color: var(--primary); }
+  .msg-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .msg-name { font-size: 13.5px; font-weight: 700; }
+  .msg-preview { font-size: 12.5px; color: var(--text-muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 240px; }
+  .msg-time { font-size: 11px; color: var(--text-muted); margin-left: auto; flex-shrink: 0; }
+  .msg-unread-dot { width: 8px; height: 8px; background: var(--primary); border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+
+  /* ══════════════ PROGRESS ══════════════ */
+  .progress-custom { height: 6px; border-radius: 10px; background: #e2e8f0; overflow: hidden; }
+  .progress-bar-custom { height: 100%; border-radius: 10px; transition: width 1.2s cubic-bezier(.4,0,.2,1); }
+
+  /* ══════════════ PAGE HEADER ══════════════ */
+  .page-header { margin-bottom: 24px; }
+  .page-header h2 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; }
+  .page-header p  { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+  .page-header-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+  /* ══════════════ TOOLTIP ══════════════ */
+  .avatar-stack { display: flex; }
+  .avatar-stack img { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; margin-left: -8px; object-fit: cover; }
+  .avatar-stack img:first-child { margin-left: 0; }
+
+  /* ══════════════ MISC ══════════════ */
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
+  .text-primary-custom { color: var(--primary); }
+  .fw-600 { font-weight: 600; }
+  .fs-12 { font-size: 12px; }
+  .gap-8 { gap: 8px; }
+
+  /* ══════════════ RESPONSIVE ══════════════ */
+  @media (max-width: 768px) {
+    :root { --sidebar-width: 0px; }
+    .topbar { left: 0; }
+    .sidebar { transform: translateX(-260px); }
+  }
+
+  /* ══════════════ SETTINGS PAGE ══════════════ */
+  .settings-section { background: var(--card-bg); border-radius: var(--radius); border: 1px solid var(--border); padding: 22px 24px; margin-bottom: 16px; }
+  .settings-section h5 { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 16px; color: var(--text-main); }
+  .setting-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+  .setting-row:last-child { border-bottom: none; }
+  .setting-label { font-size: 13.5px; font-weight: 500; }
+  .setting-desc  { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .form-switch .form-check-input { width: 40px; height: 22px; cursor: pointer; }
+  .form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
+
+  /* ══════════════ LOADING ANIMATION ══════════════ */
+  .skeleton {
+    background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.4s infinite;
+    border-radius: 6px;
+  }
+  @keyframes skeleton-loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <a class="sidebar-brand" href="#">
+    <div class="brand-icon"><i class="fa-solid fa-stethoscope"></i></div>
+    <div class="brand-text">
+      <div class="brand-name">MediCab Pro</div>
+      <div class="brand-sub">● Système actif</div>
+    </div>
+  </a>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section-title">Principal</div>
+    <div class="nav-item">
+      <a class="nav-link-custom active" data-page="dashboard" onclick="navigate('dashboard', this)">
+        <span class="nav-icon"><i class="fa-solid fa-chart-pie"></i></span>
+        Tableau de bord
+      </a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link-custom" data-page="agenda" onclick="navigate('agenda', this)">
+        <span class="nav-icon"><i class="fa-solid fa-calendar-days"></i></span>
+        Agenda &amp; RDV
+      </a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link-custom" data-page="teleconsultation" onclick="navigate('teleconsultation', this)">
+        <span class="nav-icon"><i class="fa-solid fa-video"></i></span>
+        Téléconsultation
+        <span class="nav-badge" style="background:var(--success)">Live</span>
+      </a>
+    </div>
+    <div class="nav-section-title">Médical</div>
+    <div class="nav-item">
+      <a class="nav-link-custom" data-page="patients" onclick="navigate('patients', this)">
+        <span class="nav-icon"><i class="fa-solid fa-users"></i></span>
+        Gestion des Patients
+      </a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link-custom" data-page="dossiers" onclick="navigate('dossiers', this)">
+        <span class="nav-icon"><i class="fa-solid fa-folder-open"></i></span>
+        Dossiers Médicaux
+      </a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link-custom" data-page="ordonnances" onclick="navigate('ordonnances', this)">
+        <span class="nav-icon"><i class="fa-solid fa-prescription-bottle-medical"></i></span>
+        Ordonnances
+      </a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link-custom" data-page="laboratoire" onclick="navigate('laboratoire', this)">
+        <span class="nav-icon"><i class="fa-solid fa-vial"></i></span>
+        Analyses &amp; Labo
+      </a>
+    </div>
+    <div class="nav-section-title">Gestion & Finance</div>
+    <div class="nav-item">
+      <a class="nav-link-custom" data-page="facturation" onclick="navigate('facturation', this)">
+        <span class="nav-icon"><i class="fa-solid fa-file-invoice-dollar"></i></span>
+        Facturation &amp; Honoraires
+      </a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link-custom" data-page="stock" onclick="navigate('stock', this)">
+        <span class="nav-icon"><i class="fa-solid fa-boxes-stacked"></i></span>
+        Stock &amp; Matériel
+      </a>
+    </div>
+    <div class="nav-section-title">Communication & Rapports</div>
+    <div class="nav-item">
+      <a class="nav-link-custom" data-page="messages" onclick="navigate('messages', this)">
+        <span class="nav-icon"><i class="fa-solid fa-comments"></i></span>
+        Communications
+        <span class="nav-badge">4</span>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a class="nav-link-custom" data-page="rapports" onclick="navigate('rapports', this)">
+        <span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
+        Statistiques
+      </a>
+    </div>
+    <div class="nav-section-title">Système</div>
+    <div class="nav-item">
+      <a class="nav-link-custom" data-page="settings" onclick="navigate('settings', this)">
+        <span class="nav-icon"><i class="fa-solid fa-gear"></i></span>
+        Configuration
+      </a>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-doctor">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr Alami">
+      <div class="sidebar-doctor-info">
+        <div class="sidebar-doctor-name">Dr. Amine Alami</div>
+        <div class="sidebar-doctor-role">Médecin Généraliste</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════════════════════ TOPBAR ═══════════════════════ -->
+<header class="topbar">
+  <div class="topbar-page-title" id="pageTitle">Tableau de bord</div>
+  <div class="topbar-search">
+    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+    <input type="text" placeholder="Rechercher un patient, RDV…">
+  </div>
+  <div class="topbar-actions">
+    <div class="icon-btn" title="Rafraîchir"><i class="fa-solid fa-arrows-rotate"></i></div>
+    <div class="icon-btn" title="Notifications" onclick="navigate('messages', document.querySelector('[data-page=messages]'))">
+      <i class="fa-solid fa-bell"></i>
+      <span class="notif-dot"></span>
+    </div>
+    <div class="icon-btn" title="Aide"><i class="fa-solid fa-circle-question"></i></div>
+    <div class="doctor-dropdown" onclick="navigate('settings', document.querySelector('[data-page=settings]'))">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr Alami">
+      <div>
+        <div class="doctor-dropdown-name">Dr. Amine Alami</div>
+        <div class="doctor-dropdown-spec">Médecin Généraliste</div>
+      </div>
+      <i class="fa-solid fa-chevron-down ms-1" style="font-size:10px;color:var(--text-muted)"></i>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════ MAIN CONTENT ═══════════════════════ -->
+<main class="main-content">
+
+  <!-- ════════ PAGE: DASHBOARD ════════ -->
+  <div class="page active" id="page-dashboard">
+
+    <!-- Page Header -->
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Bonjour, Dr. Alami 👋</h2>
+        <p id="dashboard-date">Chargement de la date…</p>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn-ghost"><i class="fa-solid fa-download me-1"></i> Rapport</button>
+        <button class="btn-primary-custom" onclick="navigate('agenda', document.querySelector('[data-page=agenda]'))"><i class="fa-solid fa-plus me-1"></i> Nouveau RDV</button>
+      </div>
+    </div>
+
+    <!-- Stat Cards -->
+    <div class="row g-3 mb-4">
+      <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+          <div class="card-blob" style="background:#0ea5e9"></div>
+          <div class="stat-icon-wrap" style="background:#e0f2fe;color:#0ea5e9"><i class="fa-solid fa-users"></i></div>
+          <div class="stat-label">Total Patients</div>
+          <div class="stat-value">250</div>
+          <div class="stat-delta"><span class="up"><i class="fa-solid fa-arrow-trend-up"></i> +12</span> ce mois-ci</div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+          <div class="card-blob" style="background:#10b981"></div>
+          <div class="stat-icon-wrap" style="background:#d1fae5;color:#10b981"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="stat-label">RDV Aujourd'hui</div>
+          <div class="stat-value">12</div>
+          <div class="stat-delta"><span class="up"><i class="fa-solid fa-arrow-trend-up"></i> +3</span> vs hier</div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+          <div class="card-blob" style="background:#f59e0b"></div>
+          <div class="stat-icon-wrap" style="background:#fef3c7;color:#f59e0b"><i class="fa-solid fa-sack-dollar"></i></div>
+          <div class="stat-label">Revenus du Mois</div>
+          <div class="stat-value">45k <span style="font-size:18px;font-weight:500">DH</span></div>
+          <div class="stat-delta"><span class="up"><i class="fa-solid fa-arrow-trend-up"></i> +8.3%</span> vs mois passé</div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-md-6">
+        <div class="stat-card">
+          <div class="card-blob" style="background:#6366f1"></div>
+          <div class="stat-icon-wrap" style="background:#ede9fe;color:#6366f1"><i class="fa-solid fa-wallet"></i></div>
+          <div class="stat-label">Revenu Net</div>
+          <div class="stat-value">32k <span style="font-size:18px;font-weight:500">DH</span></div>
+          <div class="stat-delta"><span class="up"><i class="fa-solid fa-arrow-trend-up"></i> +5.2%</span> vs mois passé</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <!-- Prochains RDV Table -->
+      <div class="col-xl-8">
+        <div class="content-card">
+          <div class="card-header-custom">
+            <div>
+              <div class="card-title-main">Prochains Rendez-vous</div>
+              <div class="card-subtitle">Planning de la journée — 18 Mars 2026</div>
+            </div>
+            <button class="btn-ghost fs-12" onclick="navigate('agenda', document.querySelector('[data-page=agenda]'))">Voir tout <i class="fa-solid fa-arrow-right ms-1"></i></button>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Patient</th>
+                  <th>Heure</th>
+                  <th>Type</th>
+                  <th>Statut</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <img src="https://randomuser.me/api/portraits/men/41.jpg" class="patient-avatar" alt="">
+                      <div><div class="patient-name">M. Youssef Bennani</div><div class="patient-id">#PT-0047</div></div>
+                    </div>
+                  </td>
+                  <td><span class="fw-600">09:00</span></td>
+                  <td><span style="font-size:12px;color:var(--text-muted)">Consultation</span></td>
+                  <td><span class="status-badge badge-confirme">Confirmé</span></td>
+                  <td>
+                    <div class="d-flex gap-1">
+                      <div class="btn-icon-sm" title="Voir dossier"><i class="fa-solid fa-folder-open"></i></div>
+                      <div class="btn-icon-sm" title="Modifier"><i class="fa-solid fa-pen"></i></div>
+                      <div class="btn-icon-sm" title="Annuler" style="color:var(--danger)"><i class="fa-solid fa-xmark"></i></div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <img src="https://randomuser.me/api/portraits/women/65.jpg" class="patient-avatar" alt="">
+                      <div><div class="patient-name">Mme. Fatima Zouari</div><div class="patient-id">#PT-0088</div></div>
+                    </div>
+                  </td>
+                  <td><span class="fw-600">09:30</span></td>
+                  <td><span style="font-size:12px;color:var(--text-muted)">Suivi</span></td>
+                  <td><span class="status-badge badge-confirme">Confirmé</span></td>
+                  <td>
+                    <div class="d-flex gap-1">
+                      <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+                      <div class="btn-icon-sm"><i class="fa-solid fa-pen"></i></div>
+                      <div class="btn-icon-sm" style="color:var(--danger)"><i class="fa-solid fa-xmark"></i></div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <img src="https://randomuser.me/api/portraits/men/55.jpg" class="patient-avatar" alt="">
+                      <div><div class="patient-name">M. Khalid El Fassi</div><div class="patient-id">#PT-0112</div></div>
+                    </div>
+                  </td>
+                  <td><span class="fw-600">10:15</span></td>
+                  <td><span style="font-size:12px;color:var(--text-muted)">Urgence</span></td>
+                  <td><span class="status-badge badge-urgence">Urgence</span></td>
+                  <td>
+                    <div class="d-flex gap-1">
+                      <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+                      <div class="btn-icon-sm"><i class="fa-solid fa-pen"></i></div>
+                      <div class="btn-icon-sm" style="color:var(--danger)"><i class="fa-solid fa-xmark"></i></div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <img src="https://randomuser.me/api/portraits/women/23.jpg" class="patient-avatar" alt="">
+                      <div><div class="patient-name">Mme. Nadia Chraibi</div><div class="patient-id">#PT-0031</div></div>
+                    </div>
+                  </td>
+                  <td><span class="fw-600">11:00</span></td>
+                  <td><span style="font-size:12px;color:var(--text-muted)">Contrôle</span></td>
+                  <td><span class="status-badge badge-attente">En attente</span></td>
+                  <td>
+                    <div class="d-flex gap-1">
+                      <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+                      <div class="btn-icon-sm"><i class="fa-solid fa-pen"></i></div>
+                      <div class="btn-icon-sm" style="color:var(--danger)"><i class="fa-solid fa-xmark"></i></div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <img src="https://randomuser.me/api/portraits/men/77.jpg" class="patient-avatar" alt="">
+                      <div><div class="patient-name">M. Omar Tahiri</div><div class="patient-id">#PT-0203</div></div>
+                    </div>
+                  </td>
+                  <td><span class="fw-600">14:30</span></td>
+                  <td><span style="font-size:12px;color:var(--text-muted)">Consultation</span></td>
+                  <td><span class="status-badge badge-attente">En attente</span></td>
+                  <td>
+                    <div class="d-flex gap-1">
+                      <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+                      <div class="btn-icon-sm"><i class="fa-solid fa-pen"></i></div>
+                      <div class="btn-icon-sm" style="color:var(--danger)"><i class="fa-solid fa-xmark"></i></div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div class="col-xl-4 d-flex flex-column gap-3">
+        <!-- Mini Calendar -->
+        <div class="content-card">
+          <div class="card-header-custom">
+            <div class="card-title-main">Calendrier</div>
+          </div>
+          <div class="mini-calendar" id="miniCal"></div>
+        </div>
+
+        <!-- Taux de présence -->
+        <div class="content-card">
+          <div class="card-header-custom">
+            <div class="card-title-main">Taux de Présence</div>
+            <span style="font-size:12px;color:var(--text-muted)">Mars 2026</span>
+          </div>
+          <div style="padding:16px 20px">
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1"><span style="font-size:13px;font-weight:600">Confirmés</span><span style="font-size:12px;color:var(--success);font-weight:700">74%</span></div>
+              <div class="progress-custom"><div class="progress-bar-custom" style="width:74%;background:var(--success)"></div></div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1"><span style="font-size:13px;font-weight:600">En attente</span><span style="font-size:12px;color:var(--warning);font-weight:700">18%</span></div>
+              <div class="progress-custom"><div class="progress-bar-custom" style="width:18%;background:var(--warning)"></div></div>
+            </div>
+            <div>
+              <div class="d-flex justify-content-between mb-1"><span style="font-size:13px;font-weight:600">Annulés</span><span style="font-size:12px;color:var(--danger);font-weight:700">8%</span></div>
+              <div class="progress-custom"><div class="progress-bar-custom" style="width:8%;background:var(--danger)"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vue Salle d'Attente -->
+        <div class="content-card shadow-sm" style="border-left: 4px solid var(--danger);">
+          <div class="card-header-custom d-flex justify-content-between align-items-center">
+            <div class="card-title-main d-flex align-items-center gap-2">
+              <i class="fa-solid fa-users-viewfinder text-danger"></i> Salle d'Attente
+              <span class="badge bg-danger rounded-pill" style="font-size: 10px; animation: pulse-badge 2s infinite;">Live</span>
+            </div>
+            <button class="btn-ghost" style="padding: 4px 8px; font-size: 12px;" onclick="navigate('salle-attente', document.querySelector('[data-page=salle-attente]'))">Gérer</button>
+          </div>
+          <div style="padding: 16px 20px;" class="d-flex flex-column gap-3">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center gap-2">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: #fee2e2; color: #991b1b; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px;">1</div>
+                <div><div style="font-size: 13px; font-weight: 600; color: var(--text-main);">M. Khalid El Fassi</div><div style="font-size: 11px; color: var(--text-muted);">Arrivé à 10:05 (Urgence)</div></div>
+              </div>
+              <button class="btn-primary-custom" style="padding: 4px 10px; font-size: 11px;"><i class="fa-solid fa-bullhorn me-1"></i> Appeler</button>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center gap-2">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: #e0f2fe; color: #0369a1; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px;">2</div>
+                <div><div style="font-size: 13px; font-weight: 600; color: var(--text-main);">Mme. Nadia Chraibi</div><div style="font-size: 11px; color: var(--text-muted);">Arrivée à 10:45</div></div>
+              </div>
+              <button class="btn-primary-custom" style="padding: 4px 10px; font-size: 11px;"><i class="fa-solid fa-bullhorn me-1"></i> Appeler</button>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center gap-2">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: #f1f5f9; color: #475569; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px;">3</div>
+                <div><div style="font-size: 13px; font-weight: 600; color: var(--text-main);">M. Omar Tahiri</div><div style="font-size: 11px; color: var(--text-muted);">Arrivé à 11:10</div></div>
+              </div>
+              <button class="btn-primary-custom" style="padding: 4px 10px; font-size: 11px;"><i class="fa-solid fa-bullhorn me-1"></i> Appeler</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Zone Mutuelle -->
+        <div class="content-card">
+          <div class="card-header-custom">
+            <div class="card-title-main"><i class="fa-solid fa-file-shield text-primary me-2"></i>Zone Mutuelle</div>
+          </div>
+          <div style="padding: 16px 20px;">
+            <div class="d-flex gap-2 mb-2">
+              <button class="btn btn-light w-100 flex-column align-items-center py-2" style="font-size: 12px; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main);"><i class="fa-solid fa-file-signature mb-1 mt-1 fs-5 text-success"></i><br>Fiche CNSS</button>
+              <button class="btn btn-light w-100 flex-column align-items-center py-2" style="font-size: 12px; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text-main);"><i class="fa-solid fa-file-medical mb-1 mt-1 fs-5 text-info"></i><br>Fiche CNOPS</button>
+            </div>
+            <button class="btn-primary-custom w-100 py-2 d-flex align-items-center justify-content-center gap-2" style="font-size: 12px; border-radius: 12px; box-shadow: none;"><i class="fa-solid fa-print"></i> Prise en Charge AMO</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /dashboard -->
+
+  <!-- ════════ PAGE: AGENDA ════════ -->
+  <div class="page" id="page-agenda">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Agenda &amp; Rendez-vous</h2>
+        <p>Mercredi 18 Mars 2026 — 12 consultations prévues</p>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn-ghost"><i class="fa-solid fa-chevron-left me-1"></i> Hier</button>
+        <button class="btn-ghost">Aujourd'hui</button>
+        <button class="btn-ghost">Demain <i class="fa-solid fa-chevron-right ms-1"></i></button>
+        <button class="btn-primary-custom"><i class="fa-solid fa-plus me-1"></i> Nouveau RDV</button>
+      </div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-8">
+        <div class="content-card">
+          <div class="card-header-custom">
+            <div class="card-title-main">Planning du Jour</div>
+            <div class="d-flex gap-2 align-items-center">
+              <span class="status-badge badge-confirme" style="font-size:11px">8 Confirmés</span>
+              <span class="status-badge badge-attente" style="font-size:11px">3 En attente</span>
+              <span class="status-badge badge-urgence" style="font-size:11px">1 Urgence</span>
+            </div>
+          </div>
+          <div style="padding: 20px 18px">
+            <div class="agenda-time-slot">
+              <div class="time-label">08:30</div>
+              <div class="rdv-block rdv-success">
+                <div class="rdv-title">M. Hassan Idrissi — Consultation générale</div>
+                <div class="rdv-meta"><i class="fa-solid fa-clock me-1"></i>30 min · <i class="fa-solid fa-stethoscope me-1"></i>Médecine générale</div>
+              </div>
+            </div>
+            <div class="agenda-time-slot">
+              <div class="time-label">09:00</div>
+              <div class="rdv-block rdv-primary">
+                <div class="rdv-title">M. Youssef Bennani — Consultation</div>
+                <div class="rdv-meta"><i class="fa-solid fa-clock me-1"></i>30 min · <i class="fa-solid fa-pills me-1"></i>Renouvellement ordonnance</div>
+              </div>
+            </div>
+            <div class="agenda-time-slot">
+              <div class="time-label">09:30</div>
+              <div class="rdv-block rdv-success">
+                <div class="rdv-title">Mme. Fatima Zouari — Suivi diabète</div>
+                <div class="rdv-meta"><i class="fa-solid fa-clock me-1"></i>45 min · <i class="fa-solid fa-heart-pulse me-1"></i>Maladies chroniques</div>
+              </div>
+            </div>
+            <div class="agenda-time-slot">
+              <div class="time-label">10:15</div>
+              <div class="rdv-block rdv-danger">
+                <div class="rdv-title">M. Khalid El Fassi — URGENCE</div>
+                <div class="rdv-meta"><i class="fa-solid fa-triangle-exclamation me-1"></i>Douleurs thoraciques · Prioritaire</div>
+              </div>
+            </div>
+            <div class="agenda-time-slot">
+              <div class="time-label">11:00</div>
+              <div class="rdv-block rdv-warning">
+                <div class="rdv-title">Mme. Nadia Chraibi — Contrôle tension</div>
+                <div class="rdv-meta"><i class="fa-solid fa-clock me-1"></i>20 min · En attente confirmation</div>
+              </div>
+            </div>
+            <div class="agenda-time-slot">
+              <div class="time-label">12:00</div>
+              <div class="rdv-block rdv-purple">
+                <div class="rdv-title">Pause déjeuner</div>
+                <div class="rdv-meta"><i class="fa-solid fa-utensils me-1"></i>60 min · Repos</div>
+              </div>
+            </div>
+            <div class="agenda-time-slot">
+              <div class="time-label">14:00</div>
+              <div class="rdv-block rdv-success">
+                <div class="rdv-title">M. Rachid Bakkali — Bilan annuel</div>
+                <div class="rdv-meta"><i class="fa-solid fa-clock me-1"></i>60 min · Bilan complet</div>
+              </div>
+            </div>
+            <div class="agenda-time-slot">
+              <div class="time-label">14:30</div>
+              <div class="rdv-block rdv-warning">
+                <div class="rdv-title">M. Omar Tahiri — Consultation</div>
+                <div class="rdv-meta"><i class="fa-solid fa-clock me-1"></i>30 min · En attente confirmation</div>
+              </div>
+            </div>
+            <div class="agenda-time-slot">
+              <div class="time-label">15:30</div>
+              <div class="rdv-block rdv-primary">
+                <div class="rdv-title">Mme. Salma Berrada — Résultats labo</div>
+                <div class="rdv-meta"><i class="fa-solid fa-clock me-1"></i>20 min · Analyse résultats</div>
+              </div>
+            </div>
+            <div class="agenda-time-slot">
+              <div class="time-label">16:30</div>
+              <div class="rdv-block rdv-success">
+                <div class="rdv-title">M. Amine Benjelloun — Vaccination</div>
+                <div class="rdv-meta"><i class="fa-solid fa-syringe me-1"></i>15 min · Rappel vaccinal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="content-card mb-3">
+          <div class="card-header-custom"><div class="card-title-main">Calendrier Mars 2026</div></div>
+          <div class="mini-calendar" id="agendaCal"></div>
+        </div>
+        <div class="content-card">
+          <div class="card-header-custom"><div class="card-title-main">Résumé RDV</div></div>
+          <div style="padding:16px 20px">
+            <div class="d-flex justify-content-around text-center mb-3">
+              <div class="quick-stat"><div class="quick-stat-value" style="color:var(--success)">8</div><div class="quick-stat-label">Confirmés</div></div>
+              <div style="width:1px;background:var(--border)"></div>
+              <div class="quick-stat"><div class="quick-stat-value" style="color:var(--warning)">3</div><div class="quick-stat-label">En attente</div></div>
+              <div style="width:1px;background:var(--border)"></div>
+              <div class="quick-stat"><div class="quick-stat-value" style="color:var(--danger)">1</div><div class="quick-stat-label">Urgence</div></div>
+            </div>
+            <div class="divider"></div>
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--primary);flex-shrink:0"></div>
+              <span style="font-size:13px">Prochain: <strong>M. Youssef Bennani</strong> à 09h00</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <div style="width:8px;height:8px;border-radius:50%;background:var(--danger);flex-shrink:0"></div>
+              <span style="font-size:13px">Urgence: <strong>M. El Fassi</strong> à 10h15</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /agenda -->
+
+  <!-- ════════ PAGE: PATIENTS ════════ -->
+  <div class="page" id="page-patients">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Gestion des Patients</h2>
+        <p>250 patients enregistrés · 12 nouveaux ce mois-ci</p>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn-ghost"><i class="fa-solid fa-filter me-1"></i> Filtrer</button>
+        <button class="btn-ghost"><i class="fa-solid fa-file-export me-1"></i> Exporter</button>
+        <button class="btn-primary-custom"><i class="fa-solid fa-user-plus me-1"></i> Nouveau Patient</button>
+      </div>
+    </div>
+
+    <div class="patient-card-grid">
+      <!-- Cards -->
+      <div class="patient-card">
+        <div class="patient-card-header">
+          <img src="https://randomuser.me/api/portraits/men/41.jpg" class="patient-card-avatar" alt="">
+          <div>
+            <div class="patient-card-name">M. Youssef Bennani</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-id-card me-1"></i>#PT-0047 · 45 ans</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-phone me-1"></i>+212 6 61 23 45 67</div>
+          </div>
+        </div>
+        <div class="patient-card-footer">
+          <span class="patient-tag" style="background:#d1fae5;color:#065f46">Diabète Type 2</span>
+          <div class="d-flex gap-1">
+            <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+            <div class="btn-icon-sm"><i class="fa-solid fa-calendar-plus"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="patient-card">
+        <div class="patient-card-header">
+          <img src="https://randomuser.me/api/portraits/women/65.jpg" class="patient-card-avatar" alt="">
+          <div>
+            <div class="patient-card-name">Mme. Fatima Zouari</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-id-card me-1"></i>#PT-0088 · 52 ans</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-phone me-1"></i>+212 6 77 89 00 11</div>
+          </div>
+        </div>
+        <div class="patient-card-footer">
+          <span class="patient-tag" style="background:#fef3c7;color:#92400e">Hypertension</span>
+          <div class="d-flex gap-1">
+            <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+            <div class="btn-icon-sm"><i class="fa-solid fa-calendar-plus"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="patient-card">
+        <div class="patient-card-header">
+          <img src="https://randomuser.me/api/portraits/men/55.jpg" class="patient-card-avatar" alt="">
+          <div>
+            <div class="patient-card-name">M. Khalid El Fassi</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-id-card me-1"></i>#PT-0112 · 38 ans</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-phone me-1"></i>+212 6 54 12 87 32</div>
+          </div>
+        </div>
+        <div class="patient-card-footer">
+          <span class="patient-tag" style="background:#fee2e2;color:#991b1b">Cardiologie</span>
+          <div class="d-flex gap-1">
+            <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+            <div class="btn-icon-sm"><i class="fa-solid fa-calendar-plus"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="patient-card">
+        <div class="patient-card-header">
+          <img src="https://randomuser.me/api/portraits/women/23.jpg" class="patient-card-avatar" alt="">
+          <div>
+            <div class="patient-card-name">Mme. Nadia Chraibi</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-id-card me-1"></i>#PT-0031 · 29 ans</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-phone me-1"></i>+212 6 66 34 56 78</div>
+          </div>
+        </div>
+        <div class="patient-card-footer">
+          <span class="patient-tag" style="background:#e0f2fe;color:#0369a1">Suivi général</span>
+          <div class="d-flex gap-1">
+            <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+            <div class="btn-icon-sm"><i class="fa-solid fa-calendar-plus"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="patient-card">
+        <div class="patient-card-header">
+          <img src="https://randomuser.me/api/portraits/men/77.jpg" class="patient-card-avatar" alt="">
+          <div>
+            <div class="patient-card-name">M. Omar Tahiri</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-id-card me-1"></i>#PT-0203 · 61 ans</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-phone me-1"></i>+212 6 71 22 44 66</div>
+          </div>
+        </div>
+        <div class="patient-card-footer">
+          <span class="patient-tag" style="background:#fef3c7;color:#92400e">Arthrose</span>
+          <div class="d-flex gap-1">
+            <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+            <div class="btn-icon-sm"><i class="fa-solid fa-calendar-plus"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="patient-card">
+        <div class="patient-card-header">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" class="patient-card-avatar" alt="">
+          <div>
+            <div class="patient-card-name">Mme. Salma Berrada</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-id-card me-1"></i>#PT-0156 · 34 ans</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-phone me-1"></i>+212 6 68 90 12 34</div>
+          </div>
+        </div>
+        <div class="patient-card-footer">
+          <span class="patient-tag" style="background:#ede9fe;color:#4c1d95">Gynécologie</span>
+          <div class="d-flex gap-1">
+            <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+            <div class="btn-icon-sm"><i class="fa-solid fa-calendar-plus"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="patient-card">
+        <div class="patient-card-header">
+          <img src="https://randomuser.me/api/portraits/men/19.jpg" class="patient-card-avatar" alt="">
+          <div>
+            <div class="patient-card-name">M. Rachid Bakkali</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-id-card me-1"></i>#PT-0074 · 47 ans</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-phone me-1"></i>+212 6 63 55 44 33</div>
+          </div>
+        </div>
+        <div class="patient-card-footer">
+          <span class="patient-tag" style="background:#d1fae5;color:#065f46">Bonne santé</span>
+          <div class="d-flex gap-1">
+            <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+            <div class="btn-icon-sm"><i class="fa-solid fa-calendar-plus"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="patient-card">
+        <div class="patient-card-header">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg" class="patient-card-avatar" alt="">
+          <div>
+            <div class="patient-card-name">Mme. Aicha Mansouri</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-id-card me-1"></i>#PT-0189 · 71 ans</div>
+            <div class="patient-card-meta"><i class="fa-solid fa-phone me-1"></i>+212 6 70 88 99 00</div>
+          </div>
+        </div>
+        <div class="patient-card-footer">
+          <span class="patient-tag" style="background:#fee2e2;color:#991b1b">Diabète + HTA</span>
+          <div class="d-flex gap-1">
+            <div class="btn-icon-sm"><i class="fa-solid fa-folder-open"></i></div>
+            <div class="btn-icon-sm"><i class="fa-solid fa-calendar-plus"></i></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /patients -->
+
+  <!-- ════════ PAGE: DOSSIERS ════════ -->
+  <div class="page" id="page-dossiers">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Dossiers Médicaux</h2>
+        <p>Accès sécurisé aux dossiers patients</p>
+      </div>
+      <button class="btn-primary-custom"><i class="fa-solid fa-plus me-1"></i> Nouveau Dossier</button>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <div class="content-card" style="height:100%">
+          <div class="card-header-custom">
+            <div class="card-title-main">Liste des Dossiers</div>
+          </div>
+          <div style="padding:12px">
+            <input type="text" placeholder="Rechercher un dossier…" class="form-control form-control-sm mb-3" style="font-family:Poppins;border-radius:8px">
+            <div id="dossierList"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="content-card">
+          <div class="card-header-custom">
+            <div>
+              <div class="card-title-main">Dossier — M. Youssef Bennani</div>
+              <div class="card-subtitle">#PT-0047 · Dernière mise à jour: 12 Mars 2026</div>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn-ghost fs-12"><i class="fa-solid fa-print me-1"></i>Imprimer</button>
+              <button class="btn-primary-custom" style="padding:7px 14px;font-size:12px"><i class="fa-solid fa-pen me-1"></i>Modifier</button>
+            </div>
+          </div>
+          <div style="padding:22px">
+            <div class="row g-3 mb-4">
+              <div class="col-sm-3 text-center">
+                <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="" style="width:80px;height:80px;border-radius:16px;object-fit:cover;border:3px solid var(--primary-light)">
+                <div style="margin-top:8px;font-weight:700;font-size:14px">M. Youssef Bennani</div>
+                <div style="font-size:12px;color:var(--text-muted)">45 ans · Masculin</div>
+              </div>
+              <div class="col-sm-9">
+                <div class="row g-2">
+                  <div class="col-6"><div style="background:#f8fafc;border-radius:8px;padding:10px 14px"><div style="font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px">Groupe sanguin</div><div style="font-size:14px;font-weight:700;color:var(--danger)">A+</div></div></div>
+                  <div class="col-6"><div style="background:#f8fafc;border-radius:8px;padding:10px 14px"><div style="font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px">IMC</div><div style="font-size:14px;font-weight:700">27.4</div></div></div>
+                  <div class="col-6"><div style="background:#f8fafc;border-radius:8px;padding:10px 14px"><div style="font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px">Tension</div><div style="font-size:14px;font-weight:700">130/85 mmHg</div></div></div>
+                  <div class="col-6"><div style="background:#f8fafc;border-radius:8px;padding:10px 14px"><div style="font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px">Glycémie</div><div style="font-size:14px;font-weight:700;color:var(--warning)">1.42 g/L</div></div></div>
+                </div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="mb-3">
+              <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text-main)"><i class="fa-solid fa-notes-medical me-2" style="color:var(--primary)"></i>Antécédents médicaux</div>
+              <div style="font-size:13px;color:var(--text-muted);line-height:1.7">Diabète de type 2 diagnostiqué en 2019. Légère hypertension artérielle. Pas d'allergie médicamenteuse connue. Appendicectomie en 2005.</div>
+            </div>
+            <div class="mb-3">
+              <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text-main)"><i class="fa-solid fa-pills me-2" style="color:var(--success)"></i>Traitements en cours</div>
+              <div class="d-flex flex-wrap gap-2">
+                <span style="background:#d1fae5;color:#065f46;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600">Metformine 850mg</span>
+                <span style="background:#d1fae5;color:#065f46;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600">Ramipril 5mg</span>
+                <span style="background:#d1fae5;color:#065f46;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600">Aspirine 100mg</span>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text-main)"><i class="fa-solid fa-clipboard-list me-2" style="color:var(--info)"></i>Dernière consultation — 9 Mars 2026</div>
+              <div style="font-size:13px;color:var(--text-muted);line-height:1.7">Patient bien équilibré sous traitement. Glycémie légèrement élevée. Conseils nutritionnels prodigués. Renouvellement ordonnance pour 3 mois. Prochain contrôle dans 3 semaines.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /dossiers -->
+
+  <!-- ════════ PAGE: FACTURATION ════════ -->
+  <div class="page" id="page-facturation">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Facturation &amp; Honoraires</h2>
+        <p>Suivi financier du cabinet — Mars 2026</p>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn-ghost"><i class="fa-solid fa-file-pdf me-1"></i>Exporter PDF</button>
+        <button class="btn-primary-custom"><i class="fa-solid fa-plus me-1"></i>Nouvelle Facture</button>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="revenue-header">
+          <div style="position:relative;z-index:1">
+            <div class="revenue-label mb-1"><i class="fa-solid fa-wallet me-1"></i>Chiffre d'affaires (Mars)</div>
+            <div class="revenue-amount">45 000 <span style="font-size:22px;font-weight:500;color:#94a3b8">DH</span></div>
+            <div style="margin-top:12px;font-size:12px;color:#4ade80"><i class="fa-solid fa-arrow-trend-up me-1"></i>+8.3% vs Février</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-card h-100">
+          <div class="stat-icon-wrap" style="background:#d1fae5;color:var(--success)"><i class="fa-solid fa-circle-check"></i></div>
+          <div class="stat-label">Factures Payées</div>
+          <div class="stat-value">38 500 <span style="font-size:16px">DH</span></div>
+          <div class="stat-delta"><span class="up">62 factures</span> réglées</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-card h-100">
+          <div class="stat-icon-wrap" style="background:#fef3c7;color:var(--warning)"><i class="fa-solid fa-hourglass-half"></i></div>
+          <div class="stat-label">En Attente de Paiement</div>
+          <div class="stat-value">6 500 <span style="font-size:16px">DH</span></div>
+          <div class="stat-delta"><span class="down">8 factures</span> en cours</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="card-header-custom">
+        <div class="card-title-main">Historique des Factures</div>
+        <button class="btn-ghost fs-12"><i class="fa-solid fa-filter me-1"></i>Filtrer</button>
+      </div>
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr><th>N° Facture</th><th>Patient</th><th>Date</th><th>Acte</th><th>Montant</th><th>Statut</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="fw-600" style="color:var(--primary)">#FAC-2026-048</span></td>
+              <td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/men/41.jpg" class="patient-avatar" alt=""><span class="patient-name">M. Youssef Bennani</span></div></td>
+              <td style="font-size:13px">09 Mars 2026</td>
+              <td style="font-size:13px">Consultation générale</td>
+              <td><span class="fw-600" style="font-family:'Space Grotesk',sans-serif">350 DH</span></td>
+              <td><span class="status-badge badge-confirme">Payé</span></td>
+              <td><div class="d-flex gap-1"><div class="btn-icon-sm"><i class="fa-solid fa-eye"></i></div><div class="btn-icon-sm"><i class="fa-solid fa-print"></i></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="fw-600" style="color:var(--primary)">#FAC-2026-049</span></td>
+              <td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/women/65.jpg" class="patient-avatar" alt=""><span class="patient-name">Mme. Fatima Zouari</span></div></td>
+              <td style="font-size:13px">10 Mars 2026</td>
+              <td style="font-size:13px">Suivi diabète</td>
+              <td><span class="fw-600" style="font-family:'Space Grotesk',sans-serif">400 DH</span></td>
+              <td><span class="status-badge badge-confirme">Payé</span></td>
+              <td><div class="d-flex gap-1"><div class="btn-icon-sm"><i class="fa-solid fa-eye"></i></div><div class="btn-icon-sm"><i class="fa-solid fa-print"></i></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="fw-600" style="color:var(--primary)">#FAC-2026-050</span></td>
+              <td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/men/55.jpg" class="patient-avatar" alt=""><span class="patient-name">M. Khalid El Fassi</span></div></td>
+              <td style="font-size:13px">12 Mars 2026</td>
+              <td style="font-size:13px">Consultation urgence</td>
+              <td><span class="fw-600" style="font-family:'Space Grotesk',sans-serif">600 DH</span></td>
+              <td><span class="status-badge badge-attente">En attente</span></td>
+              <td><div class="d-flex gap-1"><div class="btn-icon-sm"><i class="fa-solid fa-eye"></i></div><div class="btn-icon-sm"><i class="fa-solid fa-print"></i></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="fw-600" style="color:var(--primary)">#FAC-2026-051</span></td>
+              <td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/women/23.jpg" class="patient-avatar" alt=""><span class="patient-name">Mme. Nadia Chraibi</span></div></td>
+              <td style="font-size:13px">14 Mars 2026</td>
+              <td style="font-size:13px">Contrôle tension</td>
+              <td><span class="fw-600" style="font-family:'Space Grotesk',sans-serif">280 DH</span></td>
+              <td><span class="status-badge badge-attente">En attente</span></td>
+              <td><div class="d-flex gap-1"><div class="btn-icon-sm"><i class="fa-solid fa-eye"></i></div><div class="btn-icon-sm"><i class="fa-solid fa-print"></i></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="fw-600" style="color:var(--primary)">#FAC-2026-052</span></td>
+              <td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/men/77.jpg" class="patient-avatar" alt=""><span class="patient-name">M. Omar Tahiri</span></div></td>
+              <td style="font-size:13px">15 Mars 2026</td>
+              <td style="font-size:13px">Bilan complet</td>
+              <td><span class="fw-600" style="font-family:'Space Grotesk',sans-serif">850 DH</span></td>
+              <td><span class="status-badge badge-confirme">Payé</span></td>
+              <td><div class="d-flex gap-1"><div class="btn-icon-sm"><i class="fa-solid fa-eye"></i></div><div class="btn-icon-sm"><i class="fa-solid fa-print"></i></div></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div><!-- /facturation -->
+
+  <!-- ════════ PAGE: MESSAGES ════════ -->
+  <div class="page" id="page-messages">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Communications</h2>
+        <p>4 messages non lus</p>
+      </div>
+      <button class="btn-primary-custom"><i class="fa-solid fa-pen-to-square me-1"></i>Nouveau Message</button>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <div class="content-card">
+          <div class="card-header-custom"><div class="card-title-main">Messages</div></div>
+          <div style="padding:12px 16px">
+            <div class="msg-item unread">
+              <img src="https://randomuser.me/api/portraits/men/41.jpg" class="msg-avatar" alt="">
+              <div style="flex:1;min-width:0">
+                <div class="msg-name">M. Youssef Bennani</div>
+                <div class="msg-preview">Bonjour Docteur, j'avais une question concernant mon ordonnance…</div>
+              </div>
+              <div class="d-flex flex-column align-items-end gap-1">
+                <div class="msg-time">09:42</div>
+                <div class="msg-unread-dot"></div>
+              </div>
+            </div>
+            <div class="msg-item unread">
+              <img src="https://randomuser.me/api/portraits/women/65.jpg" class="msg-avatar" alt="">
+              <div style="flex:1;min-width:0">
+                <div class="msg-name">Mme. Fatima Zouari</div>
+                <div class="msg-preview">Mes résultats d'analyse sont disponibles, pouvez-vous les consulter?</div>
+              </div>
+              <div class="d-flex flex-column align-items-end gap-1">
+                <div class="msg-time">08:15</div>
+                <div class="msg-unread-dot"></div>
+              </div>
+            </div>
+            <div class="msg-item unread">
+              <img src="https://randomuser.me/api/portraits/men/55.jpg" class="msg-avatar" alt="">
+              <div style="flex:1;min-width:0">
+                <div class="msg-name">M. Khalid El Fassi</div>
+                <div class="msg-preview">Suite à ma visite aux urgences, j'ai quelques questions…</div>
+              </div>
+              <div class="d-flex flex-column align-items-end gap-1">
+                <div class="msg-time">Hier</div>
+                <div class="msg-unread-dot"></div>
+              </div>
+            </div>
+            <div class="msg-item">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" class="msg-avatar" alt="">
+              <div style="flex:1;min-width:0">
+                <div class="msg-name">Mme. Salma Berrada</div>
+                <div class="msg-preview">Merci pour la consultation, je me sens beaucoup mieux!</div>
+              </div>
+              <div class="d-flex flex-column align-items-end">
+                <div class="msg-time">Lun.</div>
+              </div>
+            </div>
+            <div class="msg-item">
+              <img src="https://randomuser.me/api/portraits/men/19.jpg" class="msg-avatar" alt="">
+              <div style="flex:1;min-width:0">
+                <div class="msg-name">M. Rachid Bakkali</div>
+                <div class="msg-preview">Confirmé pour le RDV du 18 Mars à 14h00, merci.</div>
+              </div>
+              <div class="d-flex flex-column align-items-end">
+                <div class="msg-time">Dim.</div>
+              </div>
+            </div>
+            <div class="msg-item">
+              <img src="https://randomuser.me/api/portraits/men/77.jpg" class="msg-avatar" alt="">
+              <div style="flex:1;min-width:0">
+                <div class="msg-name">M. Omar Tahiri</div>
+                <div class="msg-preview">Bonjour, est-ce que je peux reporter mon RDV?</div>
+              </div>
+              <div class="d-flex flex-column align-items-end">
+                <div class="msg-time">Ven.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="content-card" style="height:100%;display:flex;flex-direction:column">
+          <div class="card-header-custom">
+            <div class="d-flex align-items-center gap-3">
+              <img src="https://randomuser.me/api/portraits/men/41.jpg" style="width:40px;height:40px;border-radius:50%;object-fit:cover" alt="">
+              <div>
+                <div class="card-title-main">M. Youssef Bennani</div>
+                <div class="card-subtitle"><span style="color:var(--success);font-weight:600">● En ligne</span> · #PT-0047</div>
+              </div>
+            </div>
+          </div>
+          <div style="flex:1;padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;background:#f8fafc;min-height:320px">
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+              <div style="background:var(--primary);color:#fff;padding:10px 14px;border-radius:14px 14px 4px 14px;max-width:75%;font-size:13px;line-height:1.6">
+                Bonjour M. Bennani, comment vous sentez-vous depuis notre dernière consultation?
+              </div>
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;align-self:flex-end" alt="">
+            </div>
+            <div style="display:flex;gap:10px">
+              <img src="https://randomuser.me/api/portraits/men/41.jpg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;align-self:flex-end" alt="">
+              <div style="background:#fff;border:1px solid var(--border);padding:10px 14px;border-radius:14px 14px 14px 4px;max-width:75%;font-size:13px;line-height:1.6;box-shadow:var(--shadow)">
+                Bonjour Docteur, je me sens un peu mieux, mais j'avais une question concernant mon ordonnance. Est-ce que je peux continuer à prendre la Metformine avec mon nouveau médicament?
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;justify-content:flex-end">
+              <div style="background:var(--primary);color:#fff;padding:10px 14px;border-radius:14px 14px 4px 14px;max-width:75%;font-size:13px;line-height:1.6">
+                Oui, tout à fait. Il n'y a pas de contre-indication entre les deux médicaments. Continuez votre traitement normalement et n'oubliez pas votre rendez-vous demain à 9h00.
+              </div>
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;align-self:flex-end" alt="">
+            </div>
+            <div style="display:flex;gap:10px">
+              <img src="https://randomuser.me/api/portraits/men/41.jpg" style="width:32px;height:32px;border-radius:50%;object-fit:cover;flex-shrink:0;align-self:flex-end" alt="">
+              <div style="background:#fff;border:1px solid var(--border);padding:10px 14px;border-radius:14px 14px 14px 4px;max-width:75%;font-size:13px;line-height:1.6;box-shadow:var(--shadow)">
+                Merci beaucoup Docteur! Je serai présent demain à 9h00. 🙏
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 20px;border-top:1px solid var(--border);display:flex;gap:10px">
+            <input type="text" placeholder="Écrire un message…" style="flex:1;padding:10px 16px;border:1.5px solid var(--border);border-radius:50px;font-family:Poppins;font-size:13px;outline:none;transition:all .2s" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border)'">
+            <button class="btn-primary-custom" style="border-radius:50%;width:42px;height:42px;padding:0;display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-paper-plane"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /messages -->
+
+  <!-- ════════ PAGE: TELECONSULTATION ════════ -->
+  <div class="page" id="page-teleconsultation">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Téléconsultation <span class="badge bg-success ms-2" style="font-size:12px; animation: pulse-badge 2s infinite;">1 Appel en cours</span></h2>
+        <p>Gérez vos rendez-vous médicaux à distance.</p>
+      </div>
+      <button class="btn-primary-custom"><i class="fa-solid fa-link me-1"></i>Nouveau Lien Visio</button>
+    </div>
+    
+    <div class="row g-3">
+      <div class="col-lg-8">
+        <div class="content-card" style="height:400px; background:#1e293b; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+          <!-- Fake video background -->
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=800" alt="Patient Video" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0.6;">
+          
+          <div style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:12px; z-index:10;">
+            <button class="btn btn-dark" style="border-radius:50%; width:48px; height:48px;"><i class="fa-solid fa-microphone-lines-slash"></i></button>
+            <button class="btn btn-dark" style="border-radius:50%; width:48px; height:48px;"><i class="fa-solid fa-video"></i></button>
+            <button class="btn btn-danger" style="border-radius:50%; width:48px; height:48px;"><i class="fa-solid fa-phone-slash"></i></button>
+          </div>
+          
+          <!-- Pip -->
+          <div style="position:absolute; top:20px; right:20px; width:120px; height:90px; border-radius:12px; border:2px solid #fff; overflow:hidden;">
+             <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Doctor" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 d-flex flex-column gap-3">
+        <div class="content-card flex-grow-1">
+          <div class="card-header-custom"><div class="card-title-main">Patient Actuel</div></div>
+          <div style="padding:16px;">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" style="width:50px; height:50px; border-radius:12px; object-fit:cover;">
+              <div>
+                <div style="font-weight:600; font-size:14px; color:var(--text-main);">Mme. Aicha Mansouri</div>
+                <div style="font-size:12px; color:var(--text-muted);">Consultation de suivi</div>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="d-flex flex-column gap-2 mb-3">
+              <div class="d-flex justify-content-between"><span style="font-size:12px; color:var(--text-muted);">Durée</span><span style="font-size:12px; font-weight:600; color:var(--success);">12:45</span></div>
+              <div class="d-flex justify-content-between"><span style="font-size:12px; color:var(--text-muted);">Dossier</span><span style="font-size:12px; font-weight:600; color:var(--primary); cursor:pointer;">#PT-0189</span></div>
+            </div>
+            <button class="btn-ghost w-100" style="border:1px solid var(--border);"><i class="fa-solid fa-pen me-1"></i>Prendre des notes</button>
+          </div>
+        </div>
+        <div class="content-card">
+          <div class="card-header-custom"><div class="card-title-main">Prochaines Visio</div></div>
+          <div style="padding:12px 16px;">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center gap-2">
+                <img src="https://randomuser.me/api/portraits/men/41.jpg" style="width:32px; height:32px; border-radius:50%; object-fit:cover;">
+                <div><div style="font-size:12px; font-weight:600; color:var(--text-main);">M. Youssef Bennani</div><div style="font-size:11px; color:var(--text-muted);">16:00</div></div>
+              </div>
+              <button class="btn btn-sm btn-light" style="font-size:11px; border-radius:8px; border:1px solid var(--border); color:var(--text-main);">Démarrer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ PAGE: ORDONNANCES ════════ -->
+  <div class="page" id="page-ordonnances">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Ordonnances</h2>
+        <p>Générez et imprimez des mots et des prescriptions sécurisées.</p>
+      </div>
+      <button class="btn-primary-custom"><i class="fa-solid fa-plus me-1"></i>Nouvelle Ordonnance</button>
+    </div>
+    
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <div class="content-card" style="height:100%">
+          <div class="card-header-custom"><div class="card-title-main">Modèles Favoris</div></div>
+          <div class="list-group list-group-flush border-0">
+            <button class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3 border-0 border-bottom" style="background:transparent; color:var(--text-main);">
+              <div style="width:36px;height:36px;border-radius:10px;background:#fee2e2;color:var(--danger);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-heart-pulse"></i></div>
+              <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Renouvellement HTA</div><div style="font-size:11px;color:var(--text-muted)">Ramipril, Amlodipine</div></div>
+            </button>
+            <button class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3 border-0 border-bottom" style="background:transparent; color:var(--text-main);">
+              <div style="width:36px;height:36px;border-radius:10px;background:#e0f2fe;color:var(--primary);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-droplet"></i></div>
+              <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Diabète Type 2</div><div style="font-size:11px;color:var(--text-muted)">Metformine, Gliclazide</div></div>
+            </button>
+            <button class="list-group-item list-group-item-action d-flex align-items-center gap-3 py-3 border-0 border-bottom" style="background:transparent; color:var(--text-main);">
+              <div style="width:36px;height:36px;border-radius:10px;background:#d1fae5;color:var(--success);display:flex;align-items:center;justify-content:center"><i class="fa-solid fa-virus"></i></div>
+              <div style="flex:1;"><div style="font-size:13px;font-weight:600;">Infection Respiratoire</div><div style="font-size:11px;color:var(--text-muted)">Amoxicilline, Paracétamol</div></div>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="content-card">
+          <div class="card-header-custom d-flex justify-content-between align-items-center">
+            <div class="card-title-main">Créateur d'Ordonnance</div>
+            <div class="d-flex gap-2">
+              <button class="btn-ghost fs-12"><i class="fa-solid fa-floppy-disk me-1"></i>Sauvegarder</button>
+              <button class="btn-primary-custom" style="padding:6px 12px;font-size:12px;"><i class="fa-solid fa-print me-1"></i>Imprimer</button>
+            </div>
+          </div>
+          <div style="padding:20px;">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">Patient</label>
+                <div class="input-group">
+                  <span class="input-group-text border-end-0" style="background:var(--card-bg); border-color:var(--border);"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                  <input type="text" class="form-control border-start-0 ps-0 text-dark" style="background:var(--card-bg); border-color:var(--border); color:var(--text-main) !important;" placeholder="Chercher un patient..." value="M. Khalid El Fassi">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">Date</label>
+                <input type="date" class="form-control" style="background:var(--card-bg); border-color:var(--border); color:var(--text-main);" value="2026-03-18">
+              </div>
+            </div>
+            
+            <div class="border rounded-3 mb-3 p-0 overflow-hidden" style="border-color:var(--border) !important;">
+              <table class="table mb-0" style="font-size:13px; --bs-table-bg: transparent; --bs-table-color: var(--text-main);">
+                <thead style="background:var(--body-bg);">
+                  <tr>
+                    <th>Médicament</th>
+                    <th>Posologie</th>
+                    <th>Durée</th>
+                    <th style="width:50px"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="align-middle border-bottom border-light"><input type="text" class="form-control form-control-sm border-0 bg-transparent text-dark" style="color:var(--text-main) !important;" value="Amoxicilline 500mg"></td>
+                    <td class="align-middle border-bottom border-light"><input type="text" class="form-control form-control-sm border-0 bg-transparent text-dark" style="color:var(--text-main) !important;" value="1 gélule 3 fois/jour (Matin, Midi, Soir)"></td>
+                    <td class="align-middle border-bottom border-light"><input type="text" class="form-control form-control-sm border-0 bg-transparent text-dark" style="color:var(--text-main) !important;" value="7 jours"></td>
+                    <td class="align-middle border-bottom border-light text-center"><button class="btn btn-link text-danger p-0"><i class="fa-solid fa-trash-can"></i></button></td>
+                  </tr>
+                  <tr>
+                    <td class="align-middle border-0"><input type="text" class="form-control form-control-sm border-0 bg-transparent text-dark" style="color:var(--text-main) !important;" value="Paracétamol 1000mg"></td>
+                    <td class="align-middle border-0"><input type="text" class="form-control form-control-sm border-0 bg-transparent text-dark" style="color:var(--text-main) !important;" value="1 comprimé si douleur ou fièvre"></td>
+                    <td class="align-middle border-0"><input type="text" class="form-control form-control-sm border-0 bg-transparent text-dark" style="color:var(--text-main) !important;" value="Au besoin"></td>
+                    <td class="align-middle text-center border-0"><button class="btn btn-link text-danger p-0"><i class="fa-solid fa-trash-can"></i></button></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="p-2 border-top text-center" style="background:var(--body-bg); border-color:var(--border) !important;">
+                <button class="btn btn-sm btn-outline-primary" style="font-size:12px;border-radius:20px;padding:4px 12px;"><i class="fa-solid fa-plus me-1"></i>Ajouter Médicament</button>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ PAGE: LABORATOIRE ════════ -->
+  <div class="page" id="page-laboratoire">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Analyses & Labo</h2>
+        <p>Suivez les résultats d'analyses et comptes rendus.</p>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn-ghost"><i class="fa-solid fa-upload me-1"></i>Importer PDF</button>
+        <button class="btn-primary-custom"><i class="fa-solid fa-plus me-1"></i>Nouvelle Demande d'Analyse</button>
+      </div>
+    </div>
+    
+    <div class="content-card">
+      <div class="card-header-custom">
+        <div class="card-title-main">Derniers Résultats Reçus</div>
+        <input type="text" class="form-control form-control-sm" style="width:250px; background:var(--card-bg); border-color:var(--border); color:var(--text-main);" placeholder="Recherche par patient ou type...">
+      </div>
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Patient</th>
+              <th>Type d'analyse</th>
+              <th>Laboratoire</th>
+              <th>Statut</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span style="font-size:13px;font-weight:600;">18 Mars 2026</span></td>
+              <td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/women/65.jpg" class="patient-avatar" alt=""><span class="patient-name">Mme. Fatima Zouari</span></div></td>
+              <td><span class="badge border" style="background:var(--body-bg); color:var(--text-main); border-color:var(--border) !important;">Bilan Lipidique</span></td>
+              <td><span style="font-size:12px;color:var(--text-muted);">Labo Central Casa</span></td>
+              <td><span class="status-badge badge-confirme">Reçu</span></td>
+              <td><button class="btn btn-sm py-1 px-2" style="font-size:11px; border:1px solid var(--primary); color:var(--primary); background:transparent;"><i class="fa-solid fa-eye me-1"></i>Ouvrir</button></td>
+            </tr>
+            <tr>
+              <td><span style="font-size:13px;font-weight:600;">17 Mars 2026</span></td>
+              <td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/men/41.jpg" class="patient-avatar" alt=""><span class="patient-name">M. Youssef Bennani</span></div></td>
+              <td><span class="badge border" style="background:var(--body-bg); color:var(--text-main); border-color:var(--border) !important;">Hémoglobine glyquée (HbA1c)</span></td>
+              <td><span style="font-size:12px;color:var(--text-muted);">Labo BioSante</span></td>
+              <td><span class="status-badge badge-confirme">Reçu</span></td>
+              <td><button class="btn btn-sm py-1 px-2" style="font-size:11px; border:1px solid var(--primary); color:var(--primary); background:transparent;"><i class="fa-solid fa-eye me-1"></i>Ouvrir</button></td>
+            </tr>
+            <tr>
+              <td><span style="font-size:13px;font-weight:600;">16 Mars 2026</span></td>
+              <td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/men/77.jpg" class="patient-avatar" alt=""><span class="patient-name">M. Omar Tahiri</span></div></td>
+              <td><span class="badge border" style="background:var(--body-bg); color:var(--text-main); border-color:var(--border) !important;">Radiographie Thorax</span></td>
+              <td><span style="font-size:12px;color:var(--text-muted);">Centre d'Imagerie Al Rahma</span></td>
+              <td><span class="status-badge badge-attente">En traitement</span></td>
+              <td><button class="btn btn-sm py-1 px-2" style="font-size:11px; border:1px solid var(--border); color:var(--text-muted); background:transparent;" disabled><i class="fa-solid fa-clock-rotate-left me-1"></i>Attente</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ PAGE: STOCK ════════ -->
+  <div class="page" id="page-stock">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Stock & Matériel <span class="badge bg-warning ms-2 text-dark" style="font-size:12px;">1 Alerte de rupture</span></h2>
+        <p>Gestion de l'inventaire des consommables et du matériel médical.</p>
+      </div>
+      <button class="btn-primary-custom"><i class="fa-solid fa-plus me-1"></i>Ajouter Produit</button>
+    </div>
+    
+    <div class="content-card">
+      <div class="card-header-custom d-flex justify-content-between align-items-center">
+        <div class="card-title-main">Inventaire Actuel</div>
+        <div class="d-flex gap-2">
+          <input type="text" class="form-control form-control-sm" style="width:200px; background:var(--card-bg); border-color:var(--border); color:var(--text-main);" placeholder="Rechercher un produit...">
+          <button class="btn-ghost" style="padding:4px 8px; font-size:12px;"><i class="fa-solid fa-filter"></i></button>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Produit</th>
+              <th>Catégorie</th>
+              <th>Quantité en Stock</th>
+              <th>Seuil d'Alerte</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="fw-600" style="color:var(--text-main);">Gants en Latex (Taille M)</div><div style="font-size:11px;color:var(--text-muted);">Boîte de 100 unités</div></td>
+              <td><span class="badge border" style="background:var(--body-bg); color:var(--text-main); border-color:var(--border) !important;">Consommables</span></td>
+              <td><span style="font-size:14px;font-weight:700;">12 boîtes</span></td>
+              <td><span style="font-size:12px;color:var(--text-muted);">5 boîtes</span></td>
+              <td><span class="status-badge badge-confirme">Stock OK</span></td>
+              <td>
+                <div class="d-flex gap-1">
+                  <div class="btn-icon-sm px-2 text-primary" style="width:auto;"><i class="fa-solid fa-cart-shopping me-1"></i> Commander</div>
+                  <div class="btn-icon-sm"><i class="fa-solid fa-pen"></i></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><div class="fw-600" style="color:var(--text-main);">Gel Hydroalcoolique 500ml</div><div style="font-size:11px;color:var(--text-muted);">Flacon pompe</div></td>
+              <td><span class="badge border" style="background:var(--body-bg); color:var(--text-main); border-color:var(--border) !important;">Hygiène</span></td>
+              <td><span style="font-size:14px;font-weight:700;color:var(--danger);">2 flacons</span></td>
+              <td><span style="font-size:12px;color:var(--text-muted);">10 flacons</span></td>
+              <td><span class="status-badge badge-urgence">Rupture Imminente</span></td>
+              <td>
+                <div class="d-flex gap-1">
+                  <div class="btn-icon-sm px-2 text-primary" style="width:auto;"><i class="fa-solid fa-cart-shopping me-1"></i> Commander</div>
+                  <div class="btn-icon-sm"><i class="fa-solid fa-pen"></i></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><div class="fw-600" style="color:var(--text-main);">Seringues 5ml</div><div style="font-size:11px;color:var(--text-muted);">Boîte de 50 (Stérile)</div></td>
+              <td><span class="badge border" style="background:var(--body-bg); color:var(--text-main); border-color:var(--border) !important;">Matériel Médical</span></td>
+              <td><span style="font-size:14px;font-weight:700;color:var(--warning);">8 boîtes</span></td>
+              <td><span style="font-size:12px;color:var(--text-muted);">10 boîtes</span></td>
+              <td><span class="status-badge badge-attente">Stock Faible</span></td>
+              <td>
+                <div class="d-flex gap-1">
+                  <div class="btn-icon-sm px-2 text-primary" style="width:auto;"><i class="fa-solid fa-cart-shopping me-1"></i> Commander</div>
+                  <div class="btn-icon-sm"><i class="fa-solid fa-pen"></i></div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><div class="fw-600" style="color:var(--text-main);">Papier d'examen Médical</div><div style="font-size:11px;color:var(--text-muted);">Rouleaux prédécoupés</div></td>
+              <td><span class="badge border" style="background:var(--body-bg); color:var(--text-main); border-color:var(--border) !important;">Consommables</span></td>
+              <td><span style="font-size:14px;font-weight:700;">24 rouleaux</span></td>
+              <td><span style="font-size:12px;color:var(--text-muted);">6 rouleaux</span></td>
+              <td><span class="status-badge badge-confirme">Stock OK</span></td>
+              <td>
+                <div class="d-flex gap-1">
+                  <div class="btn-icon-sm px-2 text-primary" style="width:auto;"><i class="fa-solid fa-cart-shopping me-1"></i> Commander</div>
+                  <div class="btn-icon-sm"><i class="fa-solid fa-pen"></i></div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ PAGE: RAPPORTS ════════ -->
+  <div class="page" id="page-rapports">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Statistiques & Rapports</h2>
+        <p>Analyse de l'activité du cabinet pour l'année 2026.</p>
+      </div>
+      <button class="btn-ghost"><i class="fa-solid fa-download me-1"></i>Exporter PDF</button>
+    </div>
+    
+    <div class="row g-3 mb-4">
+      <div class="col-md-4">
+        <div class="content-card p-4 h-100 text-center">
+          <div style="width:50px;height:50px;border-radius:12px;background:var(--primary-light);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 12px"><i class="fa-solid fa-users"></i></div>
+          <div style="font-size:28px;font-weight:700;font-family:'Space Grotesk',sans-serif">120</div>
+          <div style="font-size:13px;color:var(--text-muted);font-weight:500;text-transform:uppercase;letter-spacing:0.5px">Nouveaux Patients</div>
+          <div style="font-size:12px;color:var(--success);margin-top:6px;font-weight:600"><i class="fa-solid fa-arrow-trend-up me-1"></i>+15% vs Année dernière</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="content-card p-4 h-100 text-center">
+          <div style="width:50px;height:50px;border-radius:12px;background:#fef3c7;color:var(--warning);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 12px"><i class="fa-solid fa-calendar-check"></i></div>
+          <div style="font-size:28px;font-weight:700;font-family:'Space Grotesk',sans-serif">1,450</div>
+          <div style="font-size:13px;color:var(--text-muted);font-weight:500;text-transform:uppercase;letter-spacing:0.5px">Consultations Réalisées</div>
+          <div style="font-size:12px;color:var(--success);margin-top:6px;font-weight:600"><i class="fa-solid fa-arrow-trend-up me-1"></i>+5.2% vs Année dernière</div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="content-card p-4 h-100 text-center">
+          <div style="width:50px;height:50px;border-radius:12px;background:#e0f2fe;color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 12px"><i class="fa-solid fa-user-doctor"></i></div>
+          <div style="font-size:28px;font-weight:700;font-family:'Space Grotesk',sans-serif">96%</div>
+          <div style="font-size:13px;color:var(--text-muted);font-weight:500;text-transform:uppercase;letter-spacing:0.5px">Taux de Satisfaction</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:6px;font-weight:600">Basé sur 340 avis en ligne</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row g-3">
+      <div class="col-lg-6">
+        <div class="content-card" style="height:100%">
+          <div class="card-header-custom"><div class="card-title-main">Top Pathologies Consultées</div></div>
+          <div style="padding:20px;">
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1"><span style="font-size:13px;font-weight:600">Infections respiratoires</span><span style="font-size:12px;font-weight:700">35%</span></div>
+              <div class="progress-custom"><div class="progress-bar-custom" style="width:35%;background:var(--primary)"></div></div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1"><span style="font-size:13px;font-weight:600">Hypertension artérielle</span><span style="font-size:12px;font-weight:700">22%</span></div>
+              <div class="progress-custom"><div class="progress-bar-custom" style="width:22%;background:var(--success)"></div></div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1"><span style="font-size:13px;font-weight:600">Diabète de type 2</span><span style="font-size:12px;font-weight:700">18%</span></div>
+              <div class="progress-custom"><div class="progress-bar-custom" style="width:18%;background:var(--warning)"></div></div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex justify-content-between mb-1"><span style="font-size:13px;font-weight:600">Troubles digestifs</span><span style="font-size:12px;font-weight:700">15%</span></div>
+              <div class="progress-custom"><div class="progress-bar-custom" style="width:15%;background:var(--danger)"></div></div>
+            </div>
+            <div>
+              <div class="d-flex justify-content-between mb-1"><span style="font-size:13px;font-weight:600">Autres</span><span style="font-size:12px;font-weight:700">10%</span></div>
+              <div class="progress-custom"><div class="progress-bar-custom" style="width:10%;background:var(--text-muted)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="content-card" style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px;">
+          <i class="fa-solid fa-chart-column mb-3 text-muted" style="font-size:3rem; opacity:0.5;"></i>
+          <h5 style="font-size:16px; font-weight:600;">Graphique de Revenus (Bientôt)</h5>
+          <p style="font-size:13px; color:var(--text-muted); text-align:center;">Un graphique interactif détaillé s'affichera ici avec l'évolution mensuelle de votre activité.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ PAGE: SALLE D'ATTENTE ════════ -->
+  <div class="page" id="page-salle-attente">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Salle d'Attente <span class="badge bg-danger ms-2" style="font-size:12px; animation: pulse-badge 2s infinite;">3 En attente</span></h2>
+        <p>Gestion en direct de la file d'attente — 18 Mars 2026</p>
+      </div>
+      <button class="btn-primary-custom"><i class="fa-solid fa-user-plus me-1"></i>Enregistrer Patient</button>
+    </div>
+    
+    <div class="content-card">
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Ticket</th>
+              <th>Patient</th>
+              <th>Heure d'arrivée</th>
+              <th>Motif / Type</th>
+              <th>Temps d'attente</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;background:#fee2e2;color:#991b1b;border-radius:50%;font-weight:700">1</span></td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <div style="width:40px;height:40px;border-radius:10px;background:var(--card-bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--primary)"><i class="fa-solid fa-user"></i></div>
+                  <div><div class="patient-name">M. Khalid El Fassi</div><div class="patient-id">Urgence</div></div>
+                </div>
+              </td>
+              <td style="font-weight:600">10:05</td>
+              <td>Douleurs thoraciques</td>
+              <td><span style="color:var(--danger);font-weight:600"><i class="fa-solid fa-clock me-1"></i>45 min</span></td>
+              <td>
+                <button class="btn-primary-custom px-3 py-1" style="font-size:12px"><i class="fa-solid fa-bullhorn me-1"></i>Appeler</button>
+              </td>
+            </tr>
+            <tr>
+              <td><span style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;background:#e0f2fe;color:#0369a1;border-radius:50%;font-weight:700">2</span></td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <img src="https://randomuser.me/api/portraits/women/23.jpg" class="patient-avatar" alt="">
+                  <div><div class="patient-name">Mme. Nadia Chraibi</div><div class="patient-id">#PT-0031</div></div>
+                </div>
+              </td>
+              <td style="font-weight:600">10:45</td>
+              <td>Consultation de routine</td>
+              <td><span style="color:var(--warning);font-weight:600"><i class="fa-solid fa-clock me-1"></i>15 min</span></td>
+              <td>
+                <button class="btn-primary-custom px-3 py-1" style="font-size:12px"><i class="fa-solid fa-bullhorn me-1"></i>Appeler</button>
+              </td>
+            </tr>
+            <tr>
+              <td><span style="display:inline-block;width:32px;height:32px;line-height:32px;text-align:center;background:#f1f5f9;color:#475569;border-radius:50%;font-weight:700">3</span></td>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <img src="https://randomuser.me/api/portraits/men/77.jpg" class="patient-avatar" alt="">
+                  <div><div class="patient-name">M. Omar Tahiri</div><div class="patient-id">#PT-0203</div></div>
+                </div>
+              </td>
+              <td style="font-weight:600">11:10</td>
+              <td>Renouvellement Ordonnance</td>
+              <td><span style="color:var(--success);font-weight:600"><i class="fa-solid fa-clock me-1"></i>Venait d'arriver</span></td>
+              <td>
+                <button class="btn-primary-custom px-3 py-1" style="font-size:12px"><i class="fa-solid fa-bullhorn me-1"></i>Appeler</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ PAGE: CERTIFICATS ════════ -->
+  <div class="page" id="page-certificats">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Certificats &amp; Documents</h2>
+        <p>Modèles prêts à imprimer (Normes Marocaines).</p>
+      </div>
+      <button class="btn-primary-custom"><i class="fa-solid fa-plus me-1"></i>Nouveau modèle</button>
+    </div>
+    
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="content-card" style="padding:24px; text-align:center; cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="width:64px;height:64px;border-radius:16px;background:#e0f2fe;color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px"><i class="fa-solid fa-file-medical"></i></div>
+          <h5 style="font-size:16px;font-weight:600;margin-bottom:8px">Certificat Médical Initial</h5>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Modèle standard justifiant l'état de santé ou prescrivant un repos.</p>
+          <button class="btn-ghost w-100" style="color:var(--primary);border:1px solid var(--primary-light)">Générer</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="content-card" style="padding:24px; text-align:center; cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="width:64px;height:64px;border-radius:16px;background:#fee2e2;color:var(--danger);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px"><i class="fa-solid fa-user-injured"></i></div>
+          <h5 style="font-size:16px;font-weight:600;margin-bottom:8px">Arrêt de Travail</h5>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Format standard CNSS incluant les jours de repos accordés.</p>
+          <button class="btn-ghost w-100" style="color:var(--danger);border:1px solid #fee2e2">Générer</button>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="content-card" style="padding:24px; text-align:center; cursor:pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="width:64px;height:64px;border-radius:16px;background:#d1fae5;color:var(--success);display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 16px"><i class="fa-solid fa-dumbbell"></i></div>
+          <h5 style="font-size:16px;font-weight:600;margin-bottom:8px">Certificat d'Aptitude</h5>
+          <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Pour le sport, la scolarité ou l'embauche clinique.</p>
+          <button class="btn-ghost w-100" style="color:var(--success);border:1px solid #d1fae5">Générer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ PAGE: DEPENSES ════════ -->
+  <div class="page" id="page-depenses">
+    <div class="page-header page-header-row">
+      <div>
+        <h2>Dépenses du Cabinet</h2>
+        <p>Suivi des charges opérationnelles — Mars 2026</p>
+      </div>
+      <button class="btn-primary-custom"><i class="fa-solid fa-plus me-1"></i>Ajouter Dépense</button>
+    </div>
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon-wrap" style="background:#fee2e2;color:var(--danger)"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+          <div class="stat-label">Total Dépenses</div>
+          <div class="stat-value">13 000 <span style="font-size:16px">DH</span></div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon-wrap" style="background:#fef3c7;color:var(--warning)"><i class="fa-solid fa-building"></i></div>
+          <div class="stat-label">Loyer & Charges</div>
+          <div class="stat-value">8 500 <span style="font-size:16px">DH</span></div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon-wrap" style="background:#e0f2fe;color:var(--primary)"><i class="fa-solid fa-box-open"></i></div>
+          <div class="stat-label">Stock & Consommables</div>
+          <div class="stat-value">3 200 <span style="font-size:16px">DH</span></div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stat-card">
+          <div class="stat-icon-wrap" style="background:#f1f5f9;color:var(--text-muted)"><i class="fa-solid fa-ellipsis-h"></i></div>
+          <div class="stat-label">Autres (Divers)</div>
+          <div class="stat-value">1 300 <span style="font-size:16px">DH</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-card">
+      <div class="card-header-custom">
+        <div class="card-title-main">Historique des transactions</div>
+        <input type="month" class="form-control form-control-sm" style="width:auto" value="2026-03">
+      </div>
+      <div class="table-responsive">
+        <table class="custom-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Catégorie</th>
+              <th>Description</th>
+              <th>Mode de paiement</th>
+              <th>Montant</th>
+              <th>Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01 Mars 2026</td>
+              <td><span class="badge bg-light text-dark border">Loyer</span></td>
+              <td>Loyer mensuel du cabinet</td>
+              <td>Virement Bancaire</td>
+              <td style="font-weight:600;color:var(--danger)">- 8 000 DH</td>
+              <td><span class="status-badge badge-confirme">Payé</span></td>
+            </tr>
+            <tr>
+              <td>05 Mars 2026</td>
+              <td><span class="badge bg-light text-dark border">Utilitaires</span></td>
+              <td>Facture Lydec (Eau & Électricité)</td>
+              <td>Prélèvement</td>
+              <td style="font-weight:600;color:var(--danger)">- 500 DH</td>
+              <td><span class="status-badge badge-confirme">Payé</span></td>
+            </tr>
+            <tr>
+              <td>10 Mars 2026</td>
+              <td><span class="badge bg-light text-dark border">Consommables</span></td>
+              <td>Commande masques, gants, seringues</td>
+              <td>Chèque</td>
+              <td style="font-weight:600;color:var(--danger)">- 3 200 DH</td>
+              <td><span class="status-badge badge-attente">Encyaissement...</span></td>
+            </tr>
+            <tr>
+              <td>12 Mars 2026</td>
+              <td><span class="badge bg-light text-dark border">Divers / Services</span></td>
+              <td>Abonnement internet & Téléphone (IAM)</td>
+              <td>Carte Bancaire</td>
+              <td style="font-weight:600;color:var(--danger)">- 600 DH</td>
+              <td><span class="status-badge badge-confirme">Payé</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ PAGE: SETTINGS ════════ -->
+  <div class="page" id="page-settings">
+    <div class="page-header">
+      <h2>Configuration du Système</h2>
+      <p>Gérez vos préférences et paramètres du cabinet</p>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-lg-4">
+        <div class="settings-section text-center" style="padding:28px">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg" style="width:90px;height:90px;border-radius:20px;object-fit:cover;border:3px solid var(--primary);margin-bottom:16px" alt="">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700">Dr. Amine Alami</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-top:4px">Médecin Généraliste</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px"><i class="fa-solid fa-location-dot me-1"></i>Cabinet Médical, Casablanca</div>
+          <div class="divider"></div>
+          <div class="d-flex justify-content-around">
+            <div class="text-center"><div style="font-family:'Space Grotesk';font-size:20px;font-weight:700;color:var(--primary)">250</div><div style="font-size:11px;color:var(--text-muted)">Patients</div></div>
+            <div class="text-center"><div style="font-family:'Space Grotesk';font-size:20px;font-weight:700;color:var(--success)">12</div><div style="font-size:11px;color:var(--text-muted)">RDV/jour</div></div>
+            <div class="text-center"><div style="font-family:'Space Grotesk';font-size:20px;font-weight:700;color:var(--warning)">4.9</div><div style="font-size:11px;color:var(--text-muted)">Note</div></div>
+          </div>
+          <div class="divider"></div>
+          <button class="btn-primary-custom w-100"><i class="fa-solid fa-pen me-1"></i>Modifier le Profil</button>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="settings-section">
+          <h5><i class="fa-solid fa-bell me-2" style="color:var(--primary)"></i>Notifications</h5>
+          <div class="setting-row">
+            <div><div class="setting-label">Rappels de RDV</div><div class="setting-desc">Recevoir une notification 1h avant chaque consultation</div></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Nouveaux messages</div><div class="setting-desc">Alertes pour les messages patients non lus</div></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Rapports hebdomadaires</div><div class="setting-desc">Résumé automatique chaque lundi matin</div></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox"></div>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h5><i class="fa-solid fa-calendar-days me-2" style="color:var(--success)"></i>Horaires du Cabinet</h5>
+          <div class="setting-row">
+            <div><div class="setting-label">Lundi – Vendredi</div><div class="setting-desc">Consultations standard</div></div>
+            <span style="font-size:13px;font-weight:600;color:var(--primary)">08:00 – 17:00</span>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Samedi</div><div class="setting-desc">Demi-journée</div></div>
+            <span style="font-size:13px;font-weight:600;color:var(--warning)">08:00 – 12:00</span>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Durée consultation standard</div></div>
+            <span style="font-size:13px;font-weight:600">30 minutes</span>
+          </div>
+        </div>
+        <div class="settings-section">
+          <h5><i class="fa-solid fa-shield-halved me-2" style="color:var(--danger)"></i>Sécurité &amp; Confidentialité</h5>
+          <div class="setting-row">
+            <div><div class="setting-label">Authentification à deux facteurs</div><div class="setting-desc">Sécuriser votre compte avec un second facteur</div></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Verrouillage automatique</div><div class="setting-desc">Verrouiller après 15 min d'inactivité</div></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Journalisation des accès</div><div class="setting-desc">Enregistrer tous les accès aux dossiers patients</div></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked></div>
+          </div>
+        </div>
+        
+        <div class="settings-section">
+          <h5><i class="fa-solid fa-palette me-2" style="color:var(--primary)"></i>Thèmes & Apparence</h5>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Sélectionnez un thème pour modifier les couleurs principales de l'application.</p>
+          <div class="d-flex flex-wrap gap-4">
+            <div class="theme-option" onclick="setTheme('default')" style="cursor:pointer; text-align:center;">
+              <div style="width:40px; height:40px; border-radius:50%; background:#0ea5e9; border:3px solid var(--body-bg); box-shadow:0 0 0 2px var(--primary); margin:0 auto 8px; transition:0.2s;" id="theme-btn-default"></div>
+              <div style="font-size:12px; font-weight:600;">Classique</div>
+            </div>
+            <div class="theme-option" onclick="setTheme('dark')" style="cursor:pointer; text-align:center;">
+              <div style="width:40px; height:40px; border-radius:50%; background:#1e293b; border:3px solid #0f172a; box-shadow:0 0 0 2px #e2e8f0; margin:0 auto 8px; transition:0.2s;" id="theme-btn-dark"></div>
+              <div style="font-size:12px; font-weight:600;">Sombre</div>
+            </div>
+            <div class="theme-option" onclick="setTheme('emerald')" style="cursor:pointer; text-align:center;">
+              <div style="width:40px; height:40px; border-radius:50%; background:#10b981; border:3px solid var(--body-bg); box-shadow:0 0 0 2px #e2e8f0; margin:0 auto 8px; transition:0.2s;" id="theme-btn-emerald"></div>
+              <div style="font-size:12px; font-weight:600;">Émeraude</div>
+            </div>
+            <div class="theme-option" onclick="setTheme('purple')" style="cursor:pointer; text-align:center;">
+              <div style="width:40px; height:40px; border-radius:50%; background:#8b5cf6; border:3px solid var(--body-bg); box-shadow:0 0 0 2px #e2e8f0; margin:0 auto 8px; transition:0.2s;" id="theme-btn-purple"></div>
+              <div style="font-size:12px; font-weight:600;">Améthyste</div>
+            </div>
+            <div class="theme-option" onclick="setTheme('amber')" style="cursor:pointer; text-align:center;">
+              <div style="width:40px; height:40px; border-radius:50%; background:#f59e0b; border:3px solid var(--body-bg); box-shadow:0 0 0 2px #e2e8f0; margin:0 auto 8px; transition:0.2s;" id="theme-btn-amber"></div>
+              <div style="font-size:12px; font-weight:600;">Ambre</div>
+            </div>
+            <div class="theme-option" onclick="setTheme('rose')" style="cursor:pointer; text-align:center;">
+              <div style="width:40px; height:40px; border-radius:50%; background:#f43f5e; border:3px solid var(--body-bg); box-shadow:0 0 0 2px #e2e8f0; margin:0 auto 8px; transition:0.2s;" id="theme-btn-rose"></div>
+              <div style="font-size:12px; font-weight:600;">Rubis</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /settings -->
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script>
+// ═══════════════════ THEME MANAGEMENT ═══════════════════
+function setTheme(themeName) {
+  // Update document attribute
+  if (themeName === 'default') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', themeName);
+  }
+  
+  // Update active state in UI rings
+  document.querySelectorAll('[id^="theme-btn-"]').forEach(el => {
+    el.style.boxShadow = '0 0 0 2px #e2e8f0';
+  });
+  const activeBtn = document.getElementById('theme-btn-' + themeName);
+  if(activeBtn) {
+    // If it's dark theme, the ring should be primary color or lighter
+    activeBtn.style.boxShadow = (themeName === 'dark') ? '0 0 0 2px var(--primary)' : '0 0 0 2px var(--primary)';
+  }
+  
+  // Sync the sidebar dark mode toggle switch if it exists
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  if(darkModeToggle) {
+    darkModeToggle.checked = (themeName === 'dark');
+  }
+}
+
+// Sidebar toggle sync
+const darkModeToggle = document.getElementById('darkModeToggle');
+if(darkModeToggle) {
+  darkModeToggle.addEventListener('change', () => {
+    if (darkModeToggle.checked) {
+      setTheme('dark');
+    } else {
+      setTheme('default');
+    }
+  });
+}
+
+// ═══════════════════ NAVIGATION ═══════════════════
+const pageTitles = {
+  dashboard: 'Tableau de bord',
+  agenda: 'Agenda & Rendez-vous',
+  teleconsultation: 'Téléconsultation',
+  patients: 'Gestion des Patients',
+  dossiers: 'Dossiers Médicaux',
+  ordonnances: 'Ordonnances',
+  laboratoire: 'Analyses & Labo',
+  facturation: 'Facturation & Honoraires',
+  stock: 'Stock & Matériel',
+  messages: 'Communications',
+  rapports: 'Statistiques & Rapports',
+  settings: 'Configuration'
+};
+
+function navigate(pageId, el) {
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  // Show target
+  const target = document.getElementById('page-' + pageId);
+  if (target) target.classList.add('active');
+  // Update sidebar active
+  document.querySelectorAll('.nav-link-custom').forEach(l => l.classList.remove('active'));
+  if (el) el.classList.add('active');
+  else {
+    const navLink = document.querySelector(`[data-page="${pageId}"]`);
+    if (navLink) navLink.classList.add('active');
+  }
+  // Update topbar title
+  document.getElementById('pageTitle').textContent = pageTitles[pageId] || '';
+}
+
+// ═══════════════════ DASHBOARD DATE ═══════════════════
+function setDashboardDate() {
+  const d = new Date();
+  const opts = { weekday:'long', year:'numeric', month:'long', day:'numeric' };
+  const str = d.toLocaleDateString('fr-FR', opts);
+  const el = document.getElementById('dashboard-date');
+  if (el) el.textContent = str.charAt(0).toUpperCase() + str.slice(1);
+}
+setDashboardDate();
+
+// ═══════════════════ MINI CALENDAR ═══════════════════
+function buildCalendar(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const monthNames = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+  const dayLabels = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  const rdvDays = [3, 7, 12, 14, 18, 21, 24, 26];
+
+  let html = `
+    <div class="cal-header">
+      <div class="cal-month">${monthNames[month]} ${year}</div>
+      <div class="d-flex gap-1">
+        <div class="btn-icon-sm" style="width:24px;height:24px"><i class="fa-solid fa-chevron-left" style="font-size:9px"></i></div>
+        <div class="btn-icon-sm" style="width:24px;height:24px"><i class="fa-solid fa-chevron-right" style="font-size:9px"></i></div>
+      </div>
+    </div>
+    <div class="cal-grid">
+  `;
+  dayLabels.forEach(d => { html += `<div class="cal-day-label">${d}</div>`; });
+
+  // Empty cells before first day (Monday-based)
+  let startOffset = (firstDay === 0 ? 6 : firstDay - 1);
+  for (let i = 0; i < startOffset; i++) { html += `<div class="cal-day other-month">${new Date(year, month, -startOffset + i + 1).getDate()}</div>`; }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    let cls = 'cal-day';
+    if (d === today.getDate()) cls += ' today';
+    if (rdvDays.includes(d) && d !== today.getDate()) cls += ' has-rdv';
+    html += `<div class="${cls}">${d}</div>`;
+  }
+  html += '</div>';
+  container.innerHTML = html;
+}
+buildCalendar('miniCal');
+buildCalendar('agendaCal');
+
+// ═══════════════════ DOSSIER LIST ═══════════════════
+const dossiers = [
+  { name: 'M. Youssef Bennani', id: '#PT-0047', tag: 'Diabète', img: 'men/41' },
+  { name: 'Mme. Fatima Zouari', id: '#PT-0088', tag: 'HTA', img: 'women/65' },
+  { name: 'M. Khalid El Fassi', id: '#PT-0112', tag: 'Cardio', img: 'men/55' },
+  { name: 'Mme. Nadia Chraibi', id: '#PT-0031', tag: 'Général', img: 'women/23' },
+  { name: 'M. Omar Tahiri', id: '#PT-0203', tag: 'Arthrose', img: 'men/77' },
+  { name: 'Mme. Salma Berrada', id: '#PT-0156', tag: 'Gynéco', img: 'women/44' },
+];
+function buildDossierList() {
+  const el = document.getElementById('dossierList');
+  if (!el) return;
+  el.innerHTML = dossiers.map((d, i) => `
+    <div style="display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:9px;cursor:pointer;transition:background .15s;${i===0?'background:var(--primary-light);':''}border-bottom:1px solid #f1f5f9" onmouseover="this.style.background='#f0f7ff'" onmouseout="this.style.background='${i===0?'var(--primary-light)':'transparent'}'">
+      <img src="https://randomuser.me/api/portraits/${d.img}.jpg" style="width:36px;height:36px;border-radius:9px;object-fit:cover">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${d.name}</div>
+        <div style="font-size:11px;color:var(--text-muted)">${d.id} · ${d.tag}</div>
+      </div>
+      <i class="fa-solid fa-chevron-right" style="font-size:10px;color:var(--text-muted)"></i>
+    </div>
+  `).join('');
+}
+buildDossierList();
+
+// ═══════════════════ PROGRESS BAR ANIMATION ═══════════════════
+setTimeout(() => {
+  document.querySelectorAll('.progress-bar-custom').forEach(bar => {
+    const w = bar.style.width;
+    bar.style.width = '0';
+    setTimeout(() => { bar.style.width = w; }, 100);
+  });
+}, 200);
+</script>
+</body>
+</html>
