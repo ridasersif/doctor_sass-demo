@@ -4248,7 +4248,14 @@
             { name: 'Émeraude Zen', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_green_eco_1774032699564.png', primary: '#10b981', light: '#d1fae5', isDark: false },
             { name: 'Tech Noire', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_modern_dark_1774032899842.png', primary: '#3b82f6', light: 'rgba(59, 130, 246, 0.15)', isDark: true },
             { name: 'Améthyste Calme', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_soft_purple_1774033069751.png', primary: '#8b5cf6', light: '#ede9fe', isDark: false },
-            { name: 'Ambre Chaleureux', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_amber_warm_1774033407562.png', primary: '#f59e0b', light: '#fef3c7', isDark: false }
+            { name: 'Ambre Chaleureux', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_amber_warm_1774033407562.png', primary: '#f59e0b', light: '#fef3c7', isDark: false },
+            // 6 New Themes (Royalty-free high-res)
+            { name: 'Forêt Profonde', url: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&q=80&w=1200', primary: '#065f46', light: '#d1fae5', isDark: true },
+            { name: 'Pêche Sunset', url: 'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?auto=format&fit=crop&q=80&w=1200', primary: '#ea580c', light: '#ffedd5', isDark: false },
+            { name: 'Nuit Royale', url: 'https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?auto=format&fit=crop&q=80&w=1200', primary: '#6d28d9', light: '#ede9fe', isDark: true },
+            { name: 'Ciel Pastel', url: 'https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&q=80&w=1200', primary: '#64748b', light: '#f1f5f9', isDark: false },
+            { name: 'Heure Dorée', url: 'https://images.unsplash.com/photo-1502691876148-a84978e59af8?auto=format&fit=crop&q=80&w=1200', primary: '#b45309', light: '#fef3c7', isDark: false },
+            { name: 'Néon Cyber', url: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200', primary: '#06b6d4', light: '#ecfeff', isDark: true }
         ];
 
         function setBackground(idx) {
@@ -4289,20 +4296,20 @@
             const container = document.getElementById('bgThumbnails');
             if (!container) return;
             container.innerHTML = bgConfigs.map((cfg, i) => `
-                <div class="col-4 col-md-2">
+                <div class="col-4 col-md-2 mb-3">
                     <div class="bg-thumb" onclick="setBackground(${i})" style="
                         width: 100%;
-                        aspect-ratio: 16/9;
-                        border-radius: 8px;
+                        aspect-ratio: 1/1;
+                        border-radius: 12px;
                         background: url('${cfg.url}');
                         background-size: cover;
                         background-position: center;
                         cursor: pointer;
                         border: 3px solid transparent;
-                        transition: all 0.3s ease;
+                        transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
                         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                     "></div>
-                    <div style="font-size: 9px; text-align: center; margin-top: 5px; font-weight: 600; color: var(--text-muted)">${cfg.name}</div>
+                    <div style="font-size: 8px; text-align: center; margin-top: 6px; font-weight: 700; color: var(--text-muted); line-height: 1.1; text-transform: uppercase; letter-spacing: 0.2px">${cfg.name}</div>
                 </div>
             `).join('');
             
