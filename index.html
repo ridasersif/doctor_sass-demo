@@ -18,12 +18,13 @@
             --primary: #0ea5e9;
             --primary-dark: #0284c7;
             --primary-light: #e0f2fe;
-            --sidebar-bg: #0f172a;
-            --sidebar-hover: #1e293b;
+            --sidebar-bg: rgba(15, 23, 42, 0.8);
+            --sidebar-hover: rgba(255, 255, 255, 0.08);
             --sidebar-text: #94a3b8;
-            --body-bg: #f0f6ff;
-            --card-bg: #ffffff;
-            --border: #e2e8f0;
+            --body-bg: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(255, 255, 255, 0.4);
+            --border: rgba(0, 0, 0, 0.08);
             --text-main: #0f172a;
             --text-muted: #64748b;
             --success: #10b981;
@@ -31,11 +32,11 @@
             --danger: #ef4444;
             --info: #6366f1;
             --radius: 14px;
-            --shadow: 0 2px 16px rgba(14, 165, 233, 0.07);
-            --shadow-md: 0 8px 32px rgba(14, 165, 233, 0.13);
+            --shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
             --sidebar-w: 260px;
             --topbar-h: 60px;
             --bottom-nav-h: 64px;
+            --glass-blur: 16px;
         }
 
         [data-theme="dark"] {
@@ -589,22 +590,92 @@
         }
 
         /* ══════════════════════════════════
-   STAT CARDS
-══════════════════════════════════ */
-        .stat-card {
+           STAT CARDS
+        ══════════════════════════════════ */
+        .content-card {
             background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 16px 18px;
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
             box-shadow: var(--shadow);
-            border: 1px solid var(--border);
-            position: relative;
+            margin-bottom: 24px;
             overflow: hidden;
-            transition: transform .2s, box-shadow .2s
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md)
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border-radius: 18px;
+            border: 1px solid var(--card-border);
+            padding: 18px 20px;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            transition: all 0.3s;
+        }
+
+        .patient-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 16px;
+            transition: all .25s;
+        }
+
+        .settings-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: transparent;
+        }
+
+        .custom-table thead th {
+            background: rgba(var(--primary-rgb), 0.03);
+            padding: 12px 18px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .custom-table tbody td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-main);
+            vertical-align: middle;
+        }
+
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--topbar-h);
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            padding: 0 16px;
+            transition: left 0.3s, background 0.3s;
         }
 
         .stat-blob {
@@ -658,16 +729,7 @@
             color: var(--danger)
         }
 
-        /* ══════════════════════════════════
-   CONTENT CARDS
-══════════════════════════════════ */
-        .content-card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            overflow: hidden
-        }
+
 
         .card-header-custom {
             padding: 14px 16px;
@@ -988,28 +1050,33 @@
         }
 
         .rdv-block.rdv-primary {
-            background: #e0f2fe;
-            border-color: var(--primary)
+            background: rgba(14, 165, 233, 0.12);
+            border-color: var(--primary);
+            color: var(--text-main);
         }
 
         .rdv-block.rdv-success {
-            background: #d1fae5;
-            border-color: var(--success)
+            background: rgba(16, 185, 129, 0.12);
+            border-color: var(--success);
+            color: var(--text-main);
         }
 
         .rdv-block.rdv-warning {
-            background: #fef3c7;
-            border-color: var(--warning)
+            background: rgba(245, 158, 11, 0.12);
+            border-color: var(--warning);
+            color: var(--text-main);
         }
 
         .rdv-block.rdv-danger {
-            background: #fee2e2;
-            border-color: var(--danger)
+            background: rgba(239, 68, 68, 0.12);
+            border-color: var(--danger);
+            color: var(--text-main);
         }
 
         .rdv-block.rdv-purple {
-            background: #ede9fe;
-            border-color: #8b5cf6
+            background: rgba(139, 92, 246, 0.12);
+            border-color: #8b5cf6;
+            color: var(--text-main);
         }
 
         .rdv-title {
@@ -1552,39 +1619,39 @@
         }
 
         .dev.ec-blue {
-            background: #ede9fe;
+            background: rgba(139, 92, 246, 0.15);
             border-left: 4px solid #8b5cf6;
-            color: #4c1d95
+            color: var(--text-main);
         }
 
         .dev.ec-pink {
-            background: #fce7f3;
+            background: rgba(236, 72, 153, 0.15);
             border-left: 4px solid #ec4899;
-            color: #9d174d
+            color: var(--text-main);
         }
 
         .dev.ec-green {
-            background: #d1fae5;
+            background: rgba(16, 185, 129, 0.15);
             border-left: 4px solid #10b981;
-            color: #065f46
+            color: var(--text-main);
         }
 
         .dev.ec-sky {
-            background: #dbeafe;
+            background: rgba(59, 130, 246, 0.15);
             border-left: 4px solid #3b82f6;
-            color: #1d4ed8
+            color: var(--text-main);
         }
 
         .dev.ec-red {
-            background: #fee2e2;
+            background: rgba(239, 68, 68, 0.15);
             border-left: 4px solid #ef4444;
-            color: #991b1b
+            color: var(--text-main);
         }
 
         .dev.ec-amber {
-            background: #fef3c7;
+            background: rgba(245, 158, 11, 0.15);
             border-left: 4px solid #f59e0b;
-            color: #92400e
+            color: var(--text-main);
         }
 
         .dempty {
@@ -1776,10 +1843,13 @@
    BILLING
 ══════════════════════════════════ */
         .revenue-header {
-            background: linear-gradient(135deg, #0f172a, #1e293b);
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--card-border);
             border-radius: var(--radius);
             padding: 20px;
-            color: #fff;
+            color: var(--text-main);
             position: relative;
             overflow: hidden
         }
@@ -1926,7 +1996,10 @@
 
         .modal-box {
             background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
             border-radius: 20px 20px 0 0;
+            border: 1px solid var(--card-border);
             padding: 0;
             width: 100%;
             max-height: 92vh;
@@ -4170,35 +4243,46 @@
            BACKGROUNDS & ADAPTIVE COLORS
         ══════════════════════════════════ */
         const bgConfigs = [
-            { name: 'Océan Médical', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_medical_blue_1774032563602.png', primary: '#0ea5e9', light: '#e0f2fe' },
-            { name: 'Pureté Clinique', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_clean_white_1774032598993.png', primary: '#64748b', light: '#f1f5f9' },
-            { name: 'Émeraude Zen', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_green_eco_1774032699564.png', primary: '#10b981', light: '#d1fae5' },
-            { name: 'Tech Noire', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_modern_dark_1774032899842.png', primary: '#3b82f6', light: 'rgba(59, 130, 246, 0.15)' },
-            { name: 'Améthyste Calme', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_soft_purple_1774033069751.png', primary: '#8b5cf6', light: '#ede9fe' },
-            { name: 'Ambre Chaleureux', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_amber_warm_1774033407562.png', primary: '#f59e0b', light: '#fef3c7' }
+            { name: 'Océan Médical', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_medical_blue_1774032563602.png', primary: '#0ea5e9', light: '#e0f2fe', isDark: true },
+            { name: 'Pureté Clinique', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_clean_white_1774032598993.png', primary: '#0f172a', light: '#f1f5f9', isDark: false },
+            { name: 'Émeraude Zen', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_green_eco_1774032699564.png', primary: '#10b981', light: '#d1fae5', isDark: false },
+            { name: 'Tech Noire', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_modern_dark_1774032899842.png', primary: '#3b82f6', light: 'rgba(59, 130, 246, 0.15)', isDark: true },
+            { name: 'Améthyste Calme', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_soft_purple_1774033069751.png', primary: '#8b5cf6', light: '#ede9fe', isDark: false },
+            { name: 'Ambre Chaleureux', url: 'C:/Users/sersi/.gemini/antigravity/brain/5cba65f5-50ec-4ef5-a8e5-802df942f8e9/bg_amber_warm_1774033407562.png', primary: '#f59e0b', light: '#fef3c7', isDark: false }
         ];
 
         function setBackground(idx) {
             const cfg = bgConfigs[idx];
             if (!cfg) return;
             
-            // Apply background image
             document.body.style.backgroundImage = `url('${cfg.url}')`;
             
-            // Apply matching colors
-            document.documentElement.style.setProperty('--primary', cfg.primary);
-            document.documentElement.style.setProperty('--primary-light', cfg.light);
+            const root = document.documentElement;
+            root.style.setProperty('--primary', cfg.primary);
+            root.style.setProperty('--primary-light', cfg.light);
             
-            // Persist
+            if (cfg.isDark) {
+                root.style.setProperty('--text-main', '#f8fafc');
+                root.style.setProperty('--text-muted', '#cbd5e1');
+                root.style.setProperty('--card-bg', 'rgba(15, 23, 42, 0.7)');
+                root.style.setProperty('--card-border', 'rgba(255, 255, 255, 0.1)');
+                root.style.setProperty('--border', 'rgba(255, 255, 255, 0.1)');
+                root.style.setProperty('--sidebar-bg', 'rgba(15, 23, 42, 0.85)');
+            } else {
+                root.style.setProperty('--text-main', '#0f172a');
+                root.style.setProperty('--text-muted', '#64748b');
+                root.style.setProperty('--card-bg', 'rgba(255, 255, 255, 0.75)');
+                root.style.setProperty('--card-border', 'rgba(255, 255, 255, 0.5)');
+                root.style.setProperty('--border', 'rgba(0, 0, 0, 0.08)');
+                root.style.setProperty('--sidebar-bg', 'rgba(255, 255, 255, 0.85)');
+            }
+            
             localStorage.setItem('selectedBg', idx);
-            
-            // Update UI focus
             document.querySelectorAll('.bg-thumb').forEach((el, i) => {
                 el.style.borderColor = (i === idx) ? cfg.primary : 'transparent';
                 el.style.transform = (i === idx) ? 'scale(1.05)' : 'scale(1)';
             });
-            
-            showToast(`Ambiance ${cfg.name} activée`, 'info');
+            showToast(`Ambiance ${cfg.name} activée`, 'success');
         }
 
         function renderBgSettings() {
