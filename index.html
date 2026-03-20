@@ -2475,6 +2475,9 @@
             <div class="nav-item"><button class="nav-link-custom active" data-page="dashboard"
                     onclick="navigate('dashboard',this)"><span class="nav-icon"><i
                             class="fa-solid fa-chart-pie"></i></span>Tableau de bord</button></div>
+            <div class="nav-item"><button class="nav-link-custom" data-page="waiting-room"
+                    onclick="navigate('waiting-room',this)"><span class="nav-icon"><i
+                            class="fa-solid fa-clock-rotate-left"></i></span>Salle d'Attente</button></div>
             <div class="nav-item"><button class="nav-link-custom" data-page="agenda"
                     onclick="navigate('agenda',this)"><span class="nav-icon"><i
                             class="fa-solid fa-calendar-days"></i></span>Agenda &amp; RDV</button></div>
@@ -2482,6 +2485,12 @@
                     onclick="navigate('teleconsultation',this)"><span class="nav-icon"><i
                             class="fa-solid fa-video"></i></span>Téléconsultation<span class="nav-badge"
                         style="background:var(--success)">Live</span></button></div>
+            <div class="nav-section-title">Équipe</div>
+            <div class="nav-item">
+                <button class="nav-link-custom" data-page="secretaries" onclick="navigate('secretaries',this)">
+                    <span class="nav-icon"><i class="fa-solid fa-user-tie"></i></span>Secrétaires & Tâches
+                </button>
+            </div>
             <div class="nav-section-title">Médical</div>
             <div class="nav-item"><button class="nav-link-custom" data-page="patients"
                     onclick="navigate('patients',this)"><span class="nav-icon"><i
@@ -2521,9 +2530,9 @@
         </nav>
         <div class="sidebar-footer">
             <div class="sidebar-doctor">
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr Alami">
+                <img src="https://avatars.githubusercontent.com/u/182523649?v=4&size=64" alt="Dr Rida Sersif">
                 <div>
-                    <div class="sidebar-doctor-name">Dr. Amine Alami</div>
+                    <div class="sidebar-doctor-name">Dr. Rida Sersif</div>
                     <div class="sidebar-doctor-role">Médecin Généraliste</div>
                 </div>
             </div>
@@ -2541,8 +2550,8 @@
         <div class="topbar-actions">
             <div class="icon-btn" onclick="navigate('messages',document.querySelector('[data-page=messages]'))"><i
                     class="fa-solid fa-bell"></i><span class="notif-dot" id="notifDot"></span></div>
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" class="doctor-avatar-btn"
-                onclick="navigate('settings',document.querySelector('[data-page=settings]'))" alt="Dr Alami">
+            <img src="https://avatars.githubusercontent.com/u/182523649?v=4&size=64" class="doctor-avatar-btn"
+                onclick="navigate('settings',document.querySelector('[data-page=settings]'))" alt="Dr Rida Sersif">
         </div>
     </header>
 
@@ -2582,7 +2591,7 @@
         <div class="page active" id="page-dashboard">
             <div class="page-header page-header-row">
                 <div>
-                    <h2>Bonjour, Dr. Alami 👋</h2>
+                    <h2>Bonjour, Dr. sersif rida 👋</h2>
                     <p id="dashboard-date">Mercredi 18 Mars 2026</p>
                 </div>
                 <div class="d-flex gap-2 flex-wrap">
@@ -3212,6 +3221,156 @@
         </div><!-- /facturation -->
 
         <!-- ══════ MESSAGES ══════ -->
+        <!-- ══════ SALLE D'ATTENTE ══════ -->
+        <div class="page" id="page-waiting-room">
+            <div class="page-header page-header-row">
+                <div>
+                    <h2>Salle d'Attente</h2>
+                    <p>Gestion en temps réel des patients présents à la clinique</p>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn-ghost" onclick="renderWaitingRoom()"><i class="fa-solid fa-rotate me-1"></i>Actualiser</button>
+                    <button class="btn-primary-custom" onclick="openModal('addToWaitingModal')"><i class="fa-solid fa-plus-circle me-1"></i>Arrivée Patient</button>
+                </div>
+            </div>
+
+            <!-- Waiting Room Stats -->
+            <div class="row g-2 g-md-3 mb-4">
+                <div class="col-4">
+                    <div class="stat-card" style="padding:15px; border: 1px solid var(--border); min-height: auto;">
+                        <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">En Attente</div>
+                        <div id="waitCount" style="font-size:24px; font-weight:700; color:var(--warning); margin-top:2px;">0</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="stat-card" style="padding:15px; border: 1px solid var(--border); min-height: auto;">
+                        <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">En Consultation</div>
+                        <div id="consultCount" style="font-size:24px; font-weight:700; color:var(--success); margin-top:2px;">0</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="stat-card" style="padding:15px; border: 1px solid var(--border); min-height: auto;">
+                        <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Attente Moyenne</div>
+                        <div id="avgWaitTime" style="font-size:24px; font-weight:700; color:var(--primary); margin-top:2px;">-- min</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-12 col-xl-8">
+                    <div class="content-card h-100">
+                        <div class="card-header-custom">
+                            <div class="card-title-main">File d'attente actuelle</div>
+                            <div class="status-badge" style="background:var(--success-light);color:var(--success)">Patient Live Update</div>
+                        </div>
+                        <div class="p-3">
+                            <div id="waitingList" class="row g-3">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-4">
+                    <div class="content-card h-100">
+                        <div class="card-header-custom">
+                            <div class="card-title-main"><i class="fa-solid fa-door-open me-2"></i>Cabinet</div>
+                        </div>
+                        <div class="p-3" id="activeConsultation">
+                            <!-- Current patient in consulting room -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════ SECRÉTAIRES & TÂCHES ══════ -->
+        <div class="page" id="page-secretaries">
+            <div class="page-header page-header-row">
+                <div>
+                    <h2>Gestion de l'équipe</h2>
+                    <p>Missions, performance et coordination du staff</p>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn-ghost" onclick="openModal('newTaskModal')"><i class="fa-solid fa-plus-circle me-1"></i>Nouvelle Tâche</button>
+                    <button class="btn-primary-custom" onclick="openModal('newSecretaryModal')"><i class="fa-solid fa-user-plus me-1"></i>Nouveau Staff</button>
+                </div>
+            </div>
+
+            <!-- Team Stats Row -->
+            <div class="row g-2 g-md-3 mb-3">
+                <div class="col-4">
+                    <div class="stat-card" style="padding:12px 15px; min-height: auto; border: 1px solid var(--border);">
+                        <div style="font-size:9px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Missions Lancées</div>
+                        <div id="statTotalTasks" style="font-size:20px; font-weight:700; color:var(--primary); margin-top:2px;">0</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="stat-card" style="padding:12px 15px; min-height: auto; border: 1px solid var(--border);">
+                        <div style="font-size:9px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Taux de Réussite</div>
+                        <div id="statSuccessRate" style="font-size:20px; font-weight:700; color:var(--success); margin-top:2px;">0%</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="stat-card" style="padding:12px 15px; min-height: auto; border: 1px solid var(--border);">
+                        <div style="font-size:9px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Urgences</div>
+                        <div id="statUrgentTasks" style="font-size:20px; font-weight:700; color:var(--danger); margin-top:2px;">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-12 col-xl-4">
+                    <div class="content-card h-100">
+                        <div class="card-header-custom">
+                            <div class="card-title-main">Staff en service</div>
+                            <span class="status-badge" style="background:var(--primary-light);color:var(--primary)" id="secCount">0 Active</span>
+                        </div>
+                        <div class="p-3">
+                            <div id="secretariesList" class="d-flex flex-column gap-3">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-8">
+                    <div class="content-card h-100">
+                        <div class="card-header-custom">
+                            <div class="card-title-main">Journal des Missions</div>
+                            <div class="d-flex gap-2 align-items-center">
+                                <div class="topbar-search" style="display:block; max-width:180px;">
+                                    <i class="fa-solid fa-magnifying-glass si" style="font-size:10px;"></i>
+                                    <input type="text" placeholder="Filtrer missions..." oninput="filterTasksBySearch(this.value)" style="padding: 5px 10px 5px 30px; font-size:11px;">
+                                </div>
+                                <select class="form-select-custom" onchange="filterTasks(this.value)" style="width: 110px; padding: 4px 8px; font-size: 11px;">
+                                    <option value="all">Toutes</option>
+                                    <option value="Pending">En cours</option>
+                                    <option value="Done">Terminées</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Mission</th>
+                                        <th>Catégorie</th>
+                                        <th>Assignée à</th>
+                                        <th>Priorité</th>
+                                        <th>Échéance</th>
+                                        <th>Statut</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tasksTableBody">
+                                    <!-- Rendered via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="page" id="page-messages">
             <div class="page-header page-header-row">
                 <div>
@@ -3791,10 +3950,10 @@
             <div class="row g-3">
                 <div class="col-12 col-lg-4">
                     <div class="settings-section text-center" style="padding:22px">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg"
+                        <img src="https://avatars.githubusercontent.com/u/182523649?v=4&size=64"
                             style="width:80px;height:80px;border-radius:18px;object-fit:cover;border:3px solid var(--primary);margin-bottom:12px"
                             alt="">
-                        <div style="font-family:'Space Grotesk';font-size:17px;font-weight:700">Dr. Amine Alami</div>
+                        <div style="font-family:'Space Grotesk';font-size:17px;font-weight:700">Dr. Rida Sersif</div>
                         <div style="font-size:12.5px;color:var(--text-muted);margin-top:3px">Médecin Généraliste</div>
                         <div style="font-size:11.5px;color:var(--text-muted);margin-top:2px"><i
                                 class="fa-solid fa-location-dot me-1"></i>Casablanca</div>
@@ -3949,6 +4108,144 @@
     </main>
 
     <!-- ══ MODALS ══ -->
+    <!-- New Secretary -->
+    <div class="modal-overlay" id="newSecretaryModal">
+        <div class="modal-box">
+            <div class="modal-drag-handle"></div>
+            <div class="modal-header">
+                <div class="modal-title"><i class="fa-solid fa-user-plus me-2" style="color:var(--primary)"></i>Nouveau membre du staff</div>
+                <button class="modal-close" onclick="closeModal('newSecretaryModal')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label-custom">Nom complet *</label>
+                    <input type="text" class="form-control-custom" id="secName" placeholder="Mme. Selma Alaoui">
+                </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label-custom">Téléphone</label>
+                            <input type="tel" class="form-control-custom" id="secPhone" placeholder="+212 6 XX XX XX XX">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label-custom">Shift</label>
+                            <select class="form-select-custom" id="secShift">
+                                <option>Matin (08h-14h)</option>
+                                <option>Après-midi (14h-20h)</option>
+                                <option>Plein temps</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label-custom">Avatar (URL)</label>
+                    <input type="text" class="form-control-custom" id="secAvatar" placeholder="https://randomuser.me/api/portraits/women/XX.jpg">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-ghost" onclick="closeModal('newSecretaryModal')">Annuler</button>
+                <button class="btn-primary-custom" onclick="saveSecretary()"><i class="fa-solid fa-check me-1"></i>Ajouter</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Task -->
+    <div class="modal-overlay" id="newTaskModal">
+        <div class="modal-box">
+            <div class="modal-drag-handle"></div>
+            <div class="modal-header">
+                <div class="modal-title"><i class="fa-solid fa-list-check me-2" style="color:var(--warning)"></i>Attribuer une mission</div>
+                <button class="modal-close" onclick="closeModal('newTaskModal')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label-custom">Intitulé de la mission *</label>
+                    <input type="text" class="form-control-custom" id="taskTitle" placeholder="ex: Relance factures impayées">
+                </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label-custom">Assignée à *</label>
+                            <select class="form-select-custom" id="taskAssignee">
+                                <!-- Options via JS -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label-custom">Catégorie</label>
+                            <select class="form-select-custom" id="taskCategory">
+                                <option>Administratif</option>
+                                <option>Médical</option>
+                                <option>Logistique</option>
+                                <option>Appels</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label-custom">Priorité</label>
+                            <select class="form-select-custom" id="taskPriority">
+                                <option value="Haute">🔴 Haute</option>
+                                <option value="Moyenne" selected>🟠 Moyenne</option>
+                                <option value="Basse">🔵 Basse</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label-custom">Échéance</label>
+                            <input type="date" class="form-control-custom" id="taskDeadline" value="2026-03-20">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label-custom">Notes / Instructions</label>
+                    <textarea class="form-control-custom" id="taskNotes" rows="2" placeholder="Détails supplémentaires..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-ghost" onclick="closeModal('newTaskModal')">Annuler</button>
+                <button class="btn-primary-custom" onclick="saveTask()"><i class="fa-solid fa-paper-plane me-1"></i>Assigner</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to Waitlist -->
+    <div class="modal-overlay" id="addToWaitingModal">
+        <div class="modal-box">
+            <div class="modal-drag-handle"></div>
+            <div class="modal-header">
+                <div class="modal-title"><i class="fa-solid fa-clock me-2" style="color:var(--primary)"></i>Enregistrer une arrivée</div>
+                <button class="modal-close" onclick="closeModal('addToWaitingModal')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label-custom">Sélectionner un patient *</label>
+                    <select class="form-select-custom" id="waitPatientId">
+                        <!-- Options via JS -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label-custom">Motif / Urgence</label>
+                    <select class="form-select-custom" id="waitUrgency">
+                        <option value="Normal">Normal</option>
+                        <option value="Urgent">Urgent 🔴</option>
+                        <option value="Suivi">Suivi Simple</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-ghost" onclick="closeModal('addToWaitingModal')">Annuler</button>
+                <button class="btn-primary-custom" onclick="addToWaitlist()"><i class="fa-solid fa-check me-1"></i>Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
     <!-- New RDV -->
     <div class="modal-overlay" id="newRdvModal">
         <div class="modal-box">
@@ -4239,7 +4536,7 @@
         /* ══════════════════════════════════
            NAVIGATION
         ══════════════════════════════════ */
-        const pageTitles = { dashboard: 'Tableau de bord', agenda: 'Agenda & Rendez-vous', teleconsultation: 'Téléconsultation', patients: 'Gestion des Patients', dossiers: 'Dossiers Médicaux', ordonnances: 'Ordonnances', laboratoire: 'Analyses & Labo', facturation: 'Facturation & Honoraires', stock: 'Stock & Matériel', charges: 'Gestion des Charges', messages: 'Communications', rapports: 'Statistiques', settings: 'Configuration' };
+        const pageTitles = { dashboard: 'Tableau de bord', 'waiting-room': 'Salle d\'Attente', agenda: 'Agenda & Rendez-vous', teleconsultation: 'Téléconsultation', patients: 'Gestion des Patients', dossiers: 'Dossiers Médicaux', ordonnances: 'Ordonnances', laboratoire: 'Analyses & Labo', facturation: 'Facturation & Honoraires', stock: 'Stock & Matériel', charges: 'Gestion des Charges', messages: 'Communications', rapports: 'Statistiques', settings: 'Configuration', secretaries: 'Gestion de l\'équipe' };
         function navigate(pageId, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
@@ -4381,10 +4678,9 @@
             
             // Check persistence
             const saved = localStorage.getItem('selectedBg');
-            if (saved !== null) {
-                // We'll apply it after a small delay to ensure CSS is ready
-                setTimeout(() => setBackground(parseInt(saved)), 100);
-            }
+            const initialIdx = (saved !== null) ? parseInt(saved) : 1;
+            // We'll apply it after a small delay to ensure CSS is ready
+            setTimeout(() => setBackground(initialIdx), 100);
         }
 
         /* ══════════════════════════════════
@@ -4414,6 +4710,303 @@
             showToast(`Facture créée — ${p} — ${m || '0'} DH`, 'success');
         }
         function handleSearch(v) { if (v.length >= 2) showToast(`Recherche: "${v}"…`, 'info', 1500); }
+
+        /* ══════════════════════════════════
+           SALLE D'ATTENTE
+        ══════════════════════════════════ */
+        let waitingRoomData = JSON.parse(localStorage.getItem('waitingRoomData_v3')) || [
+            { id: 501, patientId: 'PT-0047', startTime: new Date().getTime() - 25 * 60000, status: 'Waiting', urgency: 'Normal' },
+            { id: 502, patientId: 'PT-0112', startTime: new Date().getTime() - 18 * 60000, status: 'Waiting', urgency: 'Urgent' },
+            { id: 503, patientId: 'PT-0088', startTime: new Date().getTime() - 12 * 60000, status: 'Consulting', urgency: 'Normal' },
+            { id: 504, patientId: 'PT-0031', startTime: new Date().getTime() - 8 * 60000, status: 'Waiting', urgency: 'Normal' },
+            { id: 505, patientId: 'PT-0203', startTime: new Date().getTime() - 2 * 60000, status: 'Waiting', urgency: 'Normal' }
+        ];
+
+        function saveWaitLocal() { localStorage.setItem('waitingRoomData_v3', JSON.stringify(waitingRoomData)); }
+
+        function renderWaitingRoom() {
+            const list = document.getElementById('waitingList');
+            const activeDiv = document.getElementById('activeConsultation');
+            if (!list) return;
+
+            const waiting = waitingRoomData.filter(w => w.status === 'Waiting');
+            const consulting = waitingRoomData.filter(w => w.status === 'Consulting');
+
+            document.getElementById('waitCount').textContent = waiting.length;
+            document.getElementById('consultCount').textContent = consulting.length;
+
+            list.innerHTML = waiting.map(w => {
+                const p = patientsData.find(pt => pt.id === w.patientId) || { name: 'Patient Inconnu', photo: 'https://randomuser.me/api/portraits/men/1.jpg' };
+                const waitMin = Math.floor((new Date().getTime() - w.startTime) / 60000);
+                const photoSrc = p.img ? (p.img.includes('http') ? p.img : 'https://randomuser.me/api/portraits/'+p.img+'.jpg') : 'https://randomuser.me/api/portraits/men/1.jpg';
+                
+                return `
+                <div class="col-12 col-md-6">
+                    <div class="d-flex align-items-center gap-3 p-3" style="background:rgba(255,255,255,0.4); border-radius:16px; border:1px solid ${w.urgency === 'Urgent' ? 'rgba(239, 68, 68, 0.3)' : 'var(--border)'};">
+                        <img src="${photoSrc}" style="width:50px; height:50px; border-radius:12px; object-fit:cover;">
+                        <div style="flex:1">
+                            <div style="font-weight:700; font-size:14px;">${p.name}</div>
+                            <div class="d-flex align-items-center gap-2" style="font-size:11px; color:var(--text-muted); margin-top:2px;">
+                                <i class="fa-regular fa-clock"></i> Arrivé il y a ${waitMin} min
+                                ${w.urgency === 'Urgent' ? '<span class="status-badge" style="background:#fee2e2; color:#ef4444; font-size:9px; padding:2px 6px;">URGENT</span>' : ''}
+                            </div>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <button class="btn-icon-sm" title="Appeler" onclick="startConsultation(${w.id})"><i class="fa-solid fa-door-open"></i></button>
+                            <button class="btn-icon-sm danger" onclick="removeFromWaitlist(${w.id})"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('') || '<div class="col-12 text-center p-5 text-muted">Aucun patient en attente</div>';
+
+            activeDiv.innerHTML = consulting.map(w => {
+                const p = patientsData.find(pt => pt.id === w.patientId) || { name: 'Patient Inconnu', photo: 'https://randomuser.me/api/portraits/men/1.jpg' };
+                const photoSrc = p.img ? (p.img.includes('http') ? p.img : 'https://randomuser.me/api/portraits/'+p.img+'.jpg') : 'https://randomuser.me/api/portraits/men/1.jpg';
+                return `
+                <div class="text-center p-4" style="background:rgba(16, 185, 129, 0.05); border-radius:20px; border:2px dashed var(--success);">
+                    <img src="${photoSrc}" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:3px solid white; box-shadow:0 10px 20px rgba(0,0,0,0.1);">
+                    <div style="font-weight:700; font-size:18px; margin-top:15px; color:var(--success)">${p.name}</div>
+                    <div style="font-size:11px; color:var(--success); font-weight:700; margin-top:5px; text-transform:uppercase; letter-spacing:1px;">En Consultation</div>
+                    <button class="btn-primary-custom mt-4 w-100" onclick="endConsultation(${w.id})" style="background:var(--success); border-color:var(--success)">
+                        <i class="fa-solid fa-check-circle me-1"></i>Terminer la séance
+                    </button>
+                </div>
+                `;
+            }).join('') || '<div class="text-center p-5 text-muted" style="border:1px dashed var(--border); border-radius:20px; font-size:12px;">Cabinet disponible pour le prochain patient</div>';
+
+            if (waiting.length > 0) {
+                const totalWait = waiting.reduce((acc, curr) => acc + (new Date().getTime() - curr.startTime), 0);
+                const avg = Math.floor((totalWait / waiting.length) / 60000);
+                document.getElementById('avgWaitTime').textContent = avg + ' min';
+            } else {
+                document.getElementById('avgWaitTime').textContent = '-- min';
+            }
+        }
+
+        function addToWaitlist() {
+            const pId = document.getElementById('waitPatientId').value;
+            const urgency = document.getElementById('waitUrgency').value;
+            waitingRoomData.push({ id: Date.now(), patientId: pId, startTime: new Date().getTime(), status: 'Waiting', urgency });
+            saveWaitLocal();
+            renderWaitingRoom();
+            closeModal('addToWaitingModal');
+            showToast('Patient enregistré', 'success');
+        }
+
+        function startConsultation(id) {
+            waitingRoomData.forEach(w => { if(w.status === 'Consulting') w.status = 'Finished'; });
+            const w = waitingRoomData.find(item => item.id === id);
+            if (w) { w.status = 'Consulting'; saveWaitLocal(); renderWaitingRoom(); showToast('Patient appelé au cabinet', 'info'); }
+        }
+
+        function endConsultation(id) {
+            const w = waitingRoomData.find(item => item.id === id);
+            if (w) { w.status = 'Finished'; saveWaitLocal(); renderWaitingRoom(); showToast('Consultation terminée', 'success'); }
+        }
+
+        function removeFromWaitlist(id) {
+            showConfirm('Retirer de la salle d\'attente?', 'Le patient ne sera plus affiché.', 'danger', () => {
+                waitingRoomData = waitingRoomData.filter(w => w.id !== id);
+                saveWaitLocal();
+                renderWaitingRoom();
+            });
+        }
+
+        function quickAddToWaitlist(pId) {
+            waitingRoomData.push({ id: Date.now(), patientId: pId, startTime: new Date().getTime(), status: 'Waiting', urgency: 'Normal' });
+            saveWaitLocal();
+            renderWaitingRoom();
+            showToast('Patient ajouté à la salle d\'attente', 'success');
+        }
+
+        /* ══════════════════════════════════
+           SECRETAIRES & TÂCHES
+        ══════════════════════════════════ */
+        let secretariesData = JSON.parse(localStorage.getItem('secretariesData')) || [
+            { id: 1, name: 'Mme. Fatima Zahra', phone: '+212 6 61 00 11 22', avatar: 'women/12', shift: 'Matin (08h-14h)', status: 'Active', lastActivity: 'Il y a 5 min' },
+            { id: 2, name: 'Mme. Sanae Bennani', phone: '+212 6 62 33 44 55', avatar: 'women/25', shift: 'Après-midi (14h-20h)', status: 'Active', lastActivity: 'Il y a 1h' }
+        ];
+
+        let tasksData = JSON.parse(localStorage.getItem('tasksData')) || [
+            { id: 101, title: 'Relance factures impayées', category: 'Administratif', assignee: 'Mme. Fatima Zahra', priority: '🔴 Haute', deadline: '2026-03-20', status: 'Pending', notes: 'Voir liste dans le dossier finance' },
+            { id: 102, title: 'Préparation dossiers chirurgie', category: 'Médical', assignee: 'Mme. Sanae Bennani', priority: '🟠 Moyenne', deadline: '2026-03-20', status: 'Pending', notes: 'Vérifier les consentements' },
+            { id: 103, title: 'Inventaire pharmacie', category: 'Logistique', assignee: 'Mme. Fatima Zahra', priority: '🔵 Basse', deadline: '2026-03-22', status: 'Done', notes: '' }
+        ];
+
+        function saveSecLocal() { localStorage.setItem('secretariesData', JSON.stringify(secretariesData)); }
+        function saveTaskLocal() { localStorage.setItem('tasksData', JSON.stringify(tasksData)); }
+
+        function renderSecretaries() {
+            const list = document.getElementById('secretariesList');
+            if (!list) return;
+            const activeCount = secretariesData.filter(s => s.status === 'Active').length;
+            document.getElementById('secCount').textContent = `${activeCount} Active${activeCount !== 1 ? 's' : ''}`;
+            
+            list.innerHTML = secretariesData.map(s => {
+                const myTasks = tasksData.filter(t => t.assignee === s.name);
+                const total = myTasks.length;
+                const done = myTasks.filter(t => t.status === 'Done').length;
+                const progress = total === 0 ? 0 : Math.round((done / total) * 100);
+                
+                return `
+                <div class="d-flex flex-column gap-2 p-3" style="background:rgba(255,255,255,0.4); border-radius:14px; border:1px solid var(--border); transition:all 0.3s ease;">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="${s.avatar.includes('http') ? s.avatar : 'https://randomuser.me/api/portraits/' + s.avatar + '.jpg'}" style="width:44px; height:44px; border-radius:12px; object-fit:cover; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+                        <div style="flex:1">
+                            <div style="font-size:13.5px; font-weight:700">${s.name}</div>
+                            <div style="font-size:10.5px; color:var(--text-muted)">${s.shift} • ${s.lastActivity}</div>
+                        </div>
+                        <div class="d-flex gap-1">
+                            <div class="btn-icon-sm" title="Mission" onclick="openTaskModalFor('${s.name}')"><i class="fa-solid fa-plus" style="font-size:10px;"></i></div>
+                            <div class="btn-icon-sm danger" onclick="deleteSecretary(${s.id})"><i class="fa-solid fa-trash" style="font-size:10px;"></i></div>
+                        </div>
+                    </div>
+                    <div style="margin-top:5px;">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span style="font-size:10px; font-weight:600; color:var(--text-muted)">Progression missions</span>
+                            <span style="font-size:10px; font-weight:700; color:var(--primary)">${progress}%</span>
+                        </div>
+                        <div style="height:4px; background:rgba(0,0,0,0.05); border-radius:10px; overflow:hidden;">
+                            <div style="width:${progress}%; height:100%; background:var(--primary); transition:width 0.5s ease;"></div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            const select = document.getElementById('taskAssignee');
+            if (select) {
+                select.innerHTML = secretariesData.map(s => `<option value="${s.name}">${s.name}</option>`).join('');
+            }
+        }
+
+        function renderTasks(filter = 'all', searchQuery = '') {
+            const tbody = document.getElementById('tasksTableBody');
+            if (!tbody) return;
+            
+            let filtered = tasksData.filter(t => filter === 'all' || t.status === filter);
+            if (searchQuery) {
+                const q = searchQuery.toLowerCase();
+                filtered = filtered.filter(t => t.title.toLowerCase().includes(q) || t.assignee.toLowerCase().includes(q) || t.category.toLowerCase().includes(q));
+            }
+            
+            tbody.innerHTML = filtered.map(t => {
+                const prioColor = t.priority.includes('🔴') ? '#ef4444' : t.priority.includes('🟠') ? '#f59e0b' : '#3b82f6';
+                const catColor = t.category === 'Médical' ? 'var(--success)' : t.category === 'Administratif' ? 'var(--primary)' : 'var(--warning)';
+                
+                return `
+                <tr>
+                    <td>
+                        <div style="font-weight:700; font-size:12.5px">${t.title}</div>
+                        ${t.notes ? `<div style="font-size:10px; color:var(--text-muted); margin-top:2px; font-style:italic;">${t.notes}</div>` : ''}
+                    </td>
+                    <td><span class="status-badge" style="background:rgba(0,0,0,0.02); color:${catColor}; border:1px solid ${catColor}40; font-size:10px;">${t.category}</span></td>
+                    <td><div style="font-size:12px; font-weight:600;">${t.assignee}</div></td>
+                    <td><div style="display:flex; align-items:center; gap:6px; font-size:11.5px; font-weight:600;"><span style="width:8px; height:8px; border-radius:50%; background:${prioColor}"></span>${t.priority.replace(/[🔴🟠🔵]/g, '')}</div></td>
+                    <td><div style="font-size:11px; color:var(--text-muted)">${t.deadline}</div></td>
+                    <td><span class="status-badge ${t.status === 'Done' ? 'badge-confirme' : 'badge-attente'}" style="font-size:10px;">${t.status === 'Done' ? 'Terminée' : 'En cours'}</span></td>
+                    <td style="text-align:right">
+                        <div class="d-flex gap-1 justify-content-end">
+                            ${t.status !== 'Done' ? `<button class="btn-icon-sm" title="Terminer" onclick="markTaskDone(${t.id})" style="width:26px; height:26px;"><i class="fa-solid fa-check"></i></button>` : ''}
+                            <button class="btn-icon-sm danger" onclick="deleteTask(${t.id})" style="width:26px; height:26px;"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                </tr>
+                `;
+            }).join('');
+            renderTaskStats();
+        }
+
+        function renderTaskStats() {
+            const total = tasksData.length;
+            const done = tasksData.filter(t => t.status === 'Done').length;
+            const high = tasksData.filter(t => t.priority.includes('🔴') && t.status !== 'Done').length;
+            const rate = total === 0 ? 0 : Math.round((done / total) * 100);
+            
+            const elTotal = document.getElementById('statTotalTasks');
+            const elRate = document.getElementById('statSuccessRate');
+            const elUrgent = document.getElementById('statUrgentTasks');
+            
+            if (elTotal) elTotal.textContent = total;
+            if (elRate) elRate.textContent = rate + '%';
+            if (elUrgent) elUrgent.textContent = high;
+        }
+
+        function filterTasksBySearch(q) {
+            const currentFilter = document.querySelector('#page-secretaries select[onchange*="filterTasks"]').value;
+            renderTasks(currentFilter, q);
+        }
+
+        function openTaskModalFor(name) {
+            document.getElementById('taskAssignee').value = name;
+            openModal('newTaskModal');
+        }
+
+        function saveSecretary() {
+            const name = document.getElementById('secName').value.trim();
+            if (!name) { showToast('Le nom est obligatoire', 'error'); return; }
+            const shift = document.getElementById('secShift').value;
+            const avatar = document.getElementById('secAvatar').value || 'women/'+(Math.floor(Math.random()*50));
+            secretariesData.push({ id: Date.now(), name, shift, avatar, status: 'Active', lastActivity: 'En ligne' });
+            saveSecLocal();
+            renderSecretaries();
+            closeModal('newSecretaryModal');
+            showToast('Nouveau membre ajouté', 'success');
+        }
+
+        function saveTask() {
+            const title = document.getElementById('taskTitle').value.trim();
+            if (!title) { showToast('L\'intitulé est obligatoire', 'error'); return; }
+            const assignee = document.getElementById('taskAssignee').value;
+            const category = document.getElementById('taskCategory').value;
+            const priority = document.getElementById('taskPriority').value;
+            const deadline = document.getElementById('taskDeadline').value;
+            const notes = document.getElementById('taskNotes').value.trim();
+            
+            tasksData.unshift({ id: Date.now(), title, category, assignee, priority, deadline, status: 'Pending', notes });
+            saveTaskLocal();
+            renderTasks();
+            renderSecretaries();
+            closeModal('newTaskModal');
+            showToast('Mission assignée avec succès', 'success');
+            
+            // Clear
+            document.getElementById('taskTitle').value = '';
+            document.getElementById('taskNotes').value = '';
+        }
+
+        function markTaskDone(id) {
+            const task = tasksData.find(t => t.id === id);
+            if (task) { 
+                task.status = 'Done'; 
+                saveTaskLocal();
+                renderTasks(); 
+                renderSecretaries();
+                showToast('Mission accomplie!', 'success'); 
+            }
+        }
+
+        function deleteTask(id) {
+            showConfirm('Supprimer cette mission?', 'Cette action est définitive.', 'danger', () => {
+                tasksData = tasksData.filter(t => t.id !== id);
+                saveTaskLocal();
+                renderTasks();
+                renderSecretaries();
+                showToast('Mission supprimée', 'warning');
+            });
+        }
+
+        function deleteSecretary(id) {
+            showConfirm('Supprimer ce membre?', 'Ses missions resteront mais il ne sera plus dans la liste.', 'danger', () => {
+                secretariesData = secretariesData.filter(s => s.id !== id);
+                saveSecLocal();
+                renderSecretaries();
+                showToast('Membre retiré', 'warning');
+            });
+        }
+
+        function filterTasks(v) { renderTasks(v); }
 
         /* ══════════════════════════════════
            PATIENTS GRID
@@ -4446,6 +5039,7 @@
         <div class="d-flex gap-1">
           <div class="btn-icon-sm" onclick="openModal('dossierModal')"><i class="fa-solid fa-folder-open"></i></div>
           <div class="btn-icon-sm" onclick="openModal('newRdvModal')"><i class="fa-solid fa-calendar-plus"></i></div>
+          <div class="btn-icon-sm" title="Marquer Arrivé" onclick="quickAddToWaitlist(${p.id})"><i class="fa-solid fa-clock"></i></div>
           <div class="btn-icon-sm danger" onclick="showConfirm('Supprimer ce patient?','Cette action est irréversible.','danger',()=>showToast('Patient supprimé','warning'))"><i class="fa-solid fa-trash"></i></div>
         </div>
       </div>
@@ -4779,6 +5373,19 @@
             renderChat();
             renderCharges();
             renderBgSettings();
+            renderSecretaries();
+            renderTasks();
+            renderWaitingRoom();
+            
+            // Populate Waiting Room Patient Select
+            const wSelect = document.getElementById('waitPatientId');
+            if (wSelect) {
+                wSelect.innerHTML = patientsData.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+            }
+            
+            // Auto update wait times every minute
+            setInterval(renderWaitingRoom, 60000);
+
             _renderCal();
             setTimeout(() => {
                 document.querySelectorAll('.progress-bar-custom').forEach(b => { const w = b.style.width; b.style.width = '0'; setTimeout(() => b.style.width = w, 100); });
@@ -4786,5 +5393,4 @@
         });
     </script>
 </body>
-
 </html>
