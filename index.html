@@ -2323,6 +2323,9 @@
             <div class="nav-item"><button class="nav-link-custom" data-page="stock"
                     onclick="navigate('stock',this)"><span class="nav-icon"><i
                             class="fa-solid fa-boxes-stacked"></i></span>Stock &amp; Matériel</button></div>
+            <div class="nav-item"><button class="nav-link-custom" data-page="charges"
+                    onclick="navigate('charges',this)"><span class="nav-icon"><i
+                            class="fa-solid fa-wallet"></i></span>Gestion des Charges</button></div>
             <div class="nav-section-title">Communication</div>
             <div class="nav-item"><button class="nav-link-custom" data-page="messages"
                     onclick="navigate('messages',this)"><span class="nav-icon"><i
@@ -2372,6 +2375,10 @@
         <button class="bn-item" data-page="agenda" onclick="navigate('agenda',this);setBottomActive(this)">
             <span class="bn-icon"><i class="fa-solid fa-calendar-days"></i></span>
             <span class="bn-label">Agenda</span>
+        </button>
+        <button class="bn-item" data-page="charges" onclick="navigate('charges',this);setBottomActive(this)">
+            <span class="bn-icon"><i class="fa-solid fa-wallet"></i></span>
+            <span class="bn-label">Charges</span>
         </button>
         <button class="bn-item" data-page="patients" onclick="navigate('patients',this);setBottomActive(this)">
             <span class="bn-icon"><i class="fa-solid fa-users"></i></span>
@@ -3411,6 +3418,87 @@
                 </div>
             </div>
         </div><!-- /stock -->
+        
+        <!-- ══════ CHARGES ══════ -->
+        <div class="page" id="page-charges">
+            <div class="page-header page-header-row">
+                <div>
+                    <h2>Gestion des Charges</h2>
+                    <p>Dépenses et frais du cabinet</p>
+                </div>
+                <button class="btn-primary-custom" onclick="openModal('newChargeModal')"><i
+                        class="fa-solid fa-plus me-1"></i>Nouvelle Charge</button>
+            </div>
+            
+            <div class="row g-2 g-md-3 mb-3">
+                <div class="col-4">
+                    <div class="content-card p-3 text-center">
+                        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;margin-bottom:5px">Total Mars</div>
+                        <div style="font-size:22px;font-weight:700;font-family:'Space Grotesk';color:var(--danger)">15,630 <span style="font-size:12px">DH</span></div>
+                        <div style="font-size:10.5px;color:var(--success);margin-top:4px"><i class="fa-solid fa-arrow-trend-down me-1"></i>-2.4% <span style="color:var(--text-muted)">vs Fév</span></div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="content-card p-3 text-center">
+                        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;margin-bottom:5px">En Attente</div>
+                        <div style="font-size:22px;font-weight:700;font-family:'Space Grotesk';color:var(--warning)">1,800 <span style="font-size:12px">DH</span></div>
+                        <div style="font-size:10.5px;color:var(--text-muted);margin-top:4px">1 facture à régler</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="content-card p-3 text-center">
+                        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;margin-bottom:5px">Fixes / Mois</div>
+                        <div style="font-size:22px;font-weight:700;font-family:'Space Grotesk';color:var(--primary)">12,000 <span style="font-size:12px">DH</span></div>
+                        <div style="font-size:10.5px;color:var(--text-muted);margin-top:4px">Loyer + Salaires</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-12 col-lg-8">
+                    <div class="content-card">
+                        <div class="card-header-custom">
+                            <div class="card-title-main">Historique des Dépenses</div>
+                            <div class="d-flex gap-2">
+                                <select class="form-select-custom py-1 px-2" style="font-size:11px;width:auto">
+                                    <option>Mars 2026</option>
+                                    <option>Février 2026</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="custom-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Catégorie</th>
+                                        <th>Désignation</th>
+                                        <th>Montant</th>
+                                        <th>Statut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="chargesTableBody">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="content-card p-3">
+                        <div class="card-title-main mb-3">Répartition par poste</div>
+                        <div id="chargesStats">
+                            <!-- Populated by JS -->
+                        </div>
+                        <div class="divider"></div>
+                        <div class="text-center">
+                            <button class="btn-ghost w-100" onclick="showToast('Génération du rapport financier…','info')"><i class="fa-solid fa-file-pdf me-1"></i>Exporter le bilan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /charges -->
 
         <!-- ══════ RAPPORTS ══════ -->
         <div class="page" id="page-rapports">
@@ -3854,6 +3942,61 @@
         </div>
     </div>
 
+    <!-- New Charge -->
+    <div class="modal-overlay" id="newChargeModal">
+        <div class="modal-box">
+            <div class="modal-drag-handle"></div>
+            <div class="modal-header">
+                <div class="modal-title"><i class="fa-solid fa-wallet me-2" style="color:var(--danger)"></i>Nouvelle Charge</div>
+                <button class="modal-close" onclick="closeModal('newChargeModal')"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label-custom">Catégorie</label>
+                    <select class="form-select-custom" id="chCategory">
+                        <option>Loyer</option>
+                        <option>Salaires</option>
+                        <option>Eau & Électricité</option>
+                        <option>Syndic</option>
+                        <option>Consommables</option>
+                        <option>Taxes & TVA</option>
+                        <option>Maintenance</option>
+                        <option>Autres</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label-custom">Désignation *</label>
+                    <input type="text" class="form-control-custom" id="chTitle" placeholder="ex: Facture Lydec Mars">
+                </div>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label-custom">Montant (DH) *</label>
+                            <input type="number" class="form-control-custom" id="chAmount" placeholder="0.00">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label class="form-label-custom">Date de paiement</label>
+                            <input type="date" class="form-control-custom" id="chDate" value="2026-03-20">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label-custom">Statut</label>
+                    <select class="form-select-custom" id="chStatus">
+                        <option value="Paid">Payé</option>
+                        <option value="Pending">En attente</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-ghost" onclick="closeModal('newChargeModal')">Annuler</button>
+                <button class="btn-primary-custom" onclick="saveCharge()"><i class="fa-solid fa-check me-1"></i>Enregistrer</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Confirm -->
     <div class="confirm-overlay" id="confirmOverlay">
         <div class="confirm-box">
@@ -3908,7 +4051,7 @@
         /* ══════════════════════════════════
            NAVIGATION
         ══════════════════════════════════ */
-        const pageTitles = { dashboard: 'Tableau de bord', agenda: 'Agenda & Rendez-vous', teleconsultation: 'Téléconsultation', patients: 'Gestion des Patients', dossiers: 'Dossiers Médicaux', ordonnances: 'Ordonnances', laboratoire: 'Analyses & Labo', facturation: 'Facturation & Honoraires', stock: 'Stock & Matériel', messages: 'Communications', rapports: 'Statistiques', settings: 'Configuration' };
+        const pageTitles = { dashboard: 'Tableau de bord', agenda: 'Agenda & Rendez-vous', teleconsultation: 'Téléconsultation', patients: 'Gestion des Patients', dossiers: 'Dossiers Médicaux', ordonnances: 'Ordonnances', laboratoire: 'Analyses & Labo', facturation: 'Facturation & Honoraires', stock: 'Stock & Matériel', charges: 'Gestion des Charges', messages: 'Communications', rapports: 'Statistiques', settings: 'Configuration' };
         function navigate(pageId, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
@@ -4120,6 +4263,93 @@
         }
 
         /* ══════════════════════════════════
+           CHARGES (EXPENSES)
+        ══════════════════════════════════ */
+        let chargesData = [
+            { id: 1, date: '01/03/2026', category: 'Loyer', title: 'Loyal du cabinet - Mars', amount: 7500, status: 'Paid', color: 'var(--primary)' },
+            { id: 2, date: '05/03/2026', category: 'Salaires', title: 'Salaire Secrétaire (Fatima)', amount: 4200, status: 'Paid', color: 'var(--success)' },
+            { id: 3, date: '10/03/2026', category: 'Eau & Élec', title: 'Facture Lydec (Eau/Elec)', amount: 580, status: 'Paid', color: 'var(--info)' },
+            { id: 4, date: '12/03/2026', category: 'Syndic', title: 'Frais de syndic de l\'immeuble', amount: 300, status: 'Paid', color: 'var(--warning)' },
+            { id: 5, date: '15/03/2026', category: 'Consommables', title: 'Achat Gants & Compresses', amount: 1250, status: 'Paid', color: 'var(--purple)' },
+            { id: 6, date: '18/03/2026', category: 'Taxes', title: 'Taxe Professionnelle (Prov.)', amount: 1800, status: 'Pending', color: 'var(--danger)' },
+        ];
+
+        function renderCharges() {
+            const tbody = document.getElementById('chargesTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = chargesData.map(c => `
+                <tr>
+                    <td><span style="font-size:11.5px;color:var(--text-muted)">${c.date}</span></td>
+                    <td><span class="status-badge" style="background:var(--primary-light);color:var(--primary);border:none">${c.category}</span></td>
+                    <td><div style="font-weight:600">${c.title}</div></td>
+                    <td><span style="font-weight:700">${c.amount.toLocaleString()} DH</span></td>
+                    <td><span class="status-badge ${c.status === 'Paid' ? 'badge-confirme' : 'badge-attente'}">${c.status === 'Paid' ? 'Payé' : 'En attente'}</span></td>
+                    <td>
+                        <div class="d-flex gap-1">
+                            <div class="btn-icon-sm"><i class="fa-solid fa-pen"></i></div>
+                            <div class="btn-icon-sm danger" onclick="deleteCharge(${c.id})"><i class="fa-solid fa-trash"></i></div>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+
+            // Render distribution
+            const stats = document.getElementById('chargesStats');
+            if (!stats) return;
+            const groups = {
+                'Fixes (Loyal/Salaires)': { amount: 11700, color: 'var(--primary)', p: 75 },
+                'Utilités & Eau': { amount: 580, color: 'var(--info)', p: 4 },
+                'Consommables': { amount: 1250, color: 'var(--success)', p: 8 },
+                'Taxes & Autres': { amount: 2100, color: 'var(--danger)', p: 13 }
+            };
+            stats.innerHTML = Object.entries(groups).map(([name, data]) => `
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span style="font-size:11.5px;font-weight:600">${name}</span>
+                        <span style="font-size:11.5px;font-weight:700">${data.amount} DH</span>
+                    </div>
+                    <div class="progress-custom">
+                        <div class="progress-bar-custom" style="width:${data.p}%;background:${data.color}"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function saveCharge() {
+            const title = document.getElementById('chTitle').value;
+            const amount = document.getElementById('chAmount').value;
+            if (!title || !amount) { showToast('Remplissez les champs obligatoires', 'error'); return; }
+            const category = document.getElementById('chCategory').value;
+            const status = document.getElementById('chStatus').value;
+            const date = document.getElementById('chDate').value.split('-').reverse().join('/');
+            
+            const newCharge = {
+                id: Date.now(),
+                date: date,
+                category: category,
+                title: title,
+                amount: parseFloat(amount),
+                status: status,
+                color: 'var(--primary)'
+            };
+            chargesData.unshift(newCharge);
+            renderCharges();
+            closeModal('newChargeModal');
+            showToast('Charge enregistrée avec succès', 'success');
+            // Clear inputs
+            document.getElementById('chTitle').value = '';
+            document.getElementById('chAmount').value = '';
+        }
+
+        function deleteCharge(id) {
+            showConfirm('Supprimer cette charge ?', 'Cette action retirera cette ligne de vos registres.', 'danger', () => {
+                chargesData = chargesData.filter(c => c.id !== id);
+                renderCharges();
+                showToast('Charge supprimée', 'warning');
+            });
+        }
+
+        /* ══════════════════════════════════
            MINI CALENDAR
         ══════════════════════════════════ */
         function buildCalendar(id) {
@@ -4277,6 +4507,7 @@
             renderDossierList();
             renderMessages();
             renderChat();
+            renderCharges();
             _renderCal();
             setTimeout(() => {
                 document.querySelectorAll('.progress-bar-custom').forEach(b => { const w = b.style.width; b.style.width = '0'; setTimeout(() => b.style.width = w, 100); });
