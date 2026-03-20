@@ -144,7 +144,7 @@
             border-right: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        [data-theme="light"] .brand-name, 
+        [data-theme="light"] .brand-name,
         [data-theme="light"] .nav-link-custom {
             color: #1e293b;
         }
@@ -1415,47 +1415,60 @@
             .cal-month-lbl {
                 font-size: 9px;
             }
+
             .cal-cell {
                 min-height: 54px;
                 padding: 4px 2px;
             }
+
             .cal-day-num {
                 font-size: 10px;
                 width: 18px;
                 height: 18px;
             }
+
             .cal-ev {
                 padding: 1px 3px;
                 margin-bottom: 2px;
-                height: 8px; /* Compact bar on mobile */
+                height: 8px;
+                /* Compact bar on mobile */
                 overflow: hidden;
             }
-            .cal-ev .ev-name, .cal-ev .ev-sub {
-                display: none; /* Hide text, keep color bar */
+
+            .cal-ev .ev-name,
+            .cal-ev .ev-sub {
+                display: none;
+                /* Hide text, keep color bar */
             }
-            
+
             .cal-week-v {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
             }
-            .week-hdr, .week-body {
-                min-width: 600px; /* Force minimum width for week columns */
+
+            .week-hdr,
+            .week-body {
+                min-width: 600px;
+                /* Force minimum width for week columns */
             }
-            
+
             .cal-topbar {
                 padding: 10px;
                 flex-direction: column;
                 align-items: stretch;
             }
+
             .cal-view-tabs {
                 order: 2;
                 justify-content: center;
             }
+
             .cal-nav-group {
                 order: 1;
                 margin-bottom: 8px;
                 justify-content: center;
             }
+
             .cal-add-btn {
                 order: 3;
                 justify-content: center;
@@ -2397,12 +2410,14 @@
             .custom-table {
                 min-width: 480px
             }
-            
+
             /* Responsive Table Cells */
-            .custom-table th, .custom-table td {
+            .custom-table th,
+            .custom-table td {
                 padding: 8px 10px;
                 font-size: 11.5px;
             }
+
             .patient-avatar {
                 width: 26px;
                 height: 26px;
@@ -3229,8 +3244,10 @@
                     <p>Gestion en temps réel des patients présents à la clinique</p>
                 </div>
                 <div class="d-flex gap-2">
-                    <button class="btn-ghost" onclick="renderWaitingRoom()"><i class="fa-solid fa-rotate me-1"></i>Actualiser</button>
-                    <button class="btn-primary-custom" onclick="openModal('addToWaitingModal')"><i class="fa-solid fa-plus-circle me-1"></i>Arrivée Patient</button>
+                    <button class="btn-ghost" onclick="renderWaitingRoom()"><i
+                            class="fa-solid fa-rotate me-1"></i>Actualiser</button>
+                    <button class="btn-primary-custom" onclick="openModal('addToWaitingModal')"><i
+                            class="fa-solid fa-plus-circle me-1"></i>Arrivée Patient</button>
                 </div>
             </div>
 
@@ -3238,20 +3255,29 @@
             <div class="row g-2 g-md-3 mb-4">
                 <div class="col-4">
                     <div class="stat-card" style="padding:15px; border: 1px solid var(--border); min-height: auto;">
-                        <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">En Attente</div>
-                        <div id="waitCount" style="font-size:24px; font-weight:700; color:var(--warning); margin-top:2px;">0</div>
+                        <div
+                            style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">
+                            En Attente</div>
+                        <div id="waitCount"
+                            style="font-size:24px; font-weight:700; color:var(--warning); margin-top:2px;">0</div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="stat-card" style="padding:15px; border: 1px solid var(--border); min-height: auto;">
-                        <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">En Consultation</div>
-                        <div id="consultCount" style="font-size:24px; font-weight:700; color:var(--success); margin-top:2px;">0</div>
+                        <div
+                            style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">
+                            En Consultation</div>
+                        <div id="consultCount"
+                            style="font-size:24px; font-weight:700; color:var(--success); margin-top:2px;">0</div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="stat-card" style="padding:15px; border: 1px solid var(--border); min-height: auto;">
-                        <div style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Attente Moyenne</div>
-                        <div id="avgWaitTime" style="font-size:24px; font-weight:700; color:var(--primary); margin-top:2px;">-- min</div>
+                        <div
+                            style="font-size:10px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">
+                            Attente Moyenne</div>
+                        <div id="avgWaitTime"
+                            style="font-size:24px; font-weight:700; color:var(--primary); margin-top:2px;">-- min</div>
                     </div>
                 </div>
             </div>
@@ -3261,7 +3287,8 @@
                     <div class="content-card h-100">
                         <div class="card-header-custom">
                             <div class="card-title-main">File d'attente actuelle</div>
-                            <div class="status-badge" style="background:var(--success-light);color:var(--success)">Patient Live Update</div>
+                            <div class="status-badge" style="background:var(--success-light);color:var(--success)">
+                                Patient Live Update</div>
                         </div>
                         <div class="p-3">
                             <div id="waitingList" class="row g-3">
@@ -3291,29 +3318,43 @@
                     <p>Missions, performance et coordination du staff</p>
                 </div>
                 <div class="d-flex gap-2">
-                    <button class="btn-ghost" onclick="openModal('newTaskModal')"><i class="fa-solid fa-plus-circle me-1"></i>Nouvelle Tâche</button>
-                    <button class="btn-primary-custom" onclick="openModal('newSecretaryModal')"><i class="fa-solid fa-user-plus me-1"></i>Nouveau Staff</button>
+                    <button class="btn-ghost" onclick="openModal('newTaskModal')"><i
+                            class="fa-solid fa-plus-circle me-1"></i>Nouvelle Tâche</button>
+                    <button class="btn-primary-custom" onclick="openModal('newSecretaryModal')"><i
+                            class="fa-solid fa-user-plus me-1"></i>Nouveau Staff</button>
                 </div>
             </div>
 
             <!-- Team Stats Row -->
             <div class="row g-2 g-md-3 mb-3">
                 <div class="col-4">
-                    <div class="stat-card" style="padding:12px 15px; min-height: auto; border: 1px solid var(--border);">
-                        <div style="font-size:9px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Missions Lancées</div>
-                        <div id="statTotalTasks" style="font-size:20px; font-weight:700; color:var(--primary); margin-top:2px;">0</div>
+                    <div class="stat-card"
+                        style="padding:12px 15px; min-height: auto; border: 1px solid var(--border);">
+                        <div
+                            style="font-size:9px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">
+                            Missions Lancées</div>
+                        <div id="statTotalTasks"
+                            style="font-size:20px; font-weight:700; color:var(--primary); margin-top:2px;">0</div>
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="stat-card" style="padding:12px 15px; min-height: auto; border: 1px solid var(--border);">
-                        <div style="font-size:9px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Taux de Réussite</div>
-                        <div id="statSuccessRate" style="font-size:20px; font-weight:700; color:var(--success); margin-top:2px;">0%</div>
+                    <div class="stat-card"
+                        style="padding:12px 15px; min-height: auto; border: 1px solid var(--border);">
+                        <div
+                            style="font-size:9px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">
+                            Taux de Réussite</div>
+                        <div id="statSuccessRate"
+                            style="font-size:20px; font-weight:700; color:var(--success); margin-top:2px;">0%</div>
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="stat-card" style="padding:12px 15px; min-height: auto; border: 1px solid var(--border);">
-                        <div style="font-size:9px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">Urgences</div>
-                        <div id="statUrgentTasks" style="font-size:20px; font-weight:700; color:var(--danger); margin-top:2px;">0</div>
+                    <div class="stat-card"
+                        style="padding:12px 15px; min-height: auto; border: 1px solid var(--border);">
+                        <div
+                            style="font-size:9px; color:var(--text-muted); text-transform:uppercase; font-weight:700; letter-spacing: 0.5px;">
+                            Urgences</div>
+                        <div id="statUrgentTasks"
+                            style="font-size:20px; font-weight:700; color:var(--danger); margin-top:2px;">0</div>
                     </div>
                 </div>
             </div>
@@ -3323,7 +3364,8 @@
                     <div class="content-card h-100">
                         <div class="card-header-custom">
                             <div class="card-title-main">Staff en service</div>
-                            <span class="status-badge" style="background:var(--primary-light);color:var(--primary)" id="secCount">0 Active</span>
+                            <span class="status-badge" style="background:var(--primary-light);color:var(--primary)"
+                                id="secCount">0 Active</span>
                         </div>
                         <div class="p-3">
                             <div id="secretariesList" class="d-flex flex-column gap-3">
@@ -3339,9 +3381,12 @@
                             <div class="d-flex gap-2 align-items-center">
                                 <div class="topbar-search" style="display:block; max-width:180px;">
                                     <i class="fa-solid fa-magnifying-glass si" style="font-size:10px;"></i>
-                                    <input type="text" placeholder="Filtrer missions..." oninput="filterTasksBySearch(this.value)" style="padding: 5px 10px 5px 30px; font-size:11px;">
+                                    <input type="text" placeholder="Filtrer missions..."
+                                        oninput="filterTasksBySearch(this.value)"
+                                        style="padding: 5px 10px 5px 30px; font-size:11px;">
                                 </div>
-                                <select class="form-select-custom" onchange="filterTasks(this.value)" style="width: 110px; padding: 4px 8px; font-size: 11px;">
+                                <select class="form-select-custom" onchange="filterTasks(this.value)"
+                                    style="width: 110px; padding: 4px 8px; font-size: 11px;">
                                     <option value="all">Toutes</option>
                                     <option value="Pending">En cours</option>
                                     <option value="Done">Terminées</option>
@@ -3757,7 +3802,7 @@
                 </div>
             </div>
         </div><!-- /stock -->
-        
+
         <!-- ══════ CHARGES ══════ -->
         <div class="page" id="page-charges">
             <div class="page-header page-header-row">
@@ -3768,26 +3813,34 @@
                 <button class="btn-primary-custom" onclick="openModal('newChargeModal')"><i
                         class="fa-solid fa-plus me-1"></i>Nouvelle Charge</button>
             </div>
-            
+
             <div class="row g-2 g-md-3 mb-3">
                 <div class="col-4">
                     <div class="content-card p-3 text-center">
-                        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;margin-bottom:5px">Total Mars</div>
-                        <div style="font-size:22px;font-weight:700;font-family:'Space Grotesk';color:var(--danger)">15,630 <span style="font-size:12px">DH</span></div>
-                        <div style="font-size:10.5px;color:var(--success);margin-top:4px"><i class="fa-solid fa-arrow-trend-down me-1"></i>-2.4% <span style="color:var(--text-muted)">vs Fév</span></div>
+                        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;margin-bottom:5px">
+                            Total Mars</div>
+                        <div style="font-size:22px;font-weight:700;font-family:'Space Grotesk';color:var(--danger)">
+                            15,630 <span style="font-size:12px">DH</span></div>
+                        <div style="font-size:10.5px;color:var(--success);margin-top:4px"><i
+                                class="fa-solid fa-arrow-trend-down me-1"></i>-2.4% <span
+                                style="color:var(--text-muted)">vs Fév</span></div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="content-card p-3 text-center">
-                        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;margin-bottom:5px">En Attente</div>
-                        <div style="font-size:22px;font-weight:700;font-family:'Space Grotesk';color:var(--warning)">1,800 <span style="font-size:12px">DH</span></div>
+                        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;margin-bottom:5px">
+                            En Attente</div>
+                        <div style="font-size:22px;font-weight:700;font-family:'Space Grotesk';color:var(--warning)">
+                            1,800 <span style="font-size:12px">DH</span></div>
                         <div style="font-size:10.5px;color:var(--text-muted);margin-top:4px">1 facture à régler</div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="content-card p-3 text-center">
-                        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;margin-bottom:5px">Fixes / Mois</div>
-                        <div style="font-size:22px;font-weight:700;font-family:'Space Grotesk';color:var(--primary)">12,000 <span style="font-size:12px">DH</span></div>
+                        <div style="font-size:11px;color:var(--text-muted);text-transform:uppercase;margin-bottom:5px">
+                            Fixes / Mois</div>
+                        <div style="font-size:22px;font-weight:700;font-family:'Space Grotesk';color:var(--primary)">
+                            12,000 <span style="font-size:12px">DH</span></div>
                         <div style="font-size:10.5px;color:var(--text-muted);margin-top:4px">Loyer + Salaires</div>
                     </div>
                 </div>
@@ -3832,7 +3885,9 @@
                         </div>
                         <div class="divider"></div>
                         <div class="text-center">
-                            <button class="btn-ghost w-100" onclick="showToast('Génération du rapport financier…','info')"><i class="fa-solid fa-file-pdf me-1"></i>Exporter le bilan</button>
+                            <button class="btn-ghost w-100"
+                                onclick="showToast('Génération du rapport financier…','info')"><i
+                                    class="fa-solid fa-file-pdf me-1"></i>Exporter le bilan</button>
                         </div>
                     </div>
                 </div>
@@ -4093,10 +4148,11 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="settings-section">
                         <h5><i class="fa-solid fa-image me-2" style="color:var(--info)"></i>Fonds d'écran</h5>
-                        <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px">Choisissez une ambiance premium pour votre cabinet.</p>
+                        <p style="font-size:12.5px;color:var(--text-muted);margin-bottom:14px">Choisissez une ambiance
+                            premium pour votre cabinet.</p>
                         <div class="row g-2" id="bgThumbnails">
                             <!-- Populated by JS -->
                         </div>
@@ -4113,8 +4169,10 @@
         <div class="modal-box">
             <div class="modal-drag-handle"></div>
             <div class="modal-header">
-                <div class="modal-title"><i class="fa-solid fa-user-plus me-2" style="color:var(--primary)"></i>Nouveau membre du staff</div>
-                <button class="modal-close" onclick="closeModal('newSecretaryModal')"><i class="fa-solid fa-xmark"></i></button>
+                <div class="modal-title"><i class="fa-solid fa-user-plus me-2" style="color:var(--primary)"></i>Nouveau
+                    membre du staff</div>
+                <button class="modal-close" onclick="closeModal('newSecretaryModal')"><i
+                        class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -4125,7 +4183,8 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label class="form-label-custom">Téléphone</label>
-                            <input type="tel" class="form-control-custom" id="secPhone" placeholder="+212 6 XX XX XX XX">
+                            <input type="tel" class="form-control-custom" id="secPhone"
+                                placeholder="+212 6 XX XX XX XX">
                         </div>
                     </div>
                     <div class="col-6">
@@ -4141,12 +4200,14 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label-custom">Avatar (URL)</label>
-                    <input type="text" class="form-control-custom" id="secAvatar" placeholder="https://randomuser.me/api/portraits/women/XX.jpg">
+                    <input type="text" class="form-control-custom" id="secAvatar"
+                        placeholder="https://randomuser.me/api/portraits/women/XX.jpg">
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn-ghost" onclick="closeModal('newSecretaryModal')">Annuler</button>
-                <button class="btn-primary-custom" onclick="saveSecretary()"><i class="fa-solid fa-check me-1"></i>Ajouter</button>
+                <button class="btn-primary-custom" onclick="saveSecretary()"><i
+                        class="fa-solid fa-check me-1"></i>Ajouter</button>
             </div>
         </div>
     </div>
@@ -4156,13 +4217,16 @@
         <div class="modal-box">
             <div class="modal-drag-handle"></div>
             <div class="modal-header">
-                <div class="modal-title"><i class="fa-solid fa-list-check me-2" style="color:var(--warning)"></i>Attribuer une mission</div>
-                <button class="modal-close" onclick="closeModal('newTaskModal')"><i class="fa-solid fa-xmark"></i></button>
+                <div class="modal-title"><i class="fa-solid fa-list-check me-2"
+                        style="color:var(--warning)"></i>Attribuer une mission</div>
+                <button class="modal-close" onclick="closeModal('newTaskModal')"><i
+                        class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
                     <label class="form-label-custom">Intitulé de la mission *</label>
-                    <input type="text" class="form-control-custom" id="taskTitle" placeholder="ex: Relance factures impayées">
+                    <input type="text" class="form-control-custom" id="taskTitle"
+                        placeholder="ex: Relance factures impayées">
                 </div>
                 <div class="row g-2">
                     <div class="col-6">
@@ -4205,12 +4269,14 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label-custom">Notes / Instructions</label>
-                    <textarea class="form-control-custom" id="taskNotes" rows="2" placeholder="Détails supplémentaires..."></textarea>
+                    <textarea class="form-control-custom" id="taskNotes" rows="2"
+                        placeholder="Détails supplémentaires..."></textarea>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn-ghost" onclick="closeModal('newTaskModal')">Annuler</button>
-                <button class="btn-primary-custom" onclick="saveTask()"><i class="fa-solid fa-paper-plane me-1"></i>Assigner</button>
+                <button class="btn-primary-custom" onclick="saveTask()"><i
+                        class="fa-solid fa-paper-plane me-1"></i>Assigner</button>
             </div>
         </div>
     </div>
@@ -4220,8 +4286,10 @@
         <div class="modal-box">
             <div class="modal-drag-handle"></div>
             <div class="modal-header">
-                <div class="modal-title"><i class="fa-solid fa-clock me-2" style="color:var(--primary)"></i>Enregistrer une arrivée</div>
-                <button class="modal-close" onclick="closeModal('addToWaitingModal')"><i class="fa-solid fa-xmark"></i></button>
+                <div class="modal-title"><i class="fa-solid fa-clock me-2" style="color:var(--primary)"></i>Enregistrer
+                    une arrivée</div>
+                <button class="modal-close" onclick="closeModal('addToWaitingModal')"><i
+                        class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -4241,7 +4309,8 @@
             </div>
             <div class="modal-footer">
                 <button class="btn-ghost" onclick="closeModal('addToWaitingModal')">Annuler</button>
-                <button class="btn-primary-custom" onclick="addToWaitlist()"><i class="fa-solid fa-check me-1"></i>Enregistrer</button>
+                <button class="btn-primary-custom" onclick="addToWaitlist()"><i
+                        class="fa-solid fa-check me-1"></i>Enregistrer</button>
             </div>
         </div>
     </div>
@@ -4432,8 +4501,10 @@
         <div class="modal-box">
             <div class="modal-drag-handle"></div>
             <div class="modal-header">
-                <div class="modal-title"><i class="fa-solid fa-wallet me-2" style="color:var(--danger)"></i>Nouvelle Charge</div>
-                <button class="modal-close" onclick="closeModal('newChargeModal')"><i class="fa-solid fa-xmark"></i></button>
+                <div class="modal-title"><i class="fa-solid fa-wallet me-2" style="color:var(--danger)"></i>Nouvelle
+                    Charge</div>
+                <button class="modal-close" onclick="closeModal('newChargeModal')"><i
+                        class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -4477,7 +4548,8 @@
             </div>
             <div class="modal-footer">
                 <button class="btn-ghost" onclick="closeModal('newChargeModal')">Annuler</button>
-                <button class="btn-primary-custom" onclick="saveCharge()"><i class="fa-solid fa-check me-1"></i>Enregistrer</button>
+                <button class="btn-primary-custom" onclick="saveCharge()"><i
+                        class="fa-solid fa-check me-1"></i>Enregistrer</button>
             </div>
         </div>
     </div>
@@ -4606,8 +4678,8 @@
            BACKGROUNDS & ADAPTIVE COLORS
         ══════════════════════════════════ */
         const bgConfigs = [
-            { name: 'Océan Médical', url: 'images-tems/bg1.png', primary: '#0ea5e9', light: '#e0f2fe', isDark: true },
-            { name: 'Pureté Clinique', url: 'images-tems/bg2.png', primary: '#0f172a', light: '#f1f5f9', isDark: false },
+            { name: 'Océan Médical', url: 'images-tems/bg1.png', primary: '#0ea5e9', light: '#e0f2fe', isDark: false },
+            { name: 'Pureté Clinique', url: 'images-tems/bg2.png', primary: '#c9fffa', light: '#f1f5f9', isDark: false },
             { name: 'Émeraude Zen', url: 'images-tems/bg3.png', primary: '#10b981', light: '#d1fae5', isDark: false },
             { name: 'Tech Noire', url: 'images-tems/bg4.png', primary: '#3b82f6', light: 'rgba(59, 130, 246, 0.15)', isDark: true },
             { name: 'Améthyste Calme', url: 'images-tems/bg5.png', primary: '#8b5cf6', light: '#ede9fe', isDark: false },
@@ -4618,19 +4690,19 @@
             { name: 'Nuit Royale', url: 'images-tems/bg9.jpg', primary: '#6d28d9', light: '#ede9fe', isDark: true },
             { name: 'Ciel Pastel', url: 'images-tems/bg10.jpg', primary: '#64748b', light: '#f1f5f9', isDark: false },
             { name: 'Heure Dorée', url: 'images-tems/bg11.jpg', primary: '#b45309', light: '#fef3c7', isDark: false },
-            { name: 'Néon Cyber', url: 'images-tems/bg12.jpg', primary: '#06b6d4', light: '#ecfeff', isDark: true }
+            { name: 'Néon Cyber', url: 'images-tems/bg19.jpg', primary: '#b64951d9', light: '#9d0e16', isDark: false }
         ];
 
         function setBackground(idx) {
             const cfg = bgConfigs[idx];
             if (!cfg) return;
-            
+
             document.body.style.backgroundImage = `url('${cfg.url}')`;
-            
+
             const root = document.documentElement;
             root.style.setProperty('--primary', cfg.primary);
             root.style.setProperty('--primary-light', cfg.light);
-            
+
             if (cfg.isDark) {
                 root.style.setProperty('--text-main', '#f8fafc');
                 root.style.setProperty('--text-muted', '#cbd5e1');
@@ -4646,7 +4718,7 @@
                 root.style.setProperty('--border', 'rgba(0, 0, 0, 0.08)');
                 root.style.setProperty('--sidebar-bg', 'rgba(255, 255, 255, 0.85)');
             }
-            
+
             localStorage.setItem('selectedBg', idx);
             document.querySelectorAll('.bg-thumb').forEach((el, i) => {
                 el.style.borderColor = (i === idx) ? cfg.primary : 'transparent';
@@ -4675,7 +4747,7 @@
                     <div style="font-size: 8px; text-align: center; margin-top: 6px; font-weight: 700; color: var(--text-muted); line-height: 1.1; text-transform: uppercase; letter-spacing: 0.2px">${cfg.name}</div>
                 </div>
             `).join('');
-            
+
             // Check persistence
             const saved = localStorage.getItem('selectedBg');
             const initialIdx = (saved !== null) ? parseInt(saved) : 1;
@@ -4738,8 +4810,8 @@
             list.innerHTML = waiting.map(w => {
                 const p = patientsData.find(pt => pt.id === w.patientId) || { name: 'Patient Inconnu', photo: 'https://randomuser.me/api/portraits/men/1.jpg' };
                 const waitMin = Math.floor((new Date().getTime() - w.startTime) / 60000);
-                const photoSrc = p.img ? (p.img.includes('http') ? p.img : 'https://randomuser.me/api/portraits/'+p.img+'.jpg') : 'https://randomuser.me/api/portraits/men/1.jpg';
-                
+                const photoSrc = p.img ? (p.img.includes('http') ? p.img : 'https://randomuser.me/api/portraits/' + p.img + '.jpg') : 'https://randomuser.me/api/portraits/men/1.jpg';
+
                 return `
                 <div class="col-12 col-md-6">
                     <div class="d-flex align-items-center gap-3 p-3" style="background:rgba(255,255,255,0.4); border-radius:16px; border:1px solid ${w.urgency === 'Urgent' ? 'rgba(239, 68, 68, 0.3)' : 'var(--border)'};">
@@ -4762,7 +4834,7 @@
 
             activeDiv.innerHTML = consulting.map(w => {
                 const p = patientsData.find(pt => pt.id === w.patientId) || { name: 'Patient Inconnu', photo: 'https://randomuser.me/api/portraits/men/1.jpg' };
-                const photoSrc = p.img ? (p.img.includes('http') ? p.img : 'https://randomuser.me/api/portraits/'+p.img+'.jpg') : 'https://randomuser.me/api/portraits/men/1.jpg';
+                const photoSrc = p.img ? (p.img.includes('http') ? p.img : 'https://randomuser.me/api/portraits/' + p.img + '.jpg') : 'https://randomuser.me/api/portraits/men/1.jpg';
                 return `
                 <div class="text-center p-4" style="background:rgba(16, 185, 129, 0.05); border-radius:20px; border:2px dashed var(--success);">
                     <img src="${photoSrc}" style="width:80px; height:80px; border-radius:50%; object-fit:cover; border:3px solid white; box-shadow:0 10px 20px rgba(0,0,0,0.1);">
@@ -4795,7 +4867,7 @@
         }
 
         function startConsultation(id) {
-            waitingRoomData.forEach(w => { if(w.status === 'Consulting') w.status = 'Finished'; });
+            waitingRoomData.forEach(w => { if (w.status === 'Consulting') w.status = 'Finished'; });
             const w = waitingRoomData.find(item => item.id === id);
             if (w) { w.status = 'Consulting'; saveWaitLocal(); renderWaitingRoom(); showToast('Patient appelé au cabinet', 'info'); }
         }
@@ -4842,13 +4914,13 @@
             if (!list) return;
             const activeCount = secretariesData.filter(s => s.status === 'Active').length;
             document.getElementById('secCount').textContent = `${activeCount} Active${activeCount !== 1 ? 's' : ''}`;
-            
+
             list.innerHTML = secretariesData.map(s => {
                 const myTasks = tasksData.filter(t => t.assignee === s.name);
                 const total = myTasks.length;
                 const done = myTasks.filter(t => t.status === 'Done').length;
                 const progress = total === 0 ? 0 : Math.round((done / total) * 100);
-                
+
                 return `
                 <div class="d-flex flex-column gap-2 p-3" style="background:rgba(255,255,255,0.4); border-radius:14px; border:1px solid var(--border); transition:all 0.3s ease;">
                     <div class="d-flex align-items-center gap-3">
@@ -4884,17 +4956,17 @@
         function renderTasks(filter = 'all', searchQuery = '') {
             const tbody = document.getElementById('tasksTableBody');
             if (!tbody) return;
-            
+
             let filtered = tasksData.filter(t => filter === 'all' || t.status === filter);
             if (searchQuery) {
                 const q = searchQuery.toLowerCase();
                 filtered = filtered.filter(t => t.title.toLowerCase().includes(q) || t.assignee.toLowerCase().includes(q) || t.category.toLowerCase().includes(q));
             }
-            
+
             tbody.innerHTML = filtered.map(t => {
                 const prioColor = t.priority.includes('🔴') ? '#ef4444' : t.priority.includes('🟠') ? '#f59e0b' : '#3b82f6';
                 const catColor = t.category === 'Médical' ? 'var(--success)' : t.category === 'Administratif' ? 'var(--primary)' : 'var(--warning)';
-                
+
                 return `
                 <tr>
                     <td>
@@ -4923,11 +4995,11 @@
             const done = tasksData.filter(t => t.status === 'Done').length;
             const high = tasksData.filter(t => t.priority.includes('🔴') && t.status !== 'Done').length;
             const rate = total === 0 ? 0 : Math.round((done / total) * 100);
-            
+
             const elTotal = document.getElementById('statTotalTasks');
             const elRate = document.getElementById('statSuccessRate');
             const elUrgent = document.getElementById('statUrgentTasks');
-            
+
             if (elTotal) elTotal.textContent = total;
             if (elRate) elRate.textContent = rate + '%';
             if (elUrgent) elUrgent.textContent = high;
@@ -4947,7 +5019,7 @@
             const name = document.getElementById('secName').value.trim();
             if (!name) { showToast('Le nom est obligatoire', 'error'); return; }
             const shift = document.getElementById('secShift').value;
-            const avatar = document.getElementById('secAvatar').value || 'women/'+(Math.floor(Math.random()*50));
+            const avatar = document.getElementById('secAvatar').value || 'women/' + (Math.floor(Math.random() * 50));
             secretariesData.push({ id: Date.now(), name, shift, avatar, status: 'Active', lastActivity: 'En ligne' });
             saveSecLocal();
             renderSecretaries();
@@ -4963,14 +5035,14 @@
             const priority = document.getElementById('taskPriority').value;
             const deadline = document.getElementById('taskDeadline').value;
             const notes = document.getElementById('taskNotes').value.trim();
-            
+
             tasksData.unshift({ id: Date.now(), title, category, assignee, priority, deadline, status: 'Pending', notes });
             saveTaskLocal();
             renderTasks();
             renderSecretaries();
             closeModal('newTaskModal');
             showToast('Mission assignée avec succès', 'success');
-            
+
             // Clear
             document.getElementById('taskTitle').value = '';
             document.getElementById('taskNotes').value = '';
@@ -4978,12 +5050,12 @@
 
         function markTaskDone(id) {
             const task = tasksData.find(t => t.id === id);
-            if (task) { 
-                task.status = 'Done'; 
+            if (task) {
+                task.status = 'Done';
                 saveTaskLocal();
-                renderTasks(); 
+                renderTasks();
                 renderSecretaries();
-                showToast('Mission accomplie!', 'success'); 
+                showToast('Mission accomplie!', 'success');
             }
         }
 
@@ -5186,7 +5258,7 @@
             const category = document.getElementById('chCategory').value;
             const status = document.getElementById('chStatus').value;
             const date = document.getElementById('chDate').value.split('-').reverse().join('/');
-            
+
             const newCharge = {
                 id: Date.now(),
                 date: date,
@@ -5376,13 +5448,13 @@
             renderSecretaries();
             renderTasks();
             renderWaitingRoom();
-            
+
             // Populate Waiting Room Patient Select
             const wSelect = document.getElementById('waitPatientId');
             if (wSelect) {
                 wSelect.innerHTML = patientsData.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
             }
-            
+
             // Auto update wait times every minute
             setInterval(renderWaitingRoom, 60000);
 
@@ -5393,4 +5465,5 @@
         });
     </script>
 </body>
+
 </html>
