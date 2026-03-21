@@ -2841,10 +2841,6 @@
             <div class="nav-item"><button class="nav-link-custom" data-page="rapports"
                     onclick="navigate('rapports',this)"><span class="nav-icon"><i
                             class="fa-solid fa-chart-line"></i></span>Statistiques</button></div>
-            <div class="nav-section-title">Système</div>
-            <div class="nav-item"><button class="nav-link-custom" data-page="settings"
-                    onclick="navigate('settings',this)"><span class="nav-icon"><i
-                            class="fa-solid fa-gear"></i></span>Configuration</button></div>
             <div class="nav-section-title">Avancé</div>
             <div class="nav-item"><button class="nav-link-custom" data-page="ai-assistant"
                     onclick="navigate('ai-assistant',this)"><span class="nav-icon"><i
@@ -2861,6 +2857,10 @@
             <div class="nav-item"><button class="nav-link-custom" data-page="archives"
                     onclick="navigate('archives',this)"><span class="nav-icon"><i
                             class="fa-solid fa-box-archive"></i></span>Archives</button></div>
+            <div class="nav-section-title">Système</div>
+            <div class="nav-item"><button class="nav-link-custom" data-page="settings"
+                    onclick="navigate('settings',this)"><span class="nav-icon"><i
+                            class="fa-solid fa-gear"></i></span>Configuration</button></div>
         </nav>
         <div class="sidebar-footer">
             <div class="sidebar-doctor">
@@ -4490,7 +4490,7 @@
                             <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;animation:pulse-badge 2s infinite"></span> Modèle médical v2.4 — actif
                         </div>
                         <h1 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px">
-                            Votre Assistant<br><span style="background:linear-gradient(90deg,#0ea5e9,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Médical IA</span>
+                            Votre Assistant<br><span style="background:linear-gradient(90deg,#0ea5e9,#8b5cf6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Médical IA</span>
                         </h1>
                         <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;max-width:380px">Analyse instantanée des dossiers patients, détection d'interactions médicamenteuses et recommandations cliniques basées sur les protocoles HAS 2025.</p>
                     </div>
@@ -5439,20 +5439,24 @@
            BACKGROUNDS & ADAPTIVE COLORS
         ══════════════════════════════════ */
         const bgConfigs = [
-            { name: 'Océan Médical', url: 'images-tems/bg1.png', primary: '#0ea5e9', light: '#e0f2fe', isDark: false },
-            { name: 'Pureté Clinique', url: 'images-tems/bg2.png', primary: '#9472f2', light: '#f1f5f9', isDark: false },
-            { name: 'Émeraude Zen', url: 'images-tems/bg3.png', primary: '#10b981', light: '#d1fae5', isDark: false },
-            { name: 'Tech Noire', url: 'images-tems/bg4.png', primary: '#3b82f6', light: 'rgba(59, 130, 246, 0.15)', isDark: true },
-            { name: 'Améthyste Calme', url: 'images-tems/bg5.png', primary: '#8b5cf6', light: '#ede9fe', isDark: false },
-            { name: 'Ambre Chaleureux', url: 'images-tems/bg6.png', primary: '#f59e0b', light: '#fef3c7', isDark: false },
-            // 6 New Themes (Now Hosted Locally)
-            { name: 'Forêt Profonde', url: 'images-tems/bg7.jpg', primary: '#065f46', light: '#d1fae5', isDark: true },
-            { name: 'Pêche Sunset', url: 'images-tems/bg8.jpg', primary: '#ea580c', light: '#ffedd5', isDark: false },
-            { name: 'Nuit Royale', url: 'images-tems/bg9.jpg', primary: '#6d28d9', light: '#ede9fe', isDark: true },
-            { name: 'Ciel Pastel', url: 'images-tems/bg10.jpg', primary: '#64748b', light: '#f1f5f9', isDark: false },
-            { name: 'Heure Dorée', url: 'images-tems/bg11.jpg', primary: '#b45309', light: '#fef3c7', isDark: false },
-            { name: 'Néon Cyber', url: 'images-tems/bg19.jpg', primary: '#b64951d9', light: '#9d0e16', isDark: false }
+            { name: 'Océan Médical', url: 'images/bg1.png', primary: '#0ea5e9', light: '#e0f2fe', isDark: false },
+            { name: 'Pureté Clinique', url: 'images/bg2.png', primary: '#9472f2', light: '#f1f5f9', isDark: false },
+            { name: 'Émeraude Zen', url: 'images/bg3.png', primary: '#10b981', light: '#d1fae5', isDark: false },
+            { name: 'Tech Noire', url: 'images/bg4.png', primary: '#3b82f6', light: 'rgba(59, 130, 246, 0.15)', isDark: true },
+            { name: 'Améthyste Calme', url: 'images/bg5.png', primary: '#8b5cf6', light: '#ede9fe', isDark: false },
+            { name: 'Ambre Chaleureux', url: 'images/bg6.png', primary: '#f59e0b', light: '#fef3c7', isDark: false },
+            // Premium Generated Themes
+            { name: 'Pro: Bleu Profond', url: 'images/theme_med_blue_1774093649785.png', primary: '#0ea5e9', light: 'rgba(14,165,233,0.15)', isDark: true },
+            { name: 'Pro: Blanc Clinique', url: 'images/theme_clean_white_1774093705108.png', primary: '#14b8a6', light: '#ccfbf1', isDark: false },
+            { name: 'Pro: Émeraude Luxe', url: 'images/theme_emerald_glow_1774094003585.png', primary: '#10b981', light: 'rgba(16,185,129,0.15)', isDark: true },
+            { name: 'Pro: Ambre Coucher', url: 'images/theme_sunset_amber_1774094169142.png', primary: '#f59e0b', light: 'rgba(245,158,11,0.15)', isDark: true },
+            { name: 'Pro: Néon Cyber', url: 'images/theme_neon_cyber_1774094266755.png', primary: '#d946ef', light: 'rgba(217,70,239,0.15)', isDark: true },
+            { name: 'Pro: Soie Poudrée', url: 'images/theme_soft_rose_1774094362489.png', primary: '#f43f5e', light: '#ffe4e6', isDark: false }
         ];
+
+        let currentThemePage = 0;
+        const THEMES_PER_PAGE = 6;
+
         function setBackground(idx) {
             const cfg = bgConfigs[idx];
             if (!cfg) return;
@@ -5480,40 +5484,82 @@
             }
 
             localStorage.setItem('selectedBg', idx);
-            document.querySelectorAll('.bg-thumb').forEach((el, i) => {
-                el.style.borderColor = (i === idx) ? cfg.primary : 'transparent';
-                el.style.transform = (i === idx) ? 'scale(1.05)' : 'scale(1)';
-            });
+            renderBgSettings(); // Re-render to update the visual selection state
             showToast(`Ambiance ${cfg.name} activée`, 'success');
         }
 
         function renderBgSettings() {
             const container = document.getElementById('bgThumbnails');
             if (!container) return;
-            container.innerHTML = bgConfigs.map((cfg, i) => `
-                <div class="col-4 col-md-2 mb-3">
-                    <div class="bg-thumb" onclick="setBackground(${i})" style="
+
+            const saved = localStorage.getItem('selectedBg');
+            const selectedIdx = (saved !== null) ? parseInt(saved) : 1;
+
+            const totalPages = Math.ceil(bgConfigs.length / THEMES_PER_PAGE);
+            const startIdx = currentThemePage * THEMES_PER_PAGE;
+            const pageConfigs = bgConfigs.slice(startIdx, startIdx + THEMES_PER_PAGE);
+
+            let html = pageConfigs.map((cfg, localIdx) => {
+                const globalIdx = startIdx + localIdx;
+                const isSelected = (globalIdx === selectedIdx);
+                const borderStyle = isSelected ? `border-color: ${cfg.primary}; transform: scale(1.05);` : 'border-color: transparent;';
+                
+                return `
+                <div class="col-4 col-md-4 col-lg-2 mb-3">
+                    <div class="bg-thumb" onclick="setBackground(${globalIdx})" style="
                         width: 100%;
-                        aspect-ratio: 1/1;
+                        aspect-ratio: 16/9;
                         border-radius: 12px;
                         background: url('${cfg.url}');
                         background-size: cover;
                         background-position: center;
                         cursor: pointer;
                         border: 3px solid transparent;
+                        ${borderStyle}
                         transition: all 0.3s cubic-bezier(.4, 0, .2, 1);
                         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                     "></div>
-                    <div style="font-size: 8px; text-align: center; margin-top: 6px; font-weight: 700; color: var(--text-muted); line-height: 1.1; text-transform: uppercase; letter-spacing: 0.2px">${cfg.name}</div>
+                    <div style="font-size: 9px; text-align: center; margin-top: 8px; font-weight: 700; color: var(--text-muted); line-height: 1.2; text-transform: uppercase; letter-spacing: 0.2px">
+                        ${isSelected ? '<i class="fa-solid fa-check-circle" style="color:var(--success); margin-right:4px;"></i>' : ''}${cfg.name}
+                    </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
 
-            // Check persistence
+            // Add Pagination Controls
+            html += `
+            <div class="col-12 mt-2 d-flex justify-content-center align-items-center gap-3">
+                <button class="btn-ghost" onclick="changeThemePage(-1)" ${currentThemePage === 0 ? 'disabled style="opacity:0.4"' : ''}><i class="fa-solid fa-chevron-left"></i> Précédent</button>
+                <div style="font-size:12px; font-weight:600; color:var(--text-muted)">Page ${currentThemePage + 1} / ${totalPages}</div>
+                <button class="btn-ghost" onclick="changeThemePage(1)" ${currentThemePage === totalPages - 1 ? 'disabled style="opacity:0.4"' : ''}>Suivant <i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function changeThemePage(dir) {
+            const MathMax = Math.max;
+            const MathMin = Math.min;
+            const totalPages = Math.ceil(bgConfigs.length / THEMES_PER_PAGE);
+            currentThemePage = MathMax(0, MathMin(totalPages - 1, currentThemePage + dir));
+            renderBgSettings();
+        }
+
+        // Apply background immediately on load but only render once safely
+        window.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem('selectedBg');
             const initialIdx = (saved !== null) ? parseInt(saved) : 1;
-            // We'll apply it after a small delay to ensure CSS is ready
-            setTimeout(() => setBackground(initialIdx), 100);
-        }
+            
+            // Set Page index to ensure selected item is visible if we wanted (omitted for simplicity to always show page 1 first)
+            currentThemePage = Math.floor(initialIdx / THEMES_PER_PAGE);
+
+            setTimeout(() => {
+                const cfg = bgConfigs[initialIdx];
+                if(cfg) setBackground(initialIdx); // applies CSS vars without re-rendering unnecessarily loop
+                renderBgSettings();
+            }, 100);
+        });
 
         /* ══════════════════════════════════
            SAVE ACTIONS
