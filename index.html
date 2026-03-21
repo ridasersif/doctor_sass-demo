@@ -5502,7 +5502,7 @@
             if (!container) return;
 
             const saved = localStorage.getItem('selectedBg');
-            const selectedIdx = (saved !== null) ? parseInt(saved) : 1;
+            const selectedIdx = (saved !== null) ? parseInt(saved) : 0;
 
             const totalPages = Math.ceil(bgConfigs.length / THEMES_PER_PAGE);
             const startIdx = currentThemePage * THEMES_PER_PAGE;
@@ -5558,7 +5558,7 @@
         // Apply background immediately on load but only render once safely
         window.addEventListener('DOMContentLoaded', () => {
             const saved = localStorage.getItem('selectedBg');
-            const initialIdx = (saved !== null) ? parseInt(saved) : 1;
+            const initialIdx = (saved !== null) ? parseInt(saved) : 0;
             
             // Set Page index to ensure selected item is visible if we wanted (omitted for simplicity to always show page 1 first)
             currentThemePage = Math.floor(initialIdx / THEMES_PER_PAGE);
