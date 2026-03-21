@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -2468,6 +2468,309 @@
         .icon-btn {
             background: var(--card-bg)
         }
+
+        /* ══════════════════════════════════
+           PREMIUM NEW PAGES — EXTRA CSS
+        ══════════════════════════════════ */
+
+        /* AI Chat */
+        .ai-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0c1a3d 100%);
+            border-radius: 20px;
+            padding: 28px 24px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .ai-hero::before {
+            content: '';
+            position: absolute;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 70%);
+            top: -80px; right: -60px;
+            pointer-events: none;
+        }
+        .ai-hero::after {
+            content: '';
+            position: absolute;
+            width: 200px; height: 200px;
+            background: radial-gradient(circle, rgba(14,165,233,0.2) 0%, transparent 70%);
+            bottom: -50px; left: 20px;
+            pointer-events: none;
+        }
+        .ai-typing-dots {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+            padding: 10px 14px;
+        }
+        .ai-typing-dots span {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: ai-dot 1.4s infinite ease-in-out;
+        }
+        .ai-typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .ai-typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes ai-dot {
+            0%, 60%, 100% { transform: scale(1); opacity: 0.4; }
+            30% { transform: scale(1.4); opacity: 1; }
+        }
+        .ai-quick-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 50px;
+            border: 1.5px solid var(--border);
+            background: var(--card-bg);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: all .2s;
+            white-space: nowrap;
+        }
+        .ai-quick-chip:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(14,165,233,0.15);
+        }
+        .ai-stat-pill {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            padding: 12px 16px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
+        .ai-stat-pill-val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+        }
+        .ai-stat-pill-lbl {
+            font-size: 10px;
+            color: rgba(255,255,255,0.55);
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            margin-top: 4px;
+        }
+
+        /* Subscription plan cards */
+        .plan-card {
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+            border: 1.5px solid var(--border);
+            background: var(--card-bg);
+            transition: all .3s;
+            cursor: default;
+        }
+        .plan-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+        }
+        .plan-card.featured {
+            background: linear-gradient(145deg, #0f172a, #1e1b4b);
+            border-color: rgba(99,102,241,0.4);
+        }
+        .plan-card.featured::before {
+            content: '⭐ POPULAIRE';
+            position: absolute;
+            top: 14px; right: -22px;
+            background: linear-gradient(90deg, #f59e0b, #ef4444);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            padding: 4px 30px;
+            transform: rotate(35deg);
+        }
+        .plan-price-big {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .plan-feature-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 12.5px;
+        }
+        .plan-feature-row:last-child { border: none; }
+        .plan-feature-row i { width: 16px; text-align: center; }
+
+        /* Revenue mini bar chart */
+        .rev-bar-wrap {
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            height: 80px;
+        }
+        .rev-bar {
+            flex: 1;
+            border-radius: 6px 6px 0 0;
+            min-height: 8px;
+            cursor: pointer;
+            transition: opacity .2s;
+            position: relative;
+        }
+        .rev-bar:hover { opacity: .8; }
+        .rev-bar::after {
+            content: attr(data-val);
+            position: absolute;
+            bottom: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+        .rev-bar-label {
+            text-align: center;
+            font-size: 9px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* Location cards */
+        .loc-card {
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            transition: all .3s;
+        }
+        .loc-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+        .loc-map-banner {
+            height: 130px;
+            background: linear-gradient(135deg, #e0f2fe, #ede9fe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 42px;
+            position: relative;
+            overflow: hidden;
+        }
+        .loc-ping {
+            position: absolute;
+            width: 20px; height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            box-shadow: 0 0 0 rgba(14,165,233,0.4);
+            animation: loc-pulse 2s infinite;
+        }
+        @keyframes loc-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(14,165,233,0.4); }
+            70% { box-shadow: 0 0 0 14px rgba(14,165,233,0); }
+            100% { box-shadow: 0 0 0 0 rgba(14,165,233,0); }
+        }
+        .loc-body { padding: 20px; }
+        .loc-stat-row {
+            display: flex;
+            gap: 8px;
+            margin: 14px 0;
+        }
+        .loc-mini-stat {
+            flex: 1;
+            background: rgba(0,0,0,0.02);
+            border-radius: 10px;
+            padding: 10px 8px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        .loc-mini-stat-v { font-size: 17px; font-weight: 800; color: var(--primary); }
+        .loc-mini-stat-l { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; }
+
+        /* Stock progress bars */
+        .stock-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .stock-row:last-child { border: none; }
+        .stock-icon-box {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        .stock-bar-track {
+            height: 6px;
+            background: var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            flex: 1;
+        }
+        .stock-bar-fill {
+            height: 100%;
+            border-radius: 20px;
+            transition: width 1s ease;
+        }
+
+        /* Archives */
+        .archive-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            transition: all .2s;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+        .archive-row:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            transform: translateX(4px);
+        }
+        .archive-icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .archive-tag {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+        .arch-stat-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+        }
+        .arch-stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+        }
+        .arch-stat-lbl { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
     </style>
 </head>
 
@@ -2542,6 +2845,22 @@
             <div class="nav-item"><button class="nav-link-custom" data-page="settings"
                     onclick="navigate('settings',this)"><span class="nav-icon"><i
                             class="fa-solid fa-gear"></i></span>Configuration</button></div>
+            <div class="nav-section-title">Avancé</div>
+            <div class="nav-item"><button class="nav-link-custom" data-page="ai-assistant"
+                    onclick="navigate('ai-assistant',this)"><span class="nav-icon"><i
+                            class="fa-solid fa-robot"></i></span>Assistant IA<span class="nav-badge" style="background:linear-gradient(135deg,#6366f1,#0ea5e9)">IA</span></button></div>
+            <div class="nav-item"><button class="nav-link-custom" data-page="patient-subscriptions"
+                    onclick="navigate('patient-subscriptions',this)"><span class="nav-icon"><i
+                            class="fa-solid fa-id-card-clip"></i></span>Abonnements</button></div>
+            <div class="nav-item"><button class="nav-link-custom" data-page="locations"
+                    onclick="navigate('locations',this)"><span class="nav-icon"><i
+                            class="fa-solid fa-location-dot"></i></span>Mes Cabinets</button></div>
+            <div class="nav-item"><button class="nav-link-custom" data-page="inventory"
+                    onclick="navigate('inventory',this)"><span class="nav-icon"><i
+                            class="fa-solid fa-pills"></i></span>Pharmacie / Stock</button></div>
+            <div class="nav-item"><button class="nav-link-custom" data-page="archives"
+                    onclick="navigate('archives',this)"><span class="nav-icon"><i
+                            class="fa-solid fa-box-archive"></i></span>Archives</button></div>
         </nav>
         <div class="sidebar-footer">
             <div class="sidebar-doctor">
@@ -4161,7 +4480,449 @@
             </div>
         </div><!-- /settings -->
 
+        <!-- ══════ AI ASSISTANT ══════ -->
+        <div class="page" id="page-ai-assistant">
+            <!-- Hero Banner -->
+            <div class="ai-hero">
+                <div class="row align-items-center g-3" style="position:relative;z-index:1">
+                    <div class="col-12 col-md-7">
+                        <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:50px;padding:5px 14px;font-size:11px;color:rgba(255,255,255,0.7);margin-bottom:12px">
+                            <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;animation:pulse-badge 2s infinite"></span> Modèle médical v2.4 — actif
+                        </div>
+                        <h1 style="font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px">
+                            Votre Assistant<br><span style="background:linear-gradient(90deg,#0ea5e9,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Médical IA</span>
+                        </h1>
+                        <p style="font-size:13px;color:rgba(255,255,255,0.55);line-height:1.6;max-width:380px">Analyse instantanée des dossiers patients, détection d'interactions médicamenteuses et recommandations cliniques basées sur les protocoles HAS 2025.</p>
+                    </div>
+                    <div class="col-12 col-md-5">
+                        <div class="row g-2">
+                            <div class="col-6"><div class="ai-stat-pill"><div class="ai-stat-pill-val">1 247</div><div class="ai-stat-pill-lbl">Analyses ce mois</div></div></div>
+                            <div class="col-6"><div class="ai-stat-pill"><div class="ai-stat-pill-val">98.4%</div><div class="ai-stat-pill-lbl">Précision</div></div></div>
+                            <div class="col-6"><div class="ai-stat-pill"><div class="ai-stat-pill-val">0.8s</div><div class="ai-stat-pill-lbl">Temps de réponse</div></div></div>
+                            <div class="col-6"><div class="ai-stat-pill"><div class="ai-stat-pill-val">ISO 27001</div><div class="ai-stat-pill-lbl">Données sécurisées</div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-3">
+                <!-- Chat -->
+                <div class="col-12 col-xl-8">
+                    <div class="content-card" style="display:flex;flex-direction:column;height:540px">
+                        <div class="card-header-custom">
+                            <div>
+                                <div class="card-title-main"><i class="fa-solid fa-comments me-2" style="color:var(--primary)"></i>Conversation</div>
+                                <div class="card-subtitle" id="aiStatusLine">L'IA est prête — poser votre question</div>
+                            </div>
+                            <button class="btn-ghost" style="font-size:11.5px" onclick="clearAIChat()"><i class="fa-solid fa-trash me-1"></i>Effacer</button>
+                        </div>
+                        <div id="aiChatMessages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:14px">
+                            <!-- Welcome -->
+                            <div style="display:flex;gap:10px;align-items:flex-start">
+                                <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#0ea5e9);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;box-shadow:0 4px 12px rgba(99,102,241,0.4)"><i class="fa-solid fa-robot"></i></div>
+                                <div style="background:var(--primary-light);border-radius:0 16px 16px 16px;padding:14px 18px;max-width:80%;font-size:13px;line-height:1.7">
+                                    Bonjour Dr. Sersif 👋 Je suis votre assistant médical IA.<br><br>
+                                    Je peux vous aider à :<br>
+                                    🩺 <b>Analyser</b> les symptômes et suggérer des diagnostics<br>
+                                    💊 <b>Vérifier</b> les interactions médicamenteuses<br>
+                                    📋 <b>Résumer</b> les dossiers patients en 3 secondes<br>
+                                    📊 <b>Générer</b> des rapports cliniques automatiques
+                                </div>
+                            </div>
+                            <!-- Demo exchange -->
+                            <div style="display:flex;gap:10px;align-items:flex-start;flex-direction:row-reverse">
+                                <img src="https://avatars.githubusercontent.com/u/182523649?v=4&size=64" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--primary);flex-shrink:0">
+                                <div style="background:linear-gradient(135deg,var(--primary),#6366f1);border-radius:16px 0 16px 16px;padding:14px 18px;max-width:75%;font-size:13px;color:#fff;line-height:1.6">
+                                    Analyse le profil de mon patient Youssef Bennani (45 ans, diabète type 2, HTA).
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:10px;align-items:flex-start">
+                                <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#0ea5e9);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;flex-shrink:0;box-shadow:0 4px 12px rgba(99,102,241,0.4)"><i class="fa-solid fa-robot"></i></div>
+                                <div style="background:var(--primary-light);border-radius:0 16px 16px 16px;padding:14px 18px;max-width:80%;font-size:13px;line-height:1.8">
+                                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid rgba(0,0,0,0.06)">
+                                        <span style="background:linear-gradient(135deg,#6366f1,#0ea5e9);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px">ANALYSE COMPLÈTE</span>
+                                        <span style="font-size:10.5px;color:var(--text-muted)">Score risque : <b style="color:#ef4444">MODÉRÉ</b></span>
+                                    </div>
+                                    🩺 <b>DT2 + HTA combinés :</b> Risque cardiovasculaire à 10 ans ≈ 14% (SCORE2)<br>
+                                    💊 <b>Metformine 850mg + Ramipril 5mg</b> — combinaison validée, pas d'interaction<br>
+                                    ⚠️ <b>Point d'attention :</b> Glycémie 1.42 g/L → objectif HBA1c &lt; 7% non atteint<br>
+                                    ✅ <b>Actions recommandées :</b><br>
+                                    &nbsp;&nbsp;• Bilan HBA1c + créatininémie dans 3 mois<br>
+                                    &nbsp;&nbsp;• Évaluation ophtalmologique annuelle<br>
+                                    &nbsp;&nbsp;• Activité physique 150 min/semaine (protocole HAS)
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Input -->
+                        <div style="padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center">
+                            <div style="flex:1;position:relative">
+                                <input type="text" id="aiChatInput" class="form-control-custom" placeholder="Ex: Vérifier interactions Metformine + Ibuprofène…" style="margin-bottom:0;padding-right:44px" onkeydown="if(event.key==='Enter')sendAIMessage()">
+                                <i class="fa-solid fa-microphone" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:pointer;font-size:13px" onclick="showToast('Dictée vocale activée…','info')"></i>
+                            </div>
+                            <button class="btn-primary-custom" onclick="sendAIMessage()" style="flex-shrink:0;width:42px;height:42px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:12px"><i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Side panel -->
+                <div class="col-12 col-xl-4">
+                    <div class="content-card mb-3" style="padding:18px">
+                        <div class="card-title-main mb-3" style="font-size:13px"><i class="fa-solid fa-bolt me-2" style="color:var(--warning)"></i>Actions rapides</div>
+                        <div style="display:flex;flex-direction:column;gap:8px">
+                            <button class="ai-quick-chip" style="justify-content:flex-start;width:100%" onclick="askAI('Vérifier interactions Metformine 850mg + Ramipril 5mg + Aspirine 100mg')"><i class="fa-solid fa-pills" style="color:var(--warning);width:16px"></i>Interactions médicamenteuses</button>
+                            <button class="ai-quick-chip" style="justify-content:flex-start;width:100%" onclick="askAI('Quels patients de mon cabinet présentent un risque cardiovasculaire élevé selon le score SCORE2 ?')"><i class="fa-solid fa-heart-pulse" style="color:var(--danger);width:16px"></i>Patients à risque élevé</button>
+                            <button class="ai-quick-chip" style="justify-content:flex-start;width:100%" onclick="askAI('Générer un résumé du rapport mensuel de Mars 2026 pour mon cabinet')"><i class="fa-solid fa-file-medical" style="color:var(--info);width:16px"></i>Rapport mensuel automatique</button>
+                            <button class="ai-quick-chip" style="justify-content:flex-start;width:100%" onclick="askAI('Protocole de suivi recommandé pour Diabète type 2 + Hypertension selon HAS 2025')"><i class="fa-solid fa-book-medical" style="color:var(--success);width:16px"></i>Protocoles HAS 2025</button>
+                            <button class="ai-quick-chip" style="justify-content:flex-start;width:100%" onclick="askAI('Résumer le dossier de Mme Fatima Zouari en 5 points clés')"><i class="fa-solid fa-user-injured" style="color:#8b5cf6;width:16px"></i>Résumer un dossier patient</button>
+                        </div>
+                    </div>
+                    <div class="content-card" style="padding:18px">
+                        <div class="card-title-main mb-3" style="font-size:13px"><i class="fa-solid fa-chart-bar me-2" style="color:var(--primary)"></i>Utilisation ce mois</div>
+                        <div style="display:flex;flex-direction:column;gap:10px">
+                            <div><div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:5px"><span>Analyses patients</span><b>312</b></div><div class="stock-bar-track"><div class="stock-bar-fill" style="width:78%;background:linear-gradient(90deg,var(--primary),#6366f1)"></div></div></div>
+                            <div><div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:5px"><span>Vérifications interactions</span><b>89</b></div><div class="stock-bar-track"><div class="stock-bar-fill" style="width:45%;background:linear-gradient(90deg,var(--warning),#ef4444)"></div></div></div>
+                            <div><div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:5px"><span>Rapports générés</span><b>24</b></div><div class="stock-bar-track"><div class="stock-bar-fill" style="width:30%;background:linear-gradient(90deg,var(--success),#0ea5e9)"></div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════ PATIENT SUBSCRIPTIONS ══════ -->
+        <div class="page" id="page-patient-subscriptions">
+            <div class="page-header page-header-row">
+                <div>
+                    <h2><i class="fa-solid fa-id-card-clip me-2" style="color:var(--primary)"></i>Abonnements Patients</h2>
+                    <p>Gérez vos formules, suivez votre revenu récurrent et fidélisez vos patients.</p>
+                </div>
+                <button class="btn-primary-custom" onclick="showToast('Nouvel abonnement…','info')"><i class="fa-solid fa-plus me-1"></i>Nouvel Abonnement</button>
+            </div>
+
+            <!-- KPI Row -->
+            <div class="row g-2 g-md-3 mb-3">
+                <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-blob" style="background:#0ea5e9"></div><div class="stat-icon-wrap" style="background:#e0f2fe;color:#0ea5e9"><i class="fa-solid fa-users"></i></div><div class="stat-label">Abonnés actifs</div><div class="stat-value">38</div><div class="stat-delta"><span class="up"><i class="fa-solid fa-arrow-trend-up"></i> +5</span> ce mois</div></div></div>
+                <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-blob" style="background:#10b981"></div><div class="stat-icon-wrap" style="background:#d1fae5;color:#10b981"><i class="fa-solid fa-sack-dollar"></i></div><div class="stat-label">Revenu Mensuel</div><div class="stat-value">11.4k <span style="font-size:14px">DH</span></div><div class="stat-delta"><span class="up"><i class="fa-solid fa-arrow-trend-up"></i> +8.2%</span></div></div></div>
+                <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-blob" style="background:#f59e0b"></div><div class="stat-icon-wrap" style="background:#fef3c7;color:#f59e0b"><i class="fa-solid fa-hourglass-half"></i></div><div class="stat-label">Expirent ce mois</div><div class="stat-value">6</div><div class="stat-delta"><span class="down">À renouveler</span></div></div></div>
+                <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-blob" style="background:#6366f1"></div><div class="stat-icon-wrap" style="background:#ede9fe;color:#6366f1"><i class="fa-solid fa-star"></i></div><div class="stat-label">Formule Premium</div><div class="stat-value">14</div><div class="stat-delta"><span class="up"><i class="fa-solid fa-arrow-trend-up"></i> +2</span></div></div></div>
+            </div>
+
+            <div class="row g-3 mb-3">
+                <!-- Revenue chart -->
+                <div class="col-12 col-lg-5">
+                    <div class="content-card" style="height:100%">
+                        <div class="card-header-custom">
+                            <div class="card-title-main"><i class="fa-solid fa-chart-column me-2" style="color:var(--success)"></i>Revenus mensuels</div>
+                            <span style="font-size:11px;color:var(--success);font-weight:700">+8.2% <i class="fa-solid fa-arrow-trend-up"></i></span>
+                        </div>
+                        <div style="padding:0 16px 20px">
+                            <div class="rev-bar-wrap">
+                                <div class="rev-bar" data-val="6.2k" style="height:55%;background:linear-gradient(180deg,var(--primary),#6366f1);opacity:.5"></div>
+                                <div class="rev-bar" data-val="7.8k" style="height:68%;background:linear-gradient(180deg,var(--primary),#6366f1);opacity:.6"></div>
+                                <div class="rev-bar" data-val="8.1k" style="height:72%;background:linear-gradient(180deg,var(--primary),#6366f1);opacity:.65"></div>
+                                <div class="rev-bar" data-val="9.0k" style="height:80%;background:linear-gradient(180deg,var(--primary),#6366f1);opacity:.75"></div>
+                                <div class="rev-bar" data-val="10.5k" style="height:93%;background:linear-gradient(180deg,var(--primary),#6366f1);opacity:.85"></div>
+                                <div class="rev-bar" data-val="11.4k" style="height:100%;background:linear-gradient(180deg,#10b981,#0ea5e9)"></div>
+                            </div>
+                            <div style="display:flex;gap:6px;margin-top:6px">
+                                <div class="rev-bar-label" style="flex:1">Oct</div>
+                                <div class="rev-bar-label" style="flex:1">Nov</div>
+                                <div class="rev-bar-label" style="flex:1">Déc</div>
+                                <div class="rev-bar-label" style="flex:1">Jan</div>
+                                <div class="rev-bar-label" style="flex:1">Fév</div>
+                                <div class="rev-bar-label" style="flex:1">Mar</div>
+                            </div>
+                        </div>
+                        <!-- Donut breakdown -->
+                        <div style="padding:0 16px 16px;display:flex;gap:12px">
+                            <div style="flex:1;border-radius:12px;background:rgba(99,102,241,0.08);padding:10px;text-align:center"><div style="font-size:16px;font-weight:800;color:#6366f1">14</div><div style="font-size:10px;color:var(--text-muted)">Premium</div></div>
+                            <div style="flex:1;border-radius:12px;background:rgba(16,185,129,0.08);padding:10px;text-align:center"><div style="font-size:16px;font-weight:800;color:var(--success)">18</div><div style="font-size:10px;color:var(--text-muted)">Standard</div></div>
+                            <div style="flex:1;border-radius:12px;background:rgba(14,165,233,0.08);padding:10px;text-align:center"><div style="font-size:16px;font-weight:800;color:var(--primary)">6</div><div style="font-size:10px;color:var(--text-muted)">Basique</div></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Plan cards -->
+                <div class="col-12 col-lg-7">
+                    <div class="row g-3">
+                        <div class="col-12 col-md-4">
+                            <div class="plan-card" style="border-color:rgba(14,165,233,0.3)">
+                                <div style="font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Basique</div>
+                                <div class="plan-price-big" style="color:var(--text-main)">150 <span style="font-size:16px;font-weight:500">DH</span></div>
+                                <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">/mois</div>
+                                <div class="plan-feature-row"><i class="fa-solid fa-check" style="color:var(--success)"></i>2 consultations/mois</div>
+                                <div class="plan-feature-row"><i class="fa-solid fa-check" style="color:var(--success)"></i>Ordonnances numériques</div>
+                                <div class="plan-feature-row" style="opacity:.4"><i class="fa-solid fa-xmark" style="color:var(--danger)"></i>Urgences prioritaires</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="plan-card featured">
+                                <div style="font-size:11px;font-weight:700;color:#a5b4fc;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Standard</div>
+                                <div class="plan-price-big" style="color:#fff">280 <span style="font-size:16px;font-weight:500;color:rgba(255,255,255,0.6)">DH</span></div>
+                                <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px">/mois</div>
+                                <div class="plan-feature-row" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.85)"><i class="fa-solid fa-check" style="color:#4ade80"></i>4 consultations/mois</div>
+                                <div class="plan-feature-row" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.85)"><i class="fa-solid fa-check" style="color:#4ade80"></i>Urgences prioritaires</div>
+                                <div class="plan-feature-row" style="border-color:rgba(255,255,255,0.1);color:rgba(255,255,255,0.85)"><i class="fa-solid fa-check" style="color:#4ade80"></i>Suivi tension / glycémie</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="plan-card" style="border-color:rgba(99,102,241,0.3)">
+                                <div style="font-size:11px;font-weight:700;color:#6366f1;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">Premium</div>
+                                <div class="plan-price-big" style="color:var(--text-main)">450 <span style="font-size:16px;font-weight:500">DH</span></div>
+                                <div style="font-size:11px;color:var(--text-muted);margin-bottom:14px">/mois</div>
+                                <div class="plan-feature-row"><i class="fa-solid fa-check" style="color:var(--success)"></i>Illimité</div>
+                                <div class="plan-feature-row"><i class="fa-solid fa-check" style="color:var(--success)"></i>Bilan annuel offert</div>
+                                <div class="plan-feature-row"><i class="fa-solid fa-check" style="color:var(--success)"></i>IA médicale dédiée</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscribers table -->
+            <div class="content-card">
+                <div class="card-header-custom">
+                    <div class="card-title-main">Liste des abonnés</div>
+                    <select class="form-select-custom" style="font-size:12px;padding:6px 10px" onchange="showToast('Filtre appliqué','info')"><option>Tous</option><option>Premium</option><option>Standard</option><option>Basique</option></select>
+                </div>
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead><tr><th>Patient</th><th>Formule</th><th>Début</th><th>Expiration</th><th>Montant/mois</th><th>Statut</th><th>Actions</th></tr></thead>
+                        <tbody>
+                            <tr><td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/men/41.jpg" class="patient-avatar"><div><div class="patient-name">M. Youssef Bennani</div><div class="patient-id">#PT-0047</div></div></div></td><td><span class="status-badge" style="background:#ede9fe;color:#6366f1">⭐ Premium</span></td><td style="font-size:12px">01/01/2026</td><td style="font-size:12px">31/03/2026</td><td style="font-weight:700">450 DH</td><td><span class="status-badge badge-confirme">Actif</span></td><td><div class="d-flex gap-1"><button class="btn-icon-sm" onclick="showToast('Renouvellement…','info')"><i class="fa-solid fa-rotate"></i></button><button class="btn-icon-sm danger" onclick="showToast('Annulé','error')"><i class="fa-solid fa-xmark"></i></button></div></td></tr>
+                            <tr><td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/women/44.jpg" class="patient-avatar"><div><div class="patient-name">Mme. Fatima Zouari</div><div class="patient-id">#PT-0112</div></div></div></td><td><span class="status-badge" style="background:#d1fae5;color:#065f46">Standard</span></td><td style="font-size:12px">15/01/2026</td><td style="font-size:12px">14/04/2026</td><td style="font-weight:700">280 DH</td><td><span class="status-badge badge-confirme">Actif</span></td><td><div class="d-flex gap-1"><button class="btn-icon-sm" onclick="showToast('Renouvellement…','info')"><i class="fa-solid fa-rotate"></i></button><button class="btn-icon-sm danger" onclick="showToast('Annulé','error')"><i class="fa-solid fa-xmark"></i></button></div></td></tr>
+                            <tr><td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/men/32.jpg" class="patient-avatar"><div><div class="patient-name">M. Khalid El Fassi</div><div class="patient-id">#PT-0088</div></div></div></td><td><span class="status-badge" style="background:#e0f2fe;color:#0284c7">Basique</span></td><td style="font-size:12px">01/02/2026</td><td style="font-size:12px">28/02/2026</td><td style="font-weight:700">150 DH</td><td><span class="status-badge badge-annule">Expiré</span></td><td><div class="d-flex gap-1"><button class="btn-icon-sm" onclick="showToast('Renouvellement…','info')"><i class="fa-solid fa-rotate"></i></button><button class="btn-icon-sm danger" onclick="showToast('Annulé','error')"><i class="fa-solid fa-xmark"></i></button></div></td></tr>
+                            <tr><td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/women/55.jpg" class="patient-avatar"><div><div class="patient-name">Mme. Nadia Chraibi</div><div class="patient-id">#PT-0031</div></div></div></td><td><span class="status-badge" style="background:#ede9fe;color:#6366f1">⭐ Premium</span></td><td style="font-size:12px">10/02/2026</td><td style="font-size:12px">09/05/2026</td><td style="font-weight:700">450 DH</td><td><span class="status-badge badge-confirme">Actif</span></td><td><div class="d-flex gap-1"><button class="btn-icon-sm" onclick="showToast('Renouvellement…','info')"><i class="fa-solid fa-rotate"></i></button><button class="btn-icon-sm danger" onclick="showToast('Annulé','error')"><i class="fa-solid fa-xmark"></i></button></div></td></tr>
+                            <tr><td><div class="d-flex align-items-center gap-2"><img src="https://randomuser.me/api/portraits/men/60.jpg" class="patient-avatar"><div><div class="patient-name">M. Omar Tahiri</div><div class="patient-id">#PT-0203</div></div></div></td><td><span class="status-badge" style="background:#d1fae5;color:#065f46">Standard</span></td><td style="font-size:12px">01/03/2026</td><td style="font-size:12px">31/05/2026</td><td style="font-weight:700">280 DH</td><td><span class="status-badge badge-confirme">Actif</span></td><td><div class="d-flex gap-1"><button class="btn-icon-sm" onclick="showToast('Renouvellement…','info')"><i class="fa-solid fa-rotate"></i></button><button class="btn-icon-sm danger" onclick="showToast('Annulé','error')"><i class="fa-solid fa-xmark"></i></button></div></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════ LOCATIONS ══════ -->
+        <div class="page" id="page-locations">
+            <div class="page-header page-header-row">
+                <div>
+                    <h2><i class="fa-solid fa-location-dot me-2" style="color:var(--primary)"></i>Mes Cabinets &amp; Lieux</h2>
+                    <p>Gérez vos sites, horaires et performances par cabinet.</p>
+                </div>
+                <button class="btn-primary-custom" onclick="showToast('Ajout d\'un nouveau cabinet…','info')"><i class="fa-solid fa-plus me-1"></i>Nouveau Cabinet</button>
+            </div>
+            <!-- Summary strip -->
+            <div class="row g-2 mb-3">
+                <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-blob" style="background:var(--primary)"></div><div class="stat-icon-wrap" style="background:var(--primary-light);color:var(--primary)"><i class="fa-solid fa-building"></i></div><div class="stat-label">Sites actifs</div><div class="stat-value">2</div></div></div>
+                <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-blob" style="background:#10b981"></div><div class="stat-icon-wrap" style="background:#d1fae5;color:#10b981"><i class="fa-solid fa-user-group"></i></div><div class="stat-label">Patients/jour total</div><div class="stat-value">26</div></div></div>
+                <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-blob" style="background:#6366f1"></div><div class="stat-icon-wrap" style="background:#ede9fe;color:#6366f1"><i class="fa-solid fa-sack-dollar"></i></div><div class="stat-label">Revenu combiné</div><div class="stat-value">45k <span style="font-size:14px">DH</span></div></div></div>
+                <div class="col-6 col-md-3"><div class="stat-card"><div class="stat-blob" style="background:#f59e0b"></div><div class="stat-icon-wrap" style="background:#fef3c7;color:#f59e0b"><i class="fa-solid fa-clock"></i></div><div class="stat-label">Heures/semaine</div><div class="stat-value">52 h</div></div></div>
+            </div>
+            <div class="row g-3">
+                <!-- Cabinet 1 -->
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="loc-card">
+                        <div class="loc-map-banner" style="background:linear-gradient(135deg,#dbeafe,#ede9fe)">
+                            <div style="font-size:52px;filter:drop-shadow(0 4px 12px rgba(14,165,233,0.3))">🏥</div>
+                            <div class="loc-ping" style="top:30px;right:40px"></div>
+                        </div>
+                        <div class="loc-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <div style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:16px">Cabinet Principal</div>
+                                    <div style="font-size:12px;color:var(--text-muted);margin-top:2px"><i class="fa-solid fa-map-marker-alt me-1" style="color:var(--primary)"></i>45 Av. Hassan II, Casablanca</div>
+                                </div>
+                                <span class="status-badge badge-confirme">● Principal</span>
+                            </div>
+                            <div class="loc-stat-row">
+                                <div class="loc-mini-stat"><div class="loc-mini-stat-v">18</div><div class="loc-mini-stat-l">Patients/j</div></div>
+                                <div class="loc-mini-stat"><div class="loc-mini-stat-v" style="color:var(--success)">32k</div><div class="loc-mini-stat-l">DH/mois</div></div>
+                                <div class="loc-mini-stat"><div class="loc-mini-stat-v" style="color:#f59e0b">4.9★</div><div class="loc-mini-stat-l">Note</div></div>
+                            </div>
+                            <div style="font-size:11.5px;color:var(--text-muted);line-height:1.8;margin-bottom:14px">
+                                <i class="fa-solid fa-clock me-1"></i>Lun–Ven 08h–18h &nbsp;|&nbsp; Sam 09h–13h<br>
+                                <i class="fa-solid fa-phone me-1"></i>+212 5 22 XX XX XX
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn-ghost w-100" style="font-size:12px" onclick="showToast('Modification…','info')"><i class="fa-solid fa-pen me-1"></i>Modifier</button>
+                                <button class="btn-primary-custom w-100" style="font-size:12px" onclick="navigate('agenda',document.querySelector('[data-page=agenda]'))"><i class="fa-solid fa-calendar me-1"></i>Agenda</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Cabinet 2 -->
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="loc-card">
+                        <div class="loc-map-banner" style="background:linear-gradient(135deg,#d1fae5,#e0f2fe)">
+                            <div style="font-size:52px;filter:drop-shadow(0 4px 12px rgba(16,185,129,0.3))">🏨</div>
+                            <div class="loc-ping" style="top:40px;left:50px;background:#10b981;animation-name:loc-pulse-green;box-shadow:0 0 0 rgba(16,185,129,0.4)"></div>
+                        </div>
+                        <div class="loc-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div>
+                                    <div style="font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:16px">Cabinet Secondaire</div>
+                                    <div style="font-size:12px;color:var(--text-muted);margin-top:2px"><i class="fa-solid fa-map-marker-alt me-1" style="color:#10b981"></i>12 Rue Ibn Sina, Rabat</div>
+                                </div>
+                                <span class="status-badge badge-attente">● Secondaire</span>
+                            </div>
+                            <div class="loc-stat-row">
+                                <div class="loc-mini-stat"><div class="loc-mini-stat-v">8</div><div class="loc-mini-stat-l">Patients/j</div></div>
+                                <div class="loc-mini-stat"><div class="loc-mini-stat-v" style="color:var(--success)">13k</div><div class="loc-mini-stat-l">DH/mois</div></div>
+                                <div class="loc-mini-stat"><div class="loc-mini-stat-v" style="color:#f59e0b">4.7★</div><div class="loc-mini-stat-l">Note</div></div>
+                            </div>
+                            <div style="font-size:11.5px;color:var(--text-muted);line-height:1.8;margin-bottom:14px">
+                                <i class="fa-solid fa-clock me-1"></i>Mer &amp; Ven 14h–19h<br>
+                                <i class="fa-solid fa-phone me-1"></i>+212 5 37 XX XX XX
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn-ghost w-100" style="font-size:12px" onclick="showToast('Modification…','info')"><i class="fa-solid fa-pen me-1"></i>Modifier</button>
+                                <button class="btn-primary-custom w-100" style="font-size:12px" onclick="navigate('agenda',document.querySelector('[data-page=agenda]'))"><i class="fa-solid fa-calendar me-1"></i>Agenda</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add card -->
+                <div class="col-12 col-md-6 col-xl-4">
+                    <div class="loc-card" style="border:2px dashed var(--border);min-height:320px;display:flex;align-items:center;justify-content:center;cursor:pointer;background:transparent" onclick="showToast('Ajout d\'un nouveau cabinet…','info')">
+                        <div style="text-align:center;color:var(--text-muted);padding:30px">
+                            <div style="width:60px;height:60px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px;color:var(--primary)"><i class="fa-solid fa-plus"></i></div>
+                            <div style="font-weight:700;font-size:14px;margin-bottom:6px">Ajouter un Cabinet</div>
+                            <div style="font-size:12px;line-height:1.5">Clinique, maison de santé,<br>polyclinique partenaire…</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════ INVENTORY ══════ -->
+        <div class="page" id="page-inventory">
+            <div class="page-header page-header-row">
+                <div>
+                    <h2><i class="fa-solid fa-pills me-2" style="color:var(--primary)"></i>Pharmacie &amp; Gestion de Stock</h2>
+                    <p>Contrôlez vos médicaments, consommables et alertes de rupture.</p>
+                </div>
+                <button class="btn-primary-custom" onclick="showToast('Ajout article…','info')"><i class="fa-solid fa-plus me-1"></i>Ajouter Article</button>
+            </div>
+            <div class="row g-2 g-md-3 mb-3">
+                <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-blob" style="background:#0ea5e9"></div><div class="stat-icon-wrap" style="background:#e0f2fe;color:#0ea5e9"><i class="fa-solid fa-boxes-stacked"></i></div><div class="stat-label">Références</div><div class="stat-value">124</div><div class="stat-delta">articles en stock</div></div></div>
+                <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-blob" style="background:#ef4444"></div><div class="stat-icon-wrap" style="background:#fee2e2;color:#ef4444"><i class="fa-solid fa-triangle-exclamation"></i></div><div class="stat-label">Ruptures</div><div class="stat-value">3</div><div class="stat-delta"><span class="down">Commandes urgentes</span></div></div></div>
+                <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-blob" style="background:#f59e0b"></div><div class="stat-icon-wrap" style="background:#fef3c7;color:#f59e0b"><i class="fa-solid fa-hourglass-half"></i></div><div class="stat-label">Péremption proche</div><div class="stat-value">7</div><div class="stat-delta"><span class="down">Dans 60 jours</span></div></div></div>
+                <div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-blob" style="background:#10b981"></div><div class="stat-icon-wrap" style="background:#d1fae5;color:#10b981"><i class="fa-solid fa-sack-dollar"></i></div><div class="stat-label">Valeur stock</div><div class="stat-value">18.3k <span style="font-size:14px">DH</span></div><div class="stat-delta"><span class="up"><i class="fa-solid fa-arrow-trend-up"></i> +2.1%</span></div></div></div>
+            </div>
+            <div class="row g-3">
+                <!-- Alert panel -->
+                <div class="col-12 col-lg-4">
+                    <div class="content-card" style="padding:18px;border-left:4px solid var(--danger)">
+                        <div class="card-title-main mb-3" style="font-size:13px;color:var(--danger)"><i class="fa-solid fa-bell me-2"></i>Alertes actives (3)</div>
+                        <div style="display:flex;flex-direction:column;gap:10px">
+                            <div style="background:#fee2e2;border-radius:12px;padding:12px;cursor:pointer" onclick="showToast('Commander Amoxicilline…','info')">
+                                <div style="font-weight:700;font-size:12.5px;color:#991b1b">🚨 Amoxicilline 1g — RUPTURE</div>
+                                <div style="font-size:11px;color:#b91c1c;margin-top:3px">Stock : 2 boîtes / Seuil min : 15</div>
+                                <button class="btn-primary-custom" style="font-size:11px;margin-top:8px;background:#ef4444;border-color:#ef4444" onclick="event.stopPropagation();showToast('Commande urgente passée','success')"><i class="fa-solid fa-cart-plus me-1"></i>Commander</button>
+                            </div>
+                            <div style="background:#fef3c7;border-radius:12px;padding:12px;cursor:pointer">
+                                <div style="font-weight:700;font-size:12.5px;color:#92400e">⚠️ Oméprazole 20mg — Stock faible</div>
+                                <div style="font-size:11px;color:#b45309;margin-top:3px">Stock : 8 boîtes / Seuil min : 10</div>
+                            </div>
+                            <div style="background:#fef3c7;border-radius:12px;padding:12px">
+                                <div style="font-weight:700;font-size:12.5px;color:#92400e">⏳ Diosmine 500mg — Expire 03/2026</div>
+                                <div style="font-size:11px;color:#b45309;margin-top:3px">12 boîtes à écouler avant péremption</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Stock progress list -->
+                <div class="col-12 col-lg-8">
+                    <div class="content-card">
+                        <div class="card-header-custom">
+                            <div class="card-title-main">Niveau de stock en temps réel</div>
+                            <select class="form-select-custom" style="font-size:12px;padding:6px 10px" onchange="showToast('Filtre appliqué','info')"><option>Tous</option><option>Médicaments</option><option>Consommables</option></select>
+                        </div>
+                        <div style="padding:4px 16px 16px">
+                            <div class="stock-row">
+                                <div class="stock-icon-box" style="background:#e0f2fe;color:#0284c7"><i class="fa-solid fa-capsules"></i></div>
+                                <div style="flex:1;min-width:0">
+                                    <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:5px"><span>Paracétamol 500mg</span><span style="color:var(--success)">48 / 50</span></div>
+                                    <div class="stock-bar-track"><div class="stock-bar-fill" style="width:96%;background:linear-gradient(90deg,#10b981,#0ea5e9)"></div></div>
+                                </div>
+                                <span class="status-badge badge-confirme" style="flex-shrink:0">OK</span>
+                            </div>
+                            <div class="stock-row">
+                                <div class="stock-icon-box" style="background:#fee2e2;color:#ef4444"><i class="fa-solid fa-capsules"></i></div>
+                                <div style="flex:1;min-width:0">
+                                    <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:5px"><span>Amoxicilline 1g</span><span style="color:var(--danger)">2 / 15</span></div>
+                                    <div class="stock-bar-track"><div class="stock-bar-fill" style="width:13%;background:linear-gradient(90deg,#ef4444,#f59e0b)"></div></div>
+                                </div>
+                                <span class="status-badge badge-annule" style="flex-shrink:0">Rupture</span>
+                            </div>
+                            <div class="stock-row">
+                                <div class="stock-icon-box" style="background:#fef3c7;color:#f59e0b"><i class="fa-solid fa-syringe"></i></div>
+                                <div style="flex:1;min-width:0">
+                                    <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:5px"><span>Seringues 5ml</span><span style="color:var(--success)">320 / 500</span></div>
+                                    <div class="stock-bar-track"><div class="stock-bar-fill" style="width:64%;background:linear-gradient(90deg,#0ea5e9,#6366f1)"></div></div>
+                                </div>
+                                <span class="status-badge badge-confirme" style="flex-shrink:0">OK</span>
+                            </div>
+                            <div class="stock-row">
+                                <div class="stock-icon-box" style="background:#fef3c7;color:#b45309"><i class="fa-solid fa-capsules"></i></div>
+                                <div style="flex:1;min-width:0">
+                                    <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:5px"><span>Oméprazole 20mg</span><span style="color:var(--warning)">8 / 10</span></div>
+                                    <div class="stock-bar-track"><div class="stock-bar-fill" style="width:80%;background:linear-gradient(90deg,#f59e0b,#ef4444)"></div></div>
+                                </div>
+                                <span class="status-badge badge-attente" style="flex-shrink:0">Faible</span>
+                            </div>
+                            <div class="stock-row">
+                                <div class="stock-icon-box" style="background:#d1fae5;color:#10b981"><i class="fa-solid fa-hand-dots"></i></div>
+                                <div style="flex:1;min-width:0">
+                                    <div style="display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:5px"><span>Gants latex (L)</span><span style="color:var(--success)">12 / 20</span></div>
+                                    <div class="stock-bar-track"><div class="stock-bar-fill" style="width:60%;background:linear-gradient(90deg,#10b981,#0ea5e9)"></div></div>
+                                </div>
+                                <span class="status-badge badge-confirme" style="flex-shrink:0">OK</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════ ARCHIVES ══════ -->
+        <div class="page" id="page-archives">
+            <div class="page-header page-header-row">
+                <div>
+                    <h2><i class="fa-solid fa-box-archive me-2" style="color:var(--primary)"></i>Archives Numériques</h2>
+                    <p>Dossiers médicaux, ordonnances et rapports — centralisés et sécurisés.</p>
+                </div>
+                <button class="btn-primary-custom" onclick="showToast('Export en cours…','info')"><i class="fa-solid fa-file-export me-1"></i>Exporter tout</button>
+            </div>
+            <!-- Archive stats -->
+            <div class="row g-2 g-md-3 mb-3">
+                <div class="col-6 col-md-3"><div class="arch-stat-box"><div class="arch-stat-num" style="color:var(--primary)">1 247</div><div class="arch-stat-lbl"><i class="fa-solid fa-file-medical me-1"></i>Ordonnances</div></div></div>
+                <div class="col-6 col-md-3"><div class="arch-stat-box"><div class="arch-stat-num" style="color:#10b981">348</div><div class="arch-stat-lbl"><i class="fa-solid fa-flask me-1"></i>Rapports Labo</div></div></div>
+                <div class="col-6 col-md-3"><div class="arch-stat-box"><div class="arch-stat-num" style="color:#6366f1">892</div><div class="arch-stat-lbl"><i class="fa-solid fa-folder me-1"></i>Dossiers patients</div></div></div>
+                <div class="col-6 col-md-3"><div class="arch-stat-box"><div class="arch-stat-num" style="color:#f59e0b">4.7 Go</div><div class="arch-stat-lbl"><i class="fa-solid fa-database me-1"></i>Stockage utilisé</div></div></div>
+            </div>
+            <!-- Search bar -->
+            <div class="content-card" style="padding:14px 16px;margin-bottom:16px">
+                <div class="d-flex gap-2 flex-wrap align-items-center">
+                    <div style="position:relative;flex:1;min-width:200px">
+                        <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:12px"></i>
+                        <input type="text" class="form-control-custom" placeholder="Rechercher un fichier, patient, date…" style="padding-left:36px;margin-bottom:0" oninput="showToast('Recherche…','info',1200)">
+                    </div>
+                    <select class="form-select-custom" style="font-size:12px;padding:8px 12px"><option>Tous types</option><option>Ordonnances</option><option>Rapports Labo</option><option>Dossiers</option><option>Factures</option></select>
+                    <select class="form-select-custom" style="font-size:12px;padding:8px 12px"><option>Toutes années</option><option>2026</option><option>2025</option><option>2024</option></select>
+                    <span style="font-size:11.5px;color:var(--text-muted);white-space:nowrap"><i class="fa-solid fa-lock me-1" style="color:var(--success)"></i>Chiffrement AES-256</span>
+                </div>
+            </div>
+            <!-- File list -->
+            <div class="content-card" style="padding:16px">
+                <div class="card-title-main mb-3" style="font-size:13px">Derniers fichiers <span style="font-size:11px;color:var(--text-muted);font-weight:400">— 2 487 fichiers au total</span></div>
+                <div onclick="showToast('Ouverture…','info')"><div class="archive-row"><div class="archive-icon" style="background:#fee2e2;color:#ef4444"><i class="fa-solid fa-file-pdf"></i></div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:13px">Ordonnance_Bennani_18mars.pdf</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">M. Youssef Bennani • 18/03/2026 • 42 Ko</div></div><span class="archive-tag" style="background:#fee2e2;color:#ef4444">Ordonnance</span><button class="btn-icon-sm" onclick="event.stopPropagation();showToast('Téléchargement…','success')"><i class="fa-solid fa-download"></i></button></div></div>
+                <div onclick="showToast('Ouverture…','info')"><div class="archive-row"><div class="archive-icon" style="background:#d1fae5;color:#10b981"><i class="fa-solid fa-file-waveform"></i></div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:13px">LaboratoireZouari_15mars.pdf</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">Mme. Fatima Zouari • 15/03/2026 • 218 Ko</div></div><span class="archive-tag" style="background:#d1fae5;color:#065f46">Labo</span><button class="btn-icon-sm" onclick="event.stopPropagation();showToast('Téléchargement…','success')"><i class="fa-solid fa-download"></i></button></div></div>
+                <div onclick="showToast('Ouverture…','info')"><div class="archive-row"><div class="archive-icon" style="background:#e0f2fe;color:#0284c7"><i class="fa-solid fa-file-invoice-dollar"></i></div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:13px">Facture_FEB2026_Chraibi.pdf</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">Mme. Nadia Chraibi • 28/02/2026 • 76 Ko</div></div><span class="archive-tag" style="background:#e0f2fe;color:#0284c7">Facture</span><button class="btn-icon-sm" onclick="event.stopPropagation();showToast('Téléchargement…','success')"><i class="fa-solid fa-download"></i></button></div></div>
+                <div onclick="showToast('Ouverture…','info')"><div class="archive-row"><div class="archive-icon" style="background:#ede9fe;color:#6366f1"><i class="fa-solid fa-folder-open"></i></div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:13px">Dossier_ElFassi_Complet.pdf</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">M. Khalid El Fassi • 10/03/2026 • 1.2 Mo</div></div><span class="archive-tag" style="background:#ede9fe;color:#6366f1">Dossier</span><button class="btn-icon-sm" onclick="event.stopPropagation();showToast('Téléchargement…','success')"><i class="fa-solid fa-download"></i></button></div></div>
+                <div onclick="showToast('Ouverture…','info')"><div class="archive-row"><div class="archive-icon" style="background:#fef3c7;color:#f59e0b"><i class="fa-solid fa-file-lines"></i></div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:13px">Rapport_Stats_FEV2026.pdf</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">Rapport mensuel • 01/03/2026 • 340 Ko</div></div><span class="archive-tag" style="background:#fef3c7;color:#b45309">Rapport</span><button class="btn-icon-sm" onclick="event.stopPropagation();showToast('Téléchargement…','success')"><i class="fa-solid fa-download"></i></button></div></div>
+                <div onclick="showToast('Ouverture…','info')"><div class="archive-row"><div class="archive-icon" style="background:#fee2e2;color:#ef4444"><i class="fa-solid fa-file-pdf"></i></div><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:13px">Ordonnance_Tahiri_12mars.pdf</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px">M. Omar Tahiri • 12/03/2026 • 38 Ko</div></div><span class="archive-tag" style="background:#fee2e2;color:#ef4444">Ordonnance</span><button class="btn-icon-sm" onclick="event.stopPropagation();showToast('Téléchargement…','success')"><i class="fa-solid fa-download"></i></button></div></div>
+                <div style="text-align:center;padding:14px"><button class="btn-ghost" onclick="showToast('Chargement de plus de fichiers…','info')"><i class="fa-solid fa-chevron-down me-1"></i>Voir plus de fichiers</button></div>
+            </div>
+        </div>
+
     </main>
+
 
     <!-- ══ MODALS ══ -->
     <!-- New Secretary -->
@@ -4608,7 +5369,7 @@
         /* ══════════════════════════════════
            NAVIGATION
         ══════════════════════════════════ */
-        const pageTitles = { dashboard: 'Tableau de bord', 'waiting-room': 'Salle d\'Attente', agenda: 'Agenda & Rendez-vous', teleconsultation: 'Téléconsultation', patients: 'Gestion des Patients', dossiers: 'Dossiers Médicaux', ordonnances: 'Ordonnances', laboratoire: 'Analyses & Labo', facturation: 'Facturation & Honoraires', stock: 'Stock & Matériel', charges: 'Gestion des Charges', messages: 'Communications', rapports: 'Statistiques', settings: 'Configuration', secretaries: 'Gestion de l\'équipe' };
+        const pageTitles = { dashboard: 'Tableau de bord', 'waiting-room': 'Salle d\'Attente', agenda: 'Agenda & Rendez-vous', teleconsultation: 'Téléconsultation', patients: 'Gestion des Patients', dossiers: 'Dossiers Médicaux', ordonnances: 'Ordonnances', laboratoire: 'Analyses & Labo', facturation: 'Facturation & Honoraires', stock: 'Stock & Matériel', charges: 'Gestion des Charges', messages: 'Communications', rapports: 'Statistiques', settings: 'Configuration', secretaries: 'Gestion de l\'équipe', 'ai-assistant': 'Assistant Médical IA', 'patient-subscriptions': 'Abonnements Patients', locations: 'Mes Cabinets & Lieux', inventory: 'Pharmacie / Stock', archives: 'Archives Numériques' };
         function navigate(pageId, el) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageId);
@@ -4679,7 +5440,7 @@
         ══════════════════════════════════ */
         const bgConfigs = [
             { name: 'Océan Médical', url: 'images-tems/bg1.png', primary: '#0ea5e9', light: '#e0f2fe', isDark: false },
-            { name: 'Pureté Clinique', url: 'images-tems/bg2.png', primary: '#c9fffa', light: '#f1f5f9', isDark: false },
+            { name: 'Pureté Clinique', url: 'images-tems/bg2.png', primary: '#9472f2', light: '#f1f5f9', isDark: false },
             { name: 'Émeraude Zen', url: 'images-tems/bg3.png', primary: '#10b981', light: '#d1fae5', isDark: false },
             { name: 'Tech Noire', url: 'images-tems/bg4.png', primary: '#3b82f6', light: 'rgba(59, 130, 246, 0.15)', isDark: true },
             { name: 'Améthyste Calme', url: 'images-tems/bg5.png', primary: '#8b5cf6', light: '#ede9fe', isDark: false },
@@ -4692,7 +5453,6 @@
             { name: 'Heure Dorée', url: 'images-tems/bg11.jpg', primary: '#b45309', light: '#fef3c7', isDark: false },
             { name: 'Néon Cyber', url: 'images-tems/bg19.jpg', primary: '#b64951d9', light: '#9d0e16', isDark: false }
         ];
-
         function setBackground(idx) {
             const cfg = bgConfigs[idx];
             if (!cfg) return;
@@ -4758,6 +5518,50 @@
         /* ══════════════════════════════════
            SAVE ACTIONS
         ══════════════════════════════════ */
+
+        /* ══════════════════════════════════
+           AI ASSISTANT
+        ══════════════════════════════════ */
+        const _aiResponses = [
+            "Merci pour cette question. D'après les données disponibles, je suggère une réévaluation du traitement dans les 30 prochains jours.",
+            "Analyse en cours… Le profil du patient indique un risque modéré. Je recommande un bilan complet incluant glycémie et tension artérielle.",
+            "Les interactions médicamenteuses détectées entre ces deux molécules sont à surveiller. Consultez le Vidal pour les contre-indications précises.",
+            "D'après les protocoles HAS 2024, le suivi recommandé pour ce type de patient est trimestriel avec contrôle HBA1c.",
+            "Rapport généré avec succès. Les statistiques du mois montrent une amélioration de 12% dans le suivi des patients chroniques."
+        ];
+        let _aiRespIdx = 0;
+        function sendAIMessage() {
+            const input = document.getElementById('aiChatInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+            input.value = '';
+            const wrap = document.getElementById('aiChatMessages');
+            // User bubble
+            wrap.innerHTML += `<div style="display:flex;gap:10px;align-items:flex-start;flex-direction:row-reverse">
+                <img src="https://avatars.githubusercontent.com/u/182523649?v=4&size=64" style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--primary);flex-shrink:0">
+                <div style="background:linear-gradient(135deg,var(--primary),#6366f1);border-radius:14px 0 14px 14px;padding:12px 16px;max-width:75%;font-size:13px;color:#fff;line-height:1.6">${msg}</div>
+            </div>`;
+            wrap.scrollTop = wrap.scrollHeight;
+            // AI response after delay
+            setTimeout(() => {
+                const resp = _aiResponses[_aiRespIdx % _aiResponses.length];
+                _aiRespIdx++;
+                wrap.innerHTML += `<div style="display:flex;gap:10px;align-items:flex-start">
+                    <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#0ea5e9);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0"><i class="fa-solid fa-robot"></i></div>
+                    <div style="background:var(--primary-light);border-radius:0 14px 14px 14px;padding:12px 16px;max-width:75%;font-size:13px;line-height:1.6">${resp}</div>
+                </div>`;
+                wrap.scrollTop = wrap.scrollHeight;
+            }, 900);
+        }
+        function clearAIChat() {
+            const wrap = document.getElementById('aiChatMessages');
+            if (wrap) { wrap.innerHTML = ''; showToast('Conversation effacée', 'info'); }
+        }
+        function askAI(q) {
+            const input = document.getElementById('aiChatInput');
+            if (input) { input.value = q; sendAIMessage(); }
+        }
+
         function saveRdv() {
             const p = document.getElementById('rdvPatient').value;
             const h = document.getElementById('rdvHeure').value;
