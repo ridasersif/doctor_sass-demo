@@ -6475,7 +6475,7 @@
 
     <div class="chatbot-window" id="floatingChatbot">
         <div class="chatbot-header">
-            <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="AI">
+            <i class="fa-solid fa-robot"></i>
             <div class="chatbot-header-info">
                 <div class="chatbot-header-title">Assistant Médical AI</div>
                 <div class="chatbot-header-status">
@@ -6483,7 +6483,6 @@
                     Toujours actif
                 </div>
             </div>
-            <button class="chatbot-header-close" style="font-size: 16px; margin-right: 5px;" onclick="promptApiKey()" title="Paramètres API (OpenAI)"><i class="fa-solid fa-gear"></i></button>
             <button class="chatbot-header-close" onclick="toggleFloatingChat()"><i class="fa-solid fa-times"></i></button>
         </div>
         <div class="chatbot-body" id="fcbBody">
@@ -6522,14 +6521,7 @@
             { role: "system", content: "Tu es l'assistant IA intégré au logiciel 'MediCab Pro', une plateforme professionnelle de gestion de cabinet médical. Ce logiciel gère les dossiers patients, les rendez-vous, la salle d'attente, les tâches des secrétaires et la comptabilité. Ton rôle est d'assister le médecin ou la secrétaire de façon très professionnelle, polie et concise, principalement en Français (sauf si l'utilisateur te parle en Darija/Arabe). Limite tes réponses à l'essentiel et au contexte médical de MediCab Pro." }
         ];
 
-        function promptApiKey() {
-            const currentKey = localStorage.getItem('groq_api_key') || ["gsk", "_", "u6nKhI02", "wMKAD3AG", "VSFUWG", "dyb3FY", "zbGhA3II", "G5r0gBAI", "AbLdFeH6"].join('');
-            const newKey = prompt("Clé API Groq (gsk_...) :", currentKey);
-            if(newKey !== null && newKey !== '') {
-                localStorage.setItem('groq_api_key', newKey.trim());
-                showToast("Clé API Groq sauvegardée avec succès", "success");
-            }
-        }
+      
 
         let audioCtx;
         function playChatSound(type) {
