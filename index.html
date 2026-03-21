@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -5439,6 +5439,10 @@
            BACKGROUNDS & ADAPTIVE COLORS
         ══════════════════════════════════ */
         const bgConfigs = [
+            // Options sans image
+            { name: 'Aucun fond (Clair)', url: '', primary: '#0ea5e9', light: '#e0f2fe', isDark: false },
+            { name: 'Aucun fond (Sombre)', url: '', primary: '#3b82f6', light: 'rgba(59, 130, 246, 0.15)', isDark: true },
+            // Thèmes avec image
             { name: 'Océan Médical', url: 'images/bg1.png', primary: '#0ea5e9', light: '#e0f2fe', isDark: false },
             { name: 'Pureté Clinique', url: 'images/bg2.png', primary: '#9472f2', light: '#f1f5f9', isDark: false },
             { name: 'Émeraude Zen', url: 'images/bg3.png', primary: '#10b981', light: '#d1fae5', isDark: false },
@@ -5461,7 +5465,12 @@
             const cfg = bgConfigs[idx];
             if (!cfg) return;
 
-            document.body.style.backgroundImage = `url('${cfg.url}')`;
+            if (cfg.url) {
+                document.body.style.backgroundImage = `url('${cfg.url}')`;
+            } else {
+                document.body.style.backgroundImage = 'none';
+                document.body.style.backgroundColor = cfg.isDark ? '#0f172a' : '#f8fafc';
+            }
 
             const root = document.documentElement;
             root.style.setProperty('--primary', cfg.primary);
@@ -5510,7 +5519,7 @@
                         width: 100%;
                         aspect-ratio: 16/9;
                         border-radius: 12px;
-                        background: url('${cfg.url}');
+                        background: ${cfg.url ? `url('${cfg.url}')` : (cfg.isDark ? '#0f172a' : '#f1f5f9')};
                         background-size: cover;
                         background-position: center;
                         cursor: pointer;
