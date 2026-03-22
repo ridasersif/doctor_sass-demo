@@ -10,6 +10,7 @@
         rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <script src="https://meet.jit.si/external_api.js"></script>
     <style>
         /* ══════════════════════════════════
    CSS VARIABLES & BASE
@@ -3717,7 +3718,6 @@
                                 <thead>
                                     <tr>
                                         <th>Mission</th>
-                                        <th>Catégorie</th>
                                         <th>Assignée à</th>
                                         <th>Priorité</th>
                                         <th>Échéance</th>
@@ -3788,28 +3788,26 @@
                             style="position:static;background:var(--success)">1 Live</span></h2>
                     <p>Rendez-vous médicaux à distance.</p>
                 </div>
-                <button class="btn-primary-custom" onclick="showToast('Lien visio créé!','success')"><i
-                        class="fa-solid fa-link me-1"></i>Nouveau Lien</button>
+                <button class="btn-primary-custom" onclick="initTeleconsultation()"><i
+                        class="fa-solid fa-video me-1"></i>Démarrer Consultation</button>
             </div>
             <div class="row g-3">
                 <div class="col-12 col-lg-8">
-                    <div class="content-card"
-                        style="height:320px;background:#1e293b;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=800"
-                            style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0.6">
-                        <div
-                            style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:10px;z-index:10">
-                            <button class="btn btn-dark" style="border-radius:50%;width:44px;height:44px"><i
-                                    class="fa-solid fa-microphone-lines-slash"></i></button>
-                            <button class="btn btn-dark" style="border-radius:50%;width:44px;height:44px"><i
-                                    class="fa-solid fa-video"></i></button>
-                            <button class="btn btn-danger" style="border-radius:50%;width:44px;height:44px"><i
-                                    class="fa-solid fa-phone-slash"></i></button>
-                        </div>
-                        <div
-                            style="position:absolute;top:14px;right:14px;width:100px;height:75px;border-radius:10px;border:2px solid #fff;overflow:hidden">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg"
-                                style="width:100%;height:100%;object-fit:cover">
+                    <div class="content-card" id="jitsi-container"
+                        style="height:500px;background:#1e293b;position:relative;overflow:hidden;border-radius:24px;box-shadow:0 12px 40px rgba(0,0,0,0.2)">
+                        <!-- Jitsi iframe will be injected here -->
+                        <div id="jitsi-placeholder"
+                            style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:30px;z-index:5;background:linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+                            <div class="mb-4" style="font-size:64px;color:var(--primary);filter:drop-shadow(0 0 20px rgba(14,165,233,0.4));animation: pulse 2s infinite">
+                                <i class="fa-solid fa-house-medical-circle-check"></i>
+                            </div>
+                            <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;margin-bottom:15px;letter-spacing:-0.5px">Téléconsultation Sécurisée</h2>
+                            <p style="font-size:15px;color:rgba(255,255,255,0.6);max-width:400px;line-height:1.7;margin-bottom:30px">Plateforme certifiée de bout en bout pour vos consultations à distance avec vos patients.</p>
+                            <button class="btn-primary-custom" onclick="initTeleconsultation()"
+                                style="padding:14px 40px;font-size:15px;border-radius:15px;display:flex;align-items:center;gap:12px;transition:all 0.3s">
+                                <i class="fa-solid fa-video"></i>
+                                <span>Lancer la Session Live</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -6305,6 +6303,66 @@
             const str = d.toLocaleDateString('fr-FR', opts);
             const el = document.getElementById('dashboard-date');
             if (el) el.textContent = str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        /* ══════════════════════════════════
+           TELECONSULTATION (JITSI)
+        ══════════════════════════════════ */
+        let jitsiApi = null;
+        function initTeleconsultation() {
+            const container = document.getElementById('jitsi-container');
+            const placeholder = document.getElementById('jitsi-placeholder');
+            if (!container) return;
+
+            if (jitsiApi) {
+                showToast('Consultation déjà en cours', 'info');
+                return;
+            }
+
+            if (placeholder) placeholder.style.display = 'none';
+            showToast('Initialisation de la salle sécurisée...', 'info');
+
+            const domain = "meet.jit.si";
+            const options = {
+                roomName: "MediCabPro_Consultation_" + Math.random().toString(36).substring(7),
+                width: '100%',
+                height: '100%',
+                parentNode: container,
+                lang: 'fr',
+                configOverwrite: {
+                    disableDeepLinking: true,
+                    startWithAudioMuted: false,
+                    startWithVideoMuted: false
+                },
+                interfaceConfigOverwrite: {
+                    DEFAULT_BACKGROUND: '#1e293b',
+                    SHOW_JITSI_WATERMARK: false,
+                    SHOW_WATERMARK_FOR_GUESTS: false,
+                }
+            };
+
+            try {
+                jitsiApi = new JitsiMeetExternalAPI(domain, options);
+                jitsiApi.addEventListeners({
+                    readyToClose: () => terminateTeleconsultation(),
+                    videoConferenceLeft: () => terminateTeleconsultation()
+                });
+                showToast('Session Live démarrée', 'success');
+            } catch (error) {
+                console.error("Jitsi Error:", error);
+                showToast('Erreur Jitsi API', 'error');
+                if (placeholder) placeholder.style.display = 'flex';
+            }
+        }
+
+        function terminateTeleconsultation() {
+            if (jitsiApi) {
+                jitsiApi.dispose();
+                jitsiApi = null;
+            }
+            const placeholder = document.getElementById('jitsi-placeholder');
+            if (placeholder) placeholder.style.display = 'flex';
+            showToast('Consultation terminée', 'info');
         }
 
         /* ══════════════════════════════════
